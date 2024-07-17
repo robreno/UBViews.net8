@@ -40,32 +40,41 @@ public partial class QueryResultViewModel : BaseViewModel
 
     IFileService fileService;
     IEmailService emailService;
-    IQueryProcessingService queryProcessingService;
     IAppSettingsService settingsService;
+    IQueryProcessingService queryProcessingService;
 
     readonly string _class = "QueryResultViewModel";
     #endregion
 
     #region Constructor
 
-    public QueryResultViewModel(IQueryProcessingService queryProcessingService,
-                                IFileService fileService,
-                                IEmailService emailService, 
-                                IAppSettingsService settingsService)
+    public QueryResultViewModel(IFileService fileService,
+                                IEmailService emailService,
+                                IAppSettingsService settingsService,
+                                IQueryProcessingService queryProcessingService)
     {
-        this.queryProcessingService = queryProcessingService;
         this.fileService = fileService;
         this.emailService = emailService;
         this.settingsService = settingsService;
+        this.queryProcessingService = queryProcessingService;
     }
     #endregion
 
     #region Observable Properties
     [ObservableProperty]
+    string audioStatus = "off";
+
+    [ObservableProperty]
+    string audioDownloadStatus = "off";
+
+    [ObservableProperty]
+    bool audioStreaming = false;
+
+    [ObservableProperty]
     bool isInitialized;
 
     [ObservableProperty]
-    string pageTitle = string.Empty;
+    string pageTitle;
 
     [ObservableProperty]
     bool isRefreshing;
@@ -74,16 +83,16 @@ public partial class QueryResultViewModel : BaseViewModel
     QueryResultLocationsDto queryLocations;
 
     [ObservableProperty]
-    string queryString = string.Empty;
+    string queryString;
 
     [ObservableProperty]
-    string queryInputString = string.Empty;
+    string queryInputString;
 
     [ObservableProperty]
-    string previousQueryInputString = string.Empty;
+    string previousQueryInputString;
 
     [ObservableProperty]
-    bool queryResultExists;
+    bool queryResultExists = false;
 
     [ObservableProperty]
     string queryExpression = string.Empty;
@@ -104,7 +113,7 @@ public partial class QueryResultViewModel : BaseViewModel
     bool isScrollToLabel;
 
     [ObservableProperty]
-    string scrollToLabelName = string.Empty;
+    string scrollToLabelName;
 
     [ObservableProperty]
     bool hideUnselected;
@@ -152,20 +161,20 @@ public partial class QueryResultViewModel : BaseViewModel
 
             if (dto.DefaultQueryString != null)
             {
-                this.QueryInputString = this.PreviousQueryInputString = dto.DefaultQueryString;
+                QueryInputString = this.PreviousQueryInputString = dto.DefaultQueryString;
             }
             else
             {
-                this.QueryInputString = this.PreviousQueryInputString = dto.QueryString;
+                QueryInputString = this.PreviousQueryInputString = dto.QueryString;
             }
                 
             this.QueryHits = dto.Hits;
             this.MaxQueryResults = await settingsService.Get("max_query_results", 50);
 
-            string titleMessage = $"Query Result {this.QueryHits} hits ...";
+            string titleMessage = $"Query Result {QueryHits} hits ...";
             Title = titleMessage;
 
-            var locations = dto.QueryLocations.Take(this.MaxQueryResults).ToList();
+            var locations = dto.QueryLocations.Take(MaxQueryResults).ToList();
             foreach (var location in locations)
             {
                 this.QueryLocationsDto.Add(location);
@@ -177,7 +186,7 @@ public partial class QueryResultViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            await App.Current.MainPage.DisplayAlert($"Exception raised {_method}.{_class} => ", ex.Message, "Cancel");
+            await App.Current.MainPage.DisplayAlert($"Exception raised {_class}.{_method} => ", ex.Message, "Cancel");
             return;
         }
     }
@@ -185,9 +194,11 @@ public partial class QueryResultViewModel : BaseViewModel
     [RelayCommand]
     async Task QueryResultLoaded()
     {
-        string methodName = "QueryResultLoaded";
+        string _method = "QueryResultLoaded";
         try
         {
+            IsBusy = true;
+
             var locations = QueryLocationsDto;
             if (locations == null)
             {
@@ -205,8 +216,13 @@ public partial class QueryResultViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            await App.Current.MainPage.DisplayAlert($"Exception raised => {methodName}.", ex.Message, "Cancel");
+            await App.Current.MainPage.DisplayAlert($"Exception raised => {_method}.", ex.Message, "Cancel");
             return;
+        }
+        finally
+        {
+            IsBusy = false;
+            IsRefreshing = false;
         }
     }
 
@@ -307,13 +323,8 @@ public partial class QueryResultViewModel : BaseViewModel
             paperDto.Uid = uid;
 
             string msg = $"Navigating to {pid}";
-            //await App.Current.MainPage.DisplayAlert("Navigate to =>", message, "Cancel");
 
-            // Don't sync with UBViews, this is test code only
-            if (paperDto.Id == 0)
-            {
-                await GoToDetails(paperDto);
-            }
+            await GoToDetails(paperDto);
         }
         catch (Exception ex)
         {
