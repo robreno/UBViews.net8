@@ -100,7 +100,11 @@
 	  <Compile Remove="Helpers\ValidationService.cs" />
 	  <Compile Remove="Models\Dtos\File.cs" />
 	  <Compile Remove="Models\Dtos\ImageFile.cs" />
+	  <Compile Remove="ViewModels\NotesCollectionViewModel.cs" />
 	  <Compile Remove="ViewModels\NotesViewModel.cs" />
+	  <Compile Remove="Views\NotesCollectionPage.xaml.cs" />
+	  <Compile Remove="Views\NotesDialogPage.xaml.cs" />
+	  <Compile Remove="Views\NotesPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -120,6 +124,9 @@
 	<ItemGroup>
 	  <MauiXaml Remove="Controls\NewNoteControl.xaml" />
 	  <MauiXaml Remove="Controls\Popups\NotesPopup.xaml" />
+	  <MauiXaml Remove="Views\NotesCollectionPage.xaml" />
+	  <MauiXaml Remove="Views\NotesDialogPage.xaml" />
+	  <MauiXaml Remove="Views\NotesPage.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -222,15 +229,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MainPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\NotesCollectionPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\NotesDialogPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\NotesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Papers\000.xaml">
