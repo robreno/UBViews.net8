@@ -38,12 +38,11 @@ public partial class _001 : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
 		vm.contentPage = this;
-        vm.Title = partTitle;
+        vm.mediaElement = this.mediaElement;
+		vm.Title = partTitle;
         vm.PaperTitle = paperTitle;
         vm.PaperAuthor = paperAuthor;
-        vm.mediaElement = this.mediaElement;
-
-		//mediaElement.PropertyChanged += MediaElement_PropertyChanged;
+		mediaElement.PropertyChanged += MediaElement_PropertyChanged;
 	}
 
 	/// <summary>

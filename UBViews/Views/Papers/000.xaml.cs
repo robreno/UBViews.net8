@@ -25,6 +25,9 @@ public partial class _000 : ContentPage
 	const string loadHls = "Load HTTP Live Stream (HLS)";
 	const string loadLocalResource = "Load Local Resource";
 	const string resetSource = "Reset Source to null";
+	const string partTitle = "Foreword Material";
+    const string paperTitle = "Foreword";
+    const string paperAuthor = "Divine Counselor";
 
 	/// <summary>
     /// CStor
@@ -36,7 +39,11 @@ public partial class _000 : ContentPage
 		BindingContext = vm;
 		vm.contentPage = this;
         vm.mediaElement = this.mediaElement;
-    }
+		vm.Title = partTitle;
+        vm.PaperTitle = paperTitle;
+        vm.PaperAuthor = paperAuthor;
+		mediaElement.PropertyChanged += MediaElement_PropertyChanged;
+	}
 
 	/// <summary>
     /// 
