@@ -3,3 +3,6 @@ Command to build MSIX for uploading to store.
 
 MSBuidlCommand: 
 	msbuild .\UBViews\UBViews.csproj /restore /t:Publish /p:TargetFramework=net8.0-windows10.0.19041.0 /p:configuration=release /p:GenerateAppxPackageOnBuild=true /p:Platform=x64
+
+
+See: https://learn.microsoft.com/en-us/dotnet/maui/windows/deployment/publish-cli?view=net-maui-8.0

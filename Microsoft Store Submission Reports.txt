@@ -1,0 +1,3 @@
+
+UBViews_1.8.0.0_x64.msix 147.5 MB
+Package acceptance validation warning: The following restricted capabilities require approval before you can use them in your app: runFullTrust.
