@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Queries count="22">
+  <QueryResult id="1" locationCount="2" type="Phrase" terms="[truth revealers]" proximity="paragraph">
+    <QueryString>"truth revealers"</QueryString>
+    <QueryExpression>Phrase([truth; revealers])</QueryExpression>
+    <QueryLocations count="2">
+      <QueryLocation id="0.2" pid="0:0.1">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="truth revealers" docId="0" seqId="2" dpoId="97" tpoId="613" len="15" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="20.19" pid="20:1.12">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="truth revealers" docId="20" seqId="19" dpoId="29" tpoId="195" len="15" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="2" locationCount="2" type="CTerm" terms="[truth revealers]" proximity="paragraph">
+    <QueryString>[truth revealers]</QueryString>
+    <QueryExpression>CTerm("[truth; revealers]")</QueryExpression>
+    <QueryLocations count="2">
+      <QueryLocation id="0.2" pid="0:0.1">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="truth revealers" docId="0" seqId="2" dpoId="97" tpoId="613" len="15" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="20.19" pid="20:1.12">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="truth revealers" docId="20" seqId="19" dpoId="29" tpoId="195" len="15" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="3" locationCount="1" type="FilterBy+And" terms="[admonishes; mandate]" proximity="sequence" filterId="SEQID">
+    <QueryString>admonishes and mandate filterby seqid</QueryString>
+    <ReverseQueryString>mandate and admonishes filterby seqid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("admonishes"),Term("mandate")),SEQID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="0.3" pid="0:0.2">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="mandate" docId="0" seqId="3" dpoId="38" tpoId="242" len="7" />
+          <TermOccurrence term="admonishes" docId="0" seqId="3" dpoId="39" tpoId="250" len="10" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="4" locationCount="1" type="FilterBy+And" terms="[interregnum; witness]" proximity="sequence" filterId="SEQID">
+    <QueryString>interregnum and witness filterby seqid</QueryString>
+    <ReverseQueryString>witness and interregnum filterby seqid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("interregnum"),Term("witness")),SEQID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="118.76" pid="118:8.6">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="interregnum" docId="118" seqId="76" dpoId="99" tpoId="692" len="11" />
+          <TermOccurrence term="witness" docId="118" seqId="76" dpoId="104" tpoId="724" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="5" locationCount="2" type="FilterBy+And" terms="[progress; economic]" proximity="sequence" filterId="SEQID">
+    <QueryString>progress and economic filterby seqid</QueryString>
+    <ReverseQueryString>economic and progress filterby seqid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("progress"),Term("economic")),SEQID)</QueryExpression>
+    <QueryLocations count="2">
+      <QueryLocation id="81.59" pid="81:5.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="progress" docId="81" seqId="59" dpoId="81" tpoId="540" len="8" />
+          <TermOccurrence term="economic" docId="81" seqId="59" dpoId="103" tpoId="665" len="8" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="92.17" pid="92:2.4">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="economic" docId="92" seqId="17" dpoId="46" tpoId="301" len="8" />
+          <TermOccurrence term="progress" docId="92" seqId="17" dpoId="56" tpoId="371" len="8" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="6" locationCount="5" type="FilterBy+And" terms="[profit; motive]" proximity="section" filterId="SECID">
+    <QueryString>profit and motive filterby secid</QueryString>
+    <ReverseQueryString>motive and profit filterby secid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("profit"),Term("motive")),SECID)</QueryExpression>
+    <QueryLocations count="5">
+      <QueryLocation id="71.85" pid="71:6.0">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="profit" docId="71" seqId="85" dpoId="1" tpoId="7" len="6" />
+          <TermOccurrence term="motive" docId="71" seqId="85" dpoId="2" tpoId="14" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="71.86" pid="71:6.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="profit" docId="71" seqId="86" dpoId="6" tpoId="12" len="6" />
+          <TermOccurrence term="profit" docId="71" seqId="86" dpoId="35" tpoId="56" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="71.87" pid="71:6.2">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="profit" docId="71" seqId="87" dpoId="2" tpoId="14" len="6" />
+          <TermOccurrence term="profit" docId="71" seqId="87" dpoId="17" tpoId="99" len="6" />
+          <TermOccurrence term="motive" docId="71" seqId="87" dpoId="18" tpoId="106" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="71.88" pid="71:6.3">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="profit" docId="71" seqId="88" dpoId="1" tpoId="4" len="6" />
+          <TermOccurrence term="motive" docId="71" seqId="88" dpoId="2" tpoId="11" len="6" />
+          <TermOccurrence term="profit" docId="71" seqId="88" dpoId="30" tpoId="204" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="72.56" pid="72:5.10">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="profit" docId="72" seqId="56" dpoId="5" tpoId="26" len="6" />
+          <TermOccurrence term="motive" docId="72" seqId="56" dpoId="6" tpoId="33" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="7" locationCount="4" type="FilterBy+And" terms="[profit; motive]" proximity="paragraph" filterId="PARID">
+    <QueryString>profit and motive filterby parid</QueryString>
+    <ReverseQueryString>motive and profit filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("profit"),Term("motive")),PARID)</QueryExpression>
+    <QueryLocations count="4">
+      <QueryLocation id="71.85" pid="71:6.0">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="profit" docId="71" seqId="85" dpoId="1" tpoId="7" len="6" />
+          <TermOccurrence term="motive" docId="71" seqId="85" dpoId="2" tpoId="14" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="71.87" pid="71:6.2">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="profit" docId="71" seqId="87" dpoId="2" tpoId="14" len="6" />
+          <TermOccurrence term="profit" docId="71" seqId="87" dpoId="17" tpoId="99" len="6" />
+          <TermOccurrence term="motive" docId="71" seqId="87" dpoId="18" tpoId="106" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="71.88" pid="71:6.3">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="profit" docId="71" seqId="88" dpoId="1" tpoId="4" len="6" />
+          <TermOccurrence term="motive" docId="71" seqId="88" dpoId="2" tpoId="11" len="6" />
+          <TermOccurrence term="profit" docId="71" seqId="88" dpoId="30" tpoId="204" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="72.56" pid="72:5.10">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="profit" docId="72" seqId="56" dpoId="5" tpoId="26" len="6" />
+          <TermOccurrence term="motive" docId="72" seqId="56" dpoId="6" tpoId="33" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="8" locationCount="1" type="FilterBy+And" terms="[democracy; ideal]" proximity="paragraph" filterId="PARID">
+    <QueryString>democracy and ideal filterby parid</QueryString>
+    <ReverseQueryString>ideal and democracy filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("democracy"),Term("ideal")),PARID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="71.30" pid="71:2.1">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="democracy" docId="71" seqId="30" dpoId="0" tpoId="0" len="9" />
+          <TermOccurrence term="ideal" docId="71" seqId="30" dpoId="3" tpoId="20" len="5" />
+          <TermOccurrence term="democracy" docId="71" seqId="30" dpoId="20" tpoId="123" len="9" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="9" locationCount="1" type="FilterBy+And" terms="[cosmic; instrument]" proximity="paragraph" filterId="PARID">
+    <QueryString>cosmic and instrument filterby parid</QueryString>
+    <ReverseQueryString>instrument and cosmic filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("cosmic"),Term("instrument")),PARID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="111.15" pid="111:1.6">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="cosmic" docId="111" seqId="15" dpoId="3" tpoId="12" len="6" />
+          <TermOccurrence term="instrument" docId="111" seqId="15" dpoId="4" tpoId="19" len="10" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="10" locationCount="1" type="And" terms="[prostitutes; temple]" proximity="paragraph">
+    <QueryString>prostitutes and temple</QueryString>
+    <ReverseQueryString>temple and prostitutes</ReverseQueryString>
+    <QueryExpression>And(Term("prostitutes"),Term("temple"))</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="89.68" pid="89:7.5">
+        <TermOccurrenceList count="4">
+          <TermOccurrence term="temple" docId="89" seqId="68" dpoId="0" tpoId="0" len="6" />
+          <TermOccurrence term="temple" docId="89" seqId="68" dpoId="14" tpoId="95" len="6" />
+          <TermOccurrence term="prostitutes" docId="89" seqId="68" dpoId="15" tpoId="102" len="11" />
+          <TermOccurrence term="temple" docId="89" seqId="68" dpoId="37" tpoId="224" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="11" locationCount="2" type="FilterBy+And" terms="[mystery; cynics]" proximity="paragraph" filterId="PARID">
+    <QueryString>mystery and cynics filterby parid</QueryString>
+    <ReverseQueryString>cynics and mystery filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("mystery"),Term("cynics")),PARID)</QueryExpression>
+    <QueryLocations count="2">
+      <QueryLocation id="132.5" pid="132:0.4">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="cynics" docId="132" seqId="5" dpoId="63" tpoId="355" len="6" />
+          <TermOccurrence term="mystery" docId="132" seqId="5" dpoId="68" tpoId="383" len="7" />
+          <TermOccurrence term="cynics" docId="132" seqId="5" dpoId="144" tpoId="820" len="6" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="133.2" pid="133:0.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="cynics" docId="133" seqId="2" dpoId="88" tpoId="494" len="6" />
+          <TermOccurrence term="mystery" docId="133" seqId="2" dpoId="90" tpoId="506" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="12" locationCount="5" type="STerm" terms="[rejuvenation]" stemmed="rejuven" proximity="book">
+    <QueryString>~rejuvenation</QueryString>
+    <QueryExpression>STerm("rejuvenation")</QueryExpression>
+    <QueryLocations count="5">
+      <QueryLocation id="41.72" pid="41:7.15">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="rejuvenated" docId="41" seqId="72" dpoId="7" tpoId="31" len="11" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="48.78" pid="48:4.19">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="rejuvenating" docId="48" seqId="78" dpoId="73" tpoId="452" len="12" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="119.28" pid="119:3.4">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="rejuvenated" docId="119" seqId="28" dpoId="90" tpoId="567" len="11" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="195.58" pid="195:4.4">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="rejuvenation" docId="195" seqId="58" dpoId="43" tpoId="362" len="12" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="196.18" pid="196:1.2">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="rejuvenations" docId="196" seqId="18" dpoId="205" tpoId="1296" len="13" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="13" locationCount="1" type="FilterBy+And" terms="[conscience; power]" proximity="paragraph" filterId="PARID">
+    <QueryString>conscience and power filterby parid</QueryString>
+    <ReverseQueryString>power and conscience filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("conscience"),Term("power")),PARID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="195.163" pid="195:10.20">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="power" docId="195" seqId="163" dpoId="67" tpoId="453" len="5" />
+          <TermOccurrence term="conscience" docId="195" seqId="163" dpoId="69" tpoId="467" len="10" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="14" locationCount="1" type="CTerm" terms="[ascending midwayers]" proximity="paragraph">
+    <QueryString>[ascending midwayers]</QueryString>
+    <QueryExpression>CTerm("[ascending; midwayers]")</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="25.59" pid="25:4.9">
+        <TermOccurrenceList count="1">
+          <TermOccurrence term="ascending midwayers" docId="25" seqId="59" dpoId="3" tpoId="21" len="19" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="15" locationCount="1" type="CTerm" terms="[composite personality groups]" proximity="paragraph">
+    <QueryString>[composite personality groups]</QueryString>
+    <QueryExpression>CTerm("[composite; personality; groups]")</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="30.249" pid="30:2.130">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="composite personality groups" docId="30" seqId="249" dpoId="0" tpoId="0" len="28" />
+          <TermOccurrence term="composite personality groups" docId="30" seqId="249" dpoId="38" tpoId="256" len="28" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="16" locationCount="1" type="FilterBy+And" terms="[dematerialization; accelerated]" proximity="paragraph" filterId="PARID">
+    <QueryString>dematerialization and accelerated filterby parid</QueryString>
+    <ReverseQueryString>accelerated and dematerialization filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("dematerialization"),Term("accelerated")),PARID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="189.20" pid="189:2.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="dematerialization" docId="189" seqId="20" dpoId="87" tpoId="538" len="17" />
+          <TermOccurrence term="accelerated" docId="189" seqId="20" dpoId="96" tpoId="597" len="11" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="17" locationCount="1" type="FilterBy+And" terms="[mind; ship]" proximity="paragraph" filterId="PARID">
+    <QueryString>mind and ship filterby parid</QueryString>
+    <ReverseQueryString>ship and mind filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("mind"),Term("ship")),PARID)</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="111.18" pid="111:1.9">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="mind" docId="111" seqId="18" dpoId="0" tpoId="0" len="4" />
+          <TermOccurrence term="ship" docId="111" seqId="18" dpoId="3" tpoId="13" len="4" />
+          <TermOccurrence term="mind" docId="111" seqId="18" dpoId="107" tpoId="606" len="4" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="18" locationCount="5" type="FilterBy+And" terms="[terms; equal]" proximity="paragraph" filterId="PARID">
+    <QueryString>terms and equal filterby parid</QueryString>
+    <ReverseQueryString>equal and terms filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("terms"),Term("equal")),PARID)</QueryExpression>
+    <QueryLocations count="5">
+      <QueryLocation id="69.89" pid="69:9.4">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="equal" docId="69" seqId="89" dpoId="75" tpoId="460" len="5" />
+          <TermOccurrence term="terms" docId="69" seqId="89" dpoId="76" tpoId="466" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="84.60" pid="84:5.14">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="equal" docId="84" seqId="60" dpoId="24" tpoId="134" len="5" />
+          <TermOccurrence term="terms" docId="84" seqId="60" dpoId="25" tpoId="140" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="95.59" pid="95:6.5">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="equal" docId="95" seqId="59" dpoId="83" tpoId="514" len="5" />
+          <TermOccurrence term="terms" docId="95" seqId="59" dpoId="84" tpoId="520" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="121.75" pid="121:7.2">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="equal" docId="121" seqId="75" dpoId="62" tpoId="397" len="5" />
+          <TermOccurrence term="terms" docId="121" seqId="75" dpoId="63" tpoId="403" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="133.13" pid="133:2.2">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="equal" docId="133" seqId="13" dpoId="180" tpoId="1022" len="5" />
+          <TermOccurrence term="equal" docId="133" seqId="13" dpoId="196" tpoId="1105" len="5" />
+          <TermOccurrence term="terms" docId="133" seqId="13" dpoId="197" tpoId="1111" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="19" locationCount="6" type="FilterBy+And" terms="[terms; meaning]" proximity="paragraph" filterId="PARID">
+    <QueryString>terms and meaning filterby parid</QueryString>
+    <ReverseQueryString>meaning and terms filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("terms"),Term("meaning")),PARID)</QueryExpression>
+    <QueryLocations count="6">
+      <QueryLocation id="0.2" pid="0:0.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="meaning" docId="0" seqId="2" dpoId="21" tpoId="117" len="7" />
+          <TermOccurrence term="terms" docId="0" seqId="2" dpoId="24" tpoId="133" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="0.3" pid="0:0.2">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="terms" docId="0" seqId="3" dpoId="65" tpoId="398" len="5" />
+          <TermOccurrence term="meaning" docId="0" seqId="3" dpoId="97" tpoId="575" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="1.12" pid="1:1.4">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="meaning" docId="1" seqId="12" dpoId="21" tpoId="120" len="7" />
+          <TermOccurrence term="terms" docId="1" seqId="12" dpoId="33" tpoId="189" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="155.18" pid="155:3.4">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="terms" docId="155" seqId="18" dpoId="11" tpoId="73" len="5" />
+          <TermOccurrence term="meaning" docId="155" seqId="18" dpoId="54" tpoId="298" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="161.12" pid="161:1.8">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="terms" docId="161" seqId="12" dpoId="4" tpoId="22" len="5" />
+          <TermOccurrence term="meaning" docId="161" seqId="12" dpoId="68" tpoId="419" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="170.2" pid="170:0.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="meaning" docId="170" seqId="2" dpoId="49" tpoId="300" len="7" />
+          <TermOccurrence term="terms" docId="170" seqId="2" dpoId="54" tpoId="332" len="5" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="20" locationCount="3" type="FilterBy+And" terms="[term; service]" proximity="paragraph" filterId="PARID">
+    <QueryString>term and service filterby parid</QueryString>
+    <ReverseQueryString>service and term filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("term"),Term("service")),PARID)</QueryExpression>
+    <QueryLocations count="3">
+      <QueryLocation id="15.166" pid="15:11.2">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="term" docId="15" seqId="166" dpoId="68" tpoId="467" len="4" />
+          <TermOccurrence term="service" docId="15" seqId="166" dpoId="70" tpoId="475" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="55.83" pid="55:4.26">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="term" docId="55" seqId="83" dpoId="37" tpoId="225" len="4" />
+          <TermOccurrence term="service" docId="55" seqId="83" dpoId="40" tpoId="243" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="170.46" pid="170:2.24">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="term" docId="170" seqId="46" dpoId="42" tpoId="241" len="4" />
+          <TermOccurrence term="service" docId="170" seqId="46" dpoId="135" tpoId="784" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="21" locationCount="2" type="FilterBy+And" terms="[evolutionary; premind]" proximity="paragraph" filterId="PARID">
+    <QueryString>evolutionary and premind filterby parid</QueryString>
+    <ReverseQueryString>premind and evolutionary filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("evolutionary"),Term("premind")),PARID)</QueryExpression>
+    <QueryLocations count="2">
+      <QueryLocation id="65.2" pid="65:0.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="evolutionary" docId="65" seqId="2" dpoId="1" tpoId="6" len="12" />
+          <TermOccurrence term="premind" docId="65" seqId="2" dpoId="4" tpoId="33" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="107.16" pid="107:1.7">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="premind" docId="107" seqId="16" dpoId="17" tpoId="116" len="7" />
+          <TermOccurrence term="evolutionary" docId="107" seqId="16" dpoId="27" tpoId="172" len="12" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+  <QueryResult id="22" locationCount="3" type="FilterBy+And" terms="[life; premind]" proximity="paragraph" filterId="PARID">
+    <QueryString>life and premind filterby parid</QueryString>
+    <ReverseQueryString>premind and life filterby parid</ReverseQueryString>
+    <QueryExpression>FilterBy(And(Term("life"),Term("premind")),PARID)</QueryExpression>
+    <QueryLocations count="3">
+      <QueryLocation id="30.105" pid="30:1.101">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="premind" docId="30" seqId="105" dpoId="4" tpoId="26" len="7" />
+          <TermOccurrence term="life" docId="30" seqId="105" dpoId="55" tpoId="349" len="4" />
+          <TermOccurrence term="premind" docId="30" seqId="105" dpoId="74" tpoId="452" len="7" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="40.66" pid="40:9.1">
+        <TermOccurrenceList count="2">
+          <TermOccurrence term="premind" docId="40" seqId="66" dpoId="24" tpoId="173" len="7" />
+          <TermOccurrence term="life" docId="40" seqId="66" dpoId="42" tpoId="279" len="4" />
+        </TermOccurrenceList>
+      </QueryLocation>
+      <QueryLocation id="65.2" pid="65:0.1">
+        <TermOccurrenceList count="4">
+          <TermOccurrence term="life" docId="65" seqId="2" dpoId="3" tpoId="28" len="4" />
+          <TermOccurrence term="premind" docId="65" seqId="2" dpoId="4" tpoId="33" len="7" />
+          <TermOccurrence term="life" docId="65" seqId="2" dpoId="5" tpoId="41" len="4" />
+          <TermOccurrence term="life" docId="65" seqId="2" dpoId="32" tpoId="108" len="4" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
+</Queries>

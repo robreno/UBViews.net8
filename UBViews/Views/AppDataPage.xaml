@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:UBViews.ViewModels"
+             xmlns:model="clr-namespace:UBViews.Models.AppData"
+             xmlns:behavior="clr-namespace:UBViews.Behaviors"
+             xmlns:converter="clr-namespace:UBViews.Converters" 
+             x:Class="UBViews.Views.AppDataPage"
+             Title="Application Data"
+             x:DataType="viewmodel:AppDataViewModel">
+
+    <ContentPage.Resources>
+        <converter:SecondsToStringConverter x:Key="SecondsToStringConverter" />
+    </ContentPage.Resources>
+    
+    <ContentPage.Behaviors>
+        <behavior:EventToCommandBehavior
+            EventName="Loaded"
+            Command="{Binding AppDataPageAppearingCommand}"/>
+    </ContentPage.Behaviors>
+    
+    <ScrollView>
+        
+        <VerticalStackLayout x:Name="mainVSL">
+            
+            <VerticalStackLayout Style="{StaticResource PageHeadingVSL}">
+                <Label Text="Files"
+                       FontSize="Title" 
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <CollectionView x:Name="DataFilesCollection" 
+                            ItemsSource="{Binding DataFiles}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                            SelectionChangedCommandParameter="{Binding Path=SelectedItem, 
+                                                                       Source={RelativeSource Self}}">
+                <CollectionView.ItemTemplate>
+                    
+                    <DataTemplate x:DataType="model:AppFileDto">
+                        
+                        <Border x:Name="ItemsBorder" Margin="2">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Style="{StaticResource AppDataLabels}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="File Name: " />
+                                            <Span Text="{Binding Name}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource AppDataLabels}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="File Folder: " />
+                                            <Span Text="{Binding Folder}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource AppDataLabels}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="File Size: " />
+                                            <Span Text="{Binding Size}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource AppDataLabels}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Created: " />
+                                            <Span Text="{Binding Created}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

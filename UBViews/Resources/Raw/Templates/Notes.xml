@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Notes count="5" lastId="5">
+  <Note id="1" type="paragraph" style="regular" paperId="0" seqId="2" locationId="0.2" pid="0:0.1" created="2023/12/1" edited="2023/12/2" createdTime="18:08:23" editedTime="18:08:23">
+    <Author>Rob Reno</Author>
+    <Subject>Name of our world</Subject>
+    <Text>Urantia is the name of our world. We are Urantians!</Text>
+    <Runs count="0">
+      <!--<Run style="RegularSpan" textColor="blue">Urantia is the </Run>
+      <Run style="ItalicSpan" textColor="blue">name of our world</Run>
+      <Run style="RegularSpan"> . We are Urantians!</Run>-->
+    </Runs>
+  </Note>
+  <Note id="2" type="paragaph" style="regular" paperId="0" seqId="6" locationId="0.6" pid="0:0.5" created="2023/12/3" edited="2023/12/4"  createdTime="18:08:23" editedTime="18:08:23">
+    <Author>Rob Reno</Author>
+    <Subject>Geographic Center of Infinity</Subject>
+    <Text>Havona is the geographic center of infinity.</Text>
+    <Runs count="0">
+      <!--<Run style="RegularSpan" textColor="pink">We live on a </Run>
+      <Run style="ItalicSpan" textColor="red">sin stricken</Run>
+      <Run style="RegularSpan" textSize="24"> world! </Run>
+      <Run style="RegularSpan" textTransform="toupper">We can know little of what it is like on normal worlds.</Run>-->
+    </Runs>
+  </Note>
+  <Note id="3" type="paragraph" style="regular" paperId="0" seqId="1" locationId="0.3" pid="0:0.2" created="2023/12/5" edited="2023/12/6"  createdTime="18:08:23" editedTime="19:08:23">
+    <Author>Rob Reno</Author>
+    <Subject>Enlarged Concepts</Subject>
+    <Text>Enlarged concepts hard to teach to Urantians! </Text>
+    <Runs count="0">
+      <!--<Run style="RegularSpan" textColor="red">Enlarged </Run>
+      <Run style="ItalicSpan" textColor="blue">concepts hard to teach to</Run>
+      <Run style="RegularSpan"> Urantians!</Run>-->
+    </Runs>
+  </Note>
+  <Note id="4" type="paragraph" style="regular" paperId="0" seqId="2" locationId="0.2" pid="0:0.1" created="2023/12/7" edited="2023/12/8" createdTime="18:08:23" editedTime="18:08:23">
+    <Author>Rob Reno</Author>
+    <Subject>Ideational Confusion</Subject>
+    <Text>Humans are very confused about their cosmic place in the universe.</Text>
+    <Runs count="0">
+      <!--<Run style="RegularSpan" textColor="red">Humans </Run>
+      <Run style="ItalicSpan" textColor="blue">are very confused</Run>
+      <Run style="RegularSpan"> about their cosmic place in the uniiverse.</Run>-->
+    </Runs>
+  </Note>
+  <Note id="5" type="general" style="regular" paperId="0" seqId="1" locationId="0.1" pid="0:0.0" created="2023/12/9" edited="2023/12/10" createdTime="18:08:23" editedTime="18:08:23">
+    <Author>Rob Reno</Author>
+    <Subject>General Note</Subject>
+    <Text>This is a general note with no specific paragraph attached.</Text>
+    <Runs count="0" />
+  </Note>
+</Notes>

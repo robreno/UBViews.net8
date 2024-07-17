@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <Tailcalls>True</Tailcalls>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <FsYacc Include="fslexpars.fsy">
+      <OtherFlags>--module FsLexYacc.FsLex.Parser --lexlib FSharp.Text.Lexing --parslib FSharp.Text.Parsing</OtherFlags>
+    </FsYacc>
+    <FsLex Include="fslexlex.fsl">
+      <OtherFlags>--unicode --lexlib FSharp.Text.Lexing</OtherFlags>
+    </FsLex>
+    <Compile Include="fslexast.fs" />
+    <Compile Include="fslexpars.fs" />
+    <Compile Include="fslexlex.fs" />
+    <Compile Include="fslexdriver.fs" />
+    <Compile Include="LexerCore.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fslexpars.fsy" />
+    <None Include="fslexlex.fsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FsLexYacc.Runtime\FsLexYacc.Runtime.fsproj" />
+  </ItemGroup>
+</Project>

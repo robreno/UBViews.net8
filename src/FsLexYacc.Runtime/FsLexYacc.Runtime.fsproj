@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>True</Optimize>
+    <Tailcalls>False</Tailcalls>
+    <DefineConstants>TRACE;__DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <Tailcalls>True</Tailcalls>
+    <DefineConstants>TRACE;__DEBUG</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Lexing.fsi" />
+    <Compile Include="Lexing.fs" />
+    <Compile Include="Parsing.fsi" />
+    <Compile Include="Parsing.fs" />
+    <Compile Include="RuntimeService.fs" />
+  </ItemGroup>
+</Project>

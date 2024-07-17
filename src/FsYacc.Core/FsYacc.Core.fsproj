@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <Tailcalls>True</Tailcalls>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+    <Tailcalls>False</Tailcalls>
+  </PropertyGroup>
+  <ItemGroup>
+    <FsLex Include="fsyacclex.fsl">
+      <OtherFlags>--unicode --lexlib FSharp.Text.Lexing</OtherFlags>
+    </FsLex>
+    <FsYacc Include="fsyaccpars.fsy">
+      <OtherFlags>--module FsLexYacc.FsYacc.Parser --lexlib FSharp.Text.Lexing --parslib FSharp.Text.Parsing</OtherFlags>
+    </FsYacc>
+    <Compile Include="fsyaccast.fs" />
+    <Compile Include="fsyaccpars.fs" />
+    <Compile Include="fsyacclex.fs" />
+    <Compile Include="fsyaccdriver.fs" />
+    <Compile Include="ParserCore.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FsLexYacc.Runtime\FsLexYacc.Runtime.fsproj" />
+  </ItemGroup>
+</Project>

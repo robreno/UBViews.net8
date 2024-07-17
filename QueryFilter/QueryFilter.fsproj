@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-windows10.0.19041.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="FSharpStringExtensions.fs" />
+    <Compile Include="QueryFilterRegex.fs" />
+    <Compile Include="RecordTypes.fs" />
+    <Compile Include="SpecialTermSetEx.fs" />
+    <Compile Include="HyphenTermSetEx.fs" />
+    <Compile Include="HypenEndingTermSetEx.fs" />
+    <Compile Include="CompoundTermRecordSetEx.fs" />
+    <Compile Include="DataTypes.fs" />
+    <Compile Include="QueryFilter.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LexParser\LexParser.fsproj" />
+  </ItemGroup>
+
+</Project>

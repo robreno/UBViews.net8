@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
+  <Publisher>CN=159B4EF4-25E0-45FD-B9EF-470F34B731B8</Publisher>
+  <PublisherDisplayName>Agondonter Media</PublisherDisplayName>
+  <DeveloperAccountType>MSA</DeveloperAccountType>
+  <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
+  <SupportedLocales>
+    <Language Code="en-us" InMinimumRequirementSet="true" />
+  </SupportedLocales>
+  <ProductReservedInfo>
+    <MainPackageIdentityName>64251AgondonterMedia.63599A5E40A94</MainPackageIdentityName>
+    <ReservedNames>
+      <ReservedName>UBViews</ReservedName>
+      <ReservedName>Urantia Book Viewer</ReservedName>
+      <ReservedName>UBViewsSE</ReservedName>
+      <ReservedName>Urantia Book Search Engine</ReservedName>
+    </ReservedNames>
+  </ProductReservedInfo>
+  <AccountPackageIdentityNames>
+    <MainPackageIdentityName>64251AgondonterMedia.63599A5E40A94</MainPackageIdentityName>
+  </AccountPackageIdentityNames>
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9P8ZFFVWP7HL" />
+</StoreAssociation>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:UBViews.Converters"
+             xmlns:controls="clr-namespace:UBViews.Controls"
+             xmlns:behaviors="clr-namespace:UBViews.Behaviors"
+             xmlns:models="clr-namespace:UBViews.Models.AppData"
+             xmlns:viewmodels="clr-namespace:UBViews.ViewModels"
+             x:Class="UBViews.Views.ContactsPage"
+             Title="{Binding Title}"
+             x:DataType="viewmodels:ContactsViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:String x:Key="ButtonHeight">45</x:String>
+            <x:String x:Key="ButtonWidth">65</x:String>
+        </ResourceDictionary>
+        <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+        <converters:BooleanToStringConverter x:Key="BooleanToStringConverter" />
+        <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="true"  FalseObject="false"/>
+        <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding ContactsPageAppearingCommand}" />
+        <behaviors:EventToCommandBehavior
+            EventName="Disappearing"
+            Command="{Binding ContactsPageDisappearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout x:Name="mainVSL"
+                         HorizontalOptions="Center">
+
+        <VerticalStackLayout Style="{StaticResource PageHeadingVSL}">
+            <Label Text="Application Contacts"
+                   FontSize="Title" 
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="formVSL"
+                             Margin="10,0,0,0"
+                             HorizontalOptions="Center">
+
+            <!--<controls:MaterialEntry x:Name="FirstNameEntryCC" 
+                                    Label="First Name"
+                                    HorizontalOptions="Start" 
+                                    VerticalOptions="Center"
+                                    Text="{Binding Source={viewmodels:ContactsViewModel}, 
+                                                   Path=FirstName,Mode=TwoWay}" />-->
+
+            <Label x:Name="FirstNameLabel" 
+                   Style="{StaticResource AppContactsLabels}"
+                   Text="First Name:" />
+
+            <Entry x:Name="FirstNameEntry"
+                   Style="{StaticResource AppContactsEntry}"
+                   BackgroundColor="{AppThemeBinding Light={StaticResource ContactsLightBackground}, 
+                                                     Dark={StaticResource ContactsDarkBackground}}"
+                   Text="{Binding FirstName, Mode=TwoWay}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   IsEnabled="True"
+                   IsSpellCheckEnabled="False"
+                   Placeholder="Enter first name ...">
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                         EventName="Completed"
+                         Command="{Binding FirstNameEntryCompletedCommand}"
+                         CommandParameter="{Binding FirstName}" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label x:Name="LastNameLabel" 
+                   Style="{StaticResource AppContactsLabels}"
+                   Text="Last Name:" />
+            <Entry x:Name="LastNameEntry"
+                   Style="{StaticResource AppContactsEntry}"
+                   BackgroundColor="{AppThemeBinding Light={StaticResource ContactsLightBackground}, 
+                                                     Dark={StaticResource ContactsDarkBackground}}"
+                   Text="{Binding LastName, Mode=TwoWay}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   IsEnabled="True"
+                   IsSpellCheckEnabled="False"
+                   IsTextPredictionEnabled="False"
+                   Placeholder="Enter last name ...">
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                         EventName="Completed"
+                         Command="{Binding LastNameEntryCompletedCommand}"
+                         CommandParameter="{Binding LastName}" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label x:Name="DisplayNameLabel" 
+                   Style="{StaticResource AppContactsLabels}"
+                   Text="Display Name:" />
+            <Entry x:Name="DisplayNameEntry"
+                   Style="{DynamicResource AppContactsEntry}"
+                   BackgroundColor="{AppThemeBinding Light={StaticResource ContactsLightBackground}, 
+                                                     Dark={StaticResource ContactsDarkBackground}}"
+                   Text="{Binding DisplayName, Mode=TwoWay}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   IsEnabled="True"
+                   IsSpellCheckEnabled="False"
+                   IsTextPredictionEnabled="False"
+                   Placeholder="Enter display name ...">
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                          EventName="Completed"
+                          Command="{Binding ValidateDisplayNameCommand}"
+                          CommandParameter="{Binding Source={x:Reference DisplayNameEntry}, Path=Text}" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label x:Name="EmailLabel" 
+                   Style="{StaticResource AppContactsLabels}"
+                   Text="Email:" />
+            <Entry x:Name="EmailEntry"
+                   Style="{StaticResource AppContactsEntry}"
+                   BackgroundColor="{AppThemeBinding Light={StaticResource ContactsLightBackground}, 
+                                                     Dark={StaticResource ContactsDarkBackground}}"
+                   Text="{Binding Email, Mode=TwoWay}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   IsEnabled="True"
+                   IsTextPredictionEnabled="False"
+                   IsSpellCheckEnabled="False"
+                   Placeholder="Enter email ...">
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                         EventName="Completed"
+                         Command="{Binding EmailEntryCompletedCommand}"
+                         CommandParameter="{Binding Source={x:Reference EmailEntry}, Path=Text}" />
+                    <behaviors:EventToCommandBehavior
+                         EventName="TextChanged"
+                         Command="{Binding EmailTextChangedCommand}"
+                         CommandParameter="{Binding Source={x:Reference EmailEntry}, Path=Text}" />
+                </Entry.Behaviors>
+            </Entry>
+
+            <HorizontalStackLayout>
+                <Label x:Name="AutoSendLabel" 
+                       Style="{StaticResource CheckBoxLabels}"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       Text="Auto Send:"/>
+                <CheckBox x:Name="AutoSendCheckBox"
+                         Margin="10,0,0,10"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Start"
+                         IsEnabled="{Binding EmailIsValid}"
+                         IsChecked="{Binding AutoSendEmail, Mode=TwoWay}">
+                    <CheckBox.Behaviors>
+                        <behaviors:EventToCommandBehavior 
+                             EventName="CheckedChanged" 
+                             Command="{Binding AutoSendCheckedChangedCommand}"
+                             CommandParameter="{Binding Source={x:Reference AutoSendCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                
+                <Button Text="Save" 
+                        Margin="0,0,1.5,0"
+                        FontSize="14"
+                        FontAttributes="Bold" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for saving new contact."
+                        SemanticProperties.Hint="Save Button."
+                        HeightRequest="45"
+                        WidthRequest="80"
+                        IsVisible="{Binding ContactSelected, Converter={StaticResource InvertedBoolConverter}}"
+                        Command="{Binding SaveContactCommand}" 
+                        CommandParameter="{Binding SelectedContact}"/>
+
+                <Button Text="Update" 
+                        Margin="1.5,0,1.5,0"
+                        FontSize="14"
+                        FontAttributes="Bold" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for editing contact."
+                        SemanticProperties.Hint="Edit Button."
+                        HeightRequest="45"
+                        WidthRequest="80"
+                        IsVisible="{Binding ContactSelected}"
+                        Command="{Binding UpdateContactCommand}"
+                        CommandParameter="{Binding SelectedContact}" />
+
+                <Button Text="Delete" 
+                        Margin="1.5,0,1.5,0"
+                        FontSize="14"
+                        FontAttributes="Bold" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for deleting contact."
+                        SemanticProperties.Hint="Delete Button."
+                        HeightRequest="45"
+                        WidthRequest="80"
+                        IsVisible="{Binding ContactSelected}"
+                        Command="{Binding DeleteContactCommand}"
+                        CommandParameter="{Binding SelectedContact}"/>
+
+                <Button Text="Clear" 
+                        Margin="1.5,0,0,0"
+                        FontSize="14"
+                        FontAttributes="Bold" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for deleting contact."
+                        SemanticProperties.Hint="Delete Button."
+                        HeightRequest="45"
+                        WidthRequest="80"
+                        Command="{Binding ClearContactFormCommand}" />
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+
+        <CollectionView x:Name="ContactsCollection" 
+                        ItemsSource="{Binding Contacts}"
+                        HeightRequest="300"
+                        WidthRequest="300"
+                        Margin="0,10,0,0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                        SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={RelativeSource Self}}">
+
+            <CollectionView.ItemTemplate>
+                
+                <DataTemplate x:DataType="models:ContactDto">
+
+                    <Border Padding=".5">
+
+                        <VerticalStackLayout Padding="0">
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding FirstName, Mode=TwoWay}" />
+                                        <Span Text=" " />
+                                        <Span Text="{Binding LastName, Mode=TwoWay}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="{Binding DisplayName, Mode=TwoWay}" />
+                            <Label Text="{Binding Email, Mode=TwoWay}" />
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Auto Send Email:" />
+                                        <Span Style="{StaticResource RegularSpaceSpan}" />
+                                        <Span Text="{Binding AutoSendEmail, Mode=TwoWay}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>

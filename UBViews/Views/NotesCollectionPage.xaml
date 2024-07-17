@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:behaviors="clr-namespace:UBViews.Behaviors"
+             xmlns:models="clr-namespace:UBViews.Models.Notes"
+             xmlns:viewmodels="clr-namespace:UBViews.ViewModels"
+             x:Class="UBViews.Views.NotesCollectionPage"
+             Title="{Binding Title}"
+             x:DataType="viewmodels:NotesCollectionViewModel">
+
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing"
+                                          Command="{Binding NotesCollectionPageAppearingCommand}" />
+        <!--<behavior:EventToCommandBehavior 
+            EventName="Loaded"
+            Command="{Binding NotesPageLoadedCommand}" />-->
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout x:Name="mainVSL">
+
+        <Label x:Name="notesLabel"
+               Margin="0,20,0,0"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Style="{DynamicResource RegularParagraph}"
+               ToolTipProperties.Text="To go to paragraph text tap.">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Style="{StaticResource RegularSpan}"
+                          Text="Notes (" />
+                    <Span Style="{StaticResource RegularSpan}"
+                          Text="displayed " />
+                    <Span Style="{StaticResource RegularSpan}"
+                          Text="{Binding NoteCount}" />
+                    <Span Style="{StaticResource RegularSpan}"
+                          Text=")" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Button Text="Add"
+                WidthRequest="75"
+                HorizontalOptions="Start" />
+
+        <CollectionView x:Name="notesCollection"
+                        ItemsSource="{Binding Notes}"
+                        MinimumWidthRequest="{OnPlatform WinUI=450}"
+                        MaximumHeightRequest="{OnPlatform WinUI=650}"
+                        WidthRequest="{OnPlatform WinUI=750}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                        SelectionChangedCommandParameter="{Binding Source={x:Reference notesCollection},
+                                                            Path=SelectedItem}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="3" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:NoteEntry">
+                    <Border Stroke="Blue"
+                            StrokeThickness="1"
+                            StrokeShape="Rectangle 5"
+                            Margin="10, 5, 10, 5">
+
+                        <VerticalStackLayout MinimumWidthRequest="{OnPlatform WinUI=450}"
+                                             MaximumWidthRequest="{OnPlatform WinUI=700}"
+                                             WidthRequest="{OnPlatform WinUI=700}"
+                                             BackgroundColor="{StaticResource White}">
+
+                            <HorizontalStackLayout>
+                                <Label Text="ID: "
+                                       FontSize="14"
+                                       TextColor="Silver"
+                                       Margin="0,0,10,0" />
+                                <Label Text="{Binding Id}"
+                                       FontSize="14"
+                                       TextColor="Silver" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Author: "
+                                       FontSize="14"
+                                       TextColor="Silver"
+                                       Margin="0,0,10,0" />
+                                <Label Text="{Binding Author}"
+                                       FontSize="14"
+                                       TextColor="Silver" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Subject: "
+                                       FontSize="14"
+                                       TextColor="Silver"
+                                       Margin="0,0,10,0" />
+                                <Label Text="{Binding Subject}"
+                                       FontSize="14"
+                                       TextColor="Silver" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Created: "
+                                       FontSize="14"
+                                       TextColor="Silver"
+                                       Margin="0,0,10,0" />
+                                <Label Text="{Binding DateCreated}"
+                                       FontSize="14"
+                                       TextColor="Silver" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Pargraph: "
+                                       FontSize="14"
+                                       TextColor="Silver"
+                                       Margin="0,0,10,0" />
+                                <Label Text="{Binding Pid}"
+                                       FontSize="14"
+                                       TextColor="Silver" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding Text}"
+                                   Style="{StaticResource RegularParagraph}"
+                                   Margin="0, 10, 0, 0" />
+                            <HorizontalStackLayout HorizontalOptions="End">
+                                <CheckBox IsChecked="False" />
+                            </HorizontalStackLayout>
+
+                            <FlyoutBase.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Edit" />
+                                    <MenuFlyoutItem Text="Copy" />
+                                    <MenuFlyoutItem Text="Delete" />
+                                </MenuFlyout>
+                            </FlyoutBase.ContextFlyout>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+
+</ContentPage>

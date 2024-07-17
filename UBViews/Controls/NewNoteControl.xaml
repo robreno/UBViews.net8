@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behavior="clr-namespace:UBViews.Behaviors"
+             xmlns:viewmodel="clr-namespace:UBViews.ViewModels"
+             x:Class="UBViews.Controls.NewNoteControl"
+             x:DataType="viewmodel:NotesViewModel">
+    
+    <VerticalStackLayout x:Name="mainVSL" 
+                         IsVisible="False"
+                         HeightRequest="350"
+                         WidthRequest="450"
+                         HorizontalOptions="Start">
+
+        <Label x:Name="mainLabel" Text="New Note Entry:" 
+               Margin="10, 0, 0, 10" 
+               HorizontalOptions="Start" />
+
+        <VerticalStackLayout x:Name="contentVSL" 
+                             HorizontalOptions="Start"
+                             HeightRequest="110"
+                             Margin="10,0,0,10"
+                             VerticalOptions="Center"
+                             BackgroundColor="WhiteSmoke">
+            <!-- Note Author -->
+            <Editor x:Name="authorEditor"
+                    Margin="0,0,0,10"
+                    Placeholder="Enter note author ..."
+                    Text="{Binding NewNoteAuthor, Mode=TwoWay}">
+                <Editor.Behaviors>
+                    <behavior:EventToCommandBehavior 
+                        EventName="Completed"
+                        Command="{Binding AuthorCompletedCommand}"
+                        CommandParameter="{Binding Source={x:Reference authorEditor}, Path=Text}"/>
+                </Editor.Behaviors>
+            </Editor>
+            <!-- Note Subject -->
+            <Editor x:Name="subjectEditor"
+                    Margin="0,0,0,10"
+                    Placeholder="Enter note subject ..."
+                    Text="{Binding NewNoteSubject, Mode=TwoWay}">
+                <Editor.Behaviors>
+                    <behavior:EventToCommandBehavior 
+                        EventName="Completed"
+                        Command="{Binding SubjectCompletedCommand}"
+                        CommandParameter="{Binding Source={x:Reference subjectEditor}, Path=Text}"/>
+                </Editor.Behaviors>
+            </Editor>
+            
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout x:Name="radioButtonsHSL" 
+                               HeightRequest="28"
+                               WidthRequest="325" 
+                               Margin="10,0,0,10"
+                               HorizontalOptions="Start">
+            <Label x:Name="regularLabel" Text="Note Type: "
+                   Margin="0,0,10,0"
+                   HorizontalOptions="Start"
+                   HorizontalTextAlignment="Center"/>
+            
+            <!-- Regular RadioButton -->
+            <RadioButton x:Name="radioButtonRegular" 
+                         Content="Regular">
+                <RadioButton.Behaviors>
+                    <behavior:EventToCommandBehavior
+                        EventName="CheckedChanged"
+                        Command="{Binding RadioCheckedChangedCommand}"
+                        CommandParameter="{Binding Source={x:Reference radioButtonRegular}}"/>
+                </RadioButton.Behaviors>
+            </RadioButton>
+            <!-- Paragraph RadioButton -->
+            <RadioButton x:Name="radioButtonParagraph" 
+                         Content="Paragraph">
+                <RadioButton.Behaviors>
+                    <behavior:EventToCommandBehavior
+                        EventName="CheckedChanged"
+                        Command="{Binding RadioCheckedChangedCommand}"
+                        CommandParameter="{Binding Source={x:Reference radioButtonParagraph}}"/>
+                </RadioButton.Behaviors>
+            </RadioButton>
+            
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout x:Name="referenceIDHSL" 
+                               WidthRequest="350"
+                               HorizontalOptions="Start">
+
+            <VerticalStackLayout x:Name="paperVSL" 
+                                 WidthRequest="144" 
+                                 Margin="0,0,0,0"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Start">
+
+                <Label Text="Paper ID:"
+                        Margin="10,0,10,0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        HorizontalTextAlignment="Center"/>
+                
+                <Border x:Name="paperIdBorder" 
+                        WidthRequest="125"
+                        Margin="10,10,10,10"
+                        HorizontalOptions="Start" 
+                        Stroke="{StaticResource Primary}">
+                    
+                    <HorizontalStackLayout x:Name="paperIdHSL" 
+                                           HorizontalOptions="Start">
+                        
+                        <!-- Paper Editor -->
+                        <Editor x:Name="paperIdEditor" 
+                                HeightRequest="15"
+                                WidthRequest="20"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                ToolTipProperties.Text="Enter three digit number for paper ID."
+                                MaxLength="3"
+                                Text="{Binding NewNotePaperIdText, Mode=TwoWay}">
+                            <Editor.Behaviors>
+                                <behavior:EventToCommandBehavior
+                                    EventName="Unfocused"
+                                    Command="{Binding NewNoteUnfocusedCommand}"
+                                    CommandParameter="{Binding Source={x:Reference paperIdEditor}}"/>
+                                <behavior:EventToCommandBehavior
+                                    EventName="Completed"
+                                    Command="{Binding NewNoteCompletedCommand}"
+                                    CommandParameter="{Binding Source={x:Reference paperIdEditor}}"/>
+                            </Editor.Behaviors>
+                        </Editor>
+                        <!-- Paper Stepper -->
+                        <Stepper x:Name="paperIdStepper" 
+                                 WidthRequest="80"
+                                 HeightRequest="50"
+                                 Minimum="0" 
+                                 Maximum="196" 
+                                 Increment="1"
+                                 Value="{Binding PaperIdStepper, Mode=TwoWay}">
+                            <Stepper.Behaviors>
+                                <behavior:EventToCommandBehavior 
+                                    EventName="ValueChanged"
+                                    Command="{Binding PaperIdValueChangedCommand}"
+                                    CommandParameter="{Binding Source={x:Reference paperIdStepper}, Path=Value}"/>
+                            </Stepper.Behaviors>
+                        </Stepper>
+                        
+                    </HorizontalStackLayout>
+                    
+                </Border>
+
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout x:Name="sectionVSL" 
+                                 WidthRequest="144" 
+                                 Margin="0,0,0,0"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Start">
+                <Label Text="Section ID:"
+                       Margin="10,0,10,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       HorizontalTextAlignment="Center"/>
+                <Border x:Name="sectionIdBorder" 
+                        WidthRequest="125"
+                        Margin="10,10,10,10"
+                        HorizontalOptions="Start" 
+                        Stroke="{StaticResource Primary}">
+                    <HorizontalStackLayout>
+                        
+                        <!-- Section Editr -->
+                        <Editor x:Name="sectionIdEditor" 
+                                HeightRequest="20"
+                                WidthRequest="20"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                ToolTipProperties.Text="Set paper number"
+                                Text="{Binding NewNoteSectionIdText, Mode=TwoWay}">
+                        </Editor>
+                        <!-- Section Stepper -->
+                        <Stepper x:Name="sectionIdStepper" 
+                                 WidthRequest="80"
+                                 HeightRequest="50"
+                                 Minimum="0" 
+                                 Maximum="14" 
+                                 Increment="1"
+                                 Value="{Binding SectionIdStepper, Mode=TwoWay}">
+                            <Stepper.Behaviors>
+                                <behavior:EventToCommandBehavior 
+                                    EventName="ValueChanged"
+                                    Command="{Binding SectionIdValueChangedCommand}"
+                                    CommandParameter="{Binding Source={x:Reference sectionIdStepper}, Path=Value}"/>
+                            </Stepper.Behaviors>
+                        </Stepper>
+                        
+                    </HorizontalStackLayout>
+                    
+                </Border>
+                
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout x:Name="paragraphVSL" 
+                     WidthRequest="144" 
+                     Margin="0,0,0,0"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Start">
+                <Label Text="Paragraph ID:"
+                       Margin="10,0,10,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       HorizontalTextAlignment="Center"/>
+                <Border x:Name="paragraphIdBorder" 
+                        WidthRequest="125"
+                        Margin="10,10,10,10"
+                        HorizontalOptions="Start" 
+                        Stroke="{StaticResource Primary}">
+                    <HorizontalStackLayout>
+                        
+                        <!-- Paragraph Editor -->
+                        <Editor x:Name="paragraphIdEditor" 
+                                HeightRequest="20"
+                                WidthRequest="20"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                ToolTipProperties.Text="Set paper number"
+                                Text="{Binding NewNoteParagraphIdText, Mode=TwoWay}" />
+                        <!-- Paragraph Stepper -->
+                        <Stepper x:Name="paragraphIdStepper" 
+                                 WidthRequest="80"
+                                 HeightRequest="50"
+                                 Minimum="0" 
+                                 Maximum="45" 
+                                 Increment="1"
+                                 Value="{Binding ParagraphIdStepper, Mode=TwoWay}">
+                            <Stepper.Behaviors>
+                                <behavior:EventToCommandBehavior 
+                                    EventName="ValueChanged"
+                                    Command="{Binding ParagraphIdValueChangedCommand}"
+                                    CommandParameter="{Binding Source={x:Reference paragraphIdStepper}, Path=Value}"/>
+                            </Stepper.Behaviors>
+                        </Stepper>
+                        
+                    </HorizontalStackLayout>    
+                    
+                </Border>
+                
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout x:Name="buttonsHSL">
+            
+            <!-- Cancel Button -->
+            <Button x:Name="cancelNoteButton"
+                    WidthRequest="{OnPlatform WinUI=75}"
+                    HorizontalOptions="End"
+                    Text="Cancel">
+                <Button.Behaviors>
+                    <behavior:EventToCommandBehavior
+                        EventName="Loaded"
+                        Command="{Binding ButtonLoadedCommand}"
+                        CommandParameter="{Binding Source={x:Reference cancelNoteButton}}" />
+                    <behavior:EventToCommandBehavior
+                        EventName="Clicked"
+                        Command="{Binding ButtonClickedCommand}"
+                        CommandParameter="{Binding Source={x:Reference cancelNoteButton}}" />
+                </Button.Behaviors>
+            </Button>
+            <!-- Cancel Button -->
+            <Button x:Name="clearNoteButton"
+                IsEnabled="True"
+                WidthRequest="{OnPlatform WinUI=75}"
+                HorizontalOptions="End"
+                Text="Clear">
+                <Button.Behaviors>
+                    <behavior:EventToCommandBehavior
+                        EventName="Loaded"
+                        Command="{Binding ButtonLoadedCommand}"
+                        CommandParameter="{Binding Source={x:Reference clearNoteButton}}" />
+                    <behavior:EventToCommandBehavior
+                        EventName="Clicked"
+                        Command="{Binding ButtonClickedCommand}"
+                        CommandParameter="{Binding Source={x:Reference clearNoteButton}}" />
+                </Button.Behaviors>
+            </Button>
+            <!-- Save Note Button -->
+            <Button x:Name="saveNoteButton"
+                    IsEnabled="True"
+                    WidthRequest="{OnPlatform WinUI=75}"
+                    HorizontalOptions="End"
+                    Text="Save">
+                <Button.Behaviors>
+                    <behavior:EventToCommandBehavior
+                        EventName="Loaded"
+                        Command="{Binding ButtonLoadedCommand}"
+                        CommandParameter="{Binding Source={x:Reference saveNoteButton}}" />
+                    <behavior:EventToCommandBehavior
+                        EventName="Clicked"
+                        Command="{Binding ButtonClickedCommand}"
+                        CommandParameter="{Binding Source={x:Reference saveNoteButton}}" />
+                </Button.Behaviors>
+            </Button>
+            
+        </HorizontalStackLayout>
+        
+    </VerticalStackLayout>
+
+</ContentView>

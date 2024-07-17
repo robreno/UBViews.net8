@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <Tailcalls>True</Tailcalls>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="bin\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Common\Arg.fsi" Link="Arg.fsi" />
+    <Compile Include="..\Common\Arg.fs" Link="Arg.fs" />
+    <Compile Include="fslex.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fslex.fsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FsLex.Core\FsLex.Core.fsproj" />
+    <ProjectReference Include="..\FsLexYacc.Runtime\FsLexYacc.Runtime.fsproj" />
+  </ItemGroup>
+</Project>

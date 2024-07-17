@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:UBViews.ViewModels"
+             xmlns:control="clr-namespace:UBViews.Controls"
+             xmlns:behavior="clr-namespace:UBViews.Behaviors"
+             xmlns:model="clr-namespace:UBViews.Models"
+             x:Class="UBViews.Views.ContentTitlesPage"
+             Title="{Binding Title}"
+             x:DataType="viewmodel:ContentTitlesViewModel">
+
+    <ContentPage.Behaviors>
+        <behavior:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding ContentTitlesPageAppearingCommand}"
+            CommandParameter="{Binding PaperDto}"/>
+    </ContentPage.Behaviors>
+
+    <!-- Main Content Grid-->
+    <Grid x:Name="mainGrid">
+
+        <!-- Main ScrollView -->
+        <ScrollView x:Name="mainScrollView"
+                    VerticalScrollBarVisibility="Always">
+
+            <!-- Main VerticalStackLayout -->
+            <VerticalStackLayout x:Name="mainVerticalStackLayout" 
+                                 VerticalOptions="StartAndExpand"
+                                 HorizontalOptions="FillAndExpand">
+                
+                <!-- Headers Control -->
+                <control:CirclesHeader Margin="0,0,0,10" />
+
+                <Label Grid.Row="1" 
+                       BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, 
+                                                         Dark={StaticResource UBDarkBackground}}"
+                       Style="{StaticResource ContentsPartTitle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Contents of Paper" Style="{StaticResource PaperHeadingSpan}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource ContentsPaperHeading}"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, 
+                                                         Dark={StaticResource UBDarkBackground}}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Style="{StaticResource PaperHeadingSpan}" Text="Paper" />
+                            <Span Style="{StaticResource PaperHeadingSpan}" Text="  " />
+                            <Span Style="{StaticResource PaperHeadingSpan}" Text="{Binding PaperNumber}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Style="{StaticResource TitleParagraph}" IsVisible="true"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, 
+                                                         Dark={StaticResource UBDarkBackground}}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Style="{StaticResource TitleSpan}" Text="{Binding PaperTitle}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <!-- Collections View -->
+                <CollectionView ItemsSource="{Binding SectionTitlesDtos}"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="CenterAndExpand"
+                                SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate x:DataType="model:SectionTitleDto">
+
+                            <!-- Inner Content Border -->
+                            <Border Style="{StaticResource TitleBorderStyle}">
+
+                                <Label Style="{StaticResource RegularParagraph}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource 
+                                                                          AncestorType={x:Type viewmodel:ContentTitlesViewModel}}, 
+                                                                          Path=TappedGestureCommand}"
+                                                        CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </Label.GestureRecognizers>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Prefix, StringFormat='{0}'}"
+                                                          Style="{StaticResource PaperTitleNumberSpan}" />
+                                            <Span Style="{StaticResource TitleTabsSpan}" />
+                                            <Span Text="{Binding SectionTitle}"
+                                                          Style="{StaticResource PaperTitleSpan}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+
+                                </Label>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <ActivityIndicator 
+            HorizontalOptions="CenterAndExpand" 
+            VerticalOptions="CenterAndExpand" 
+            IsRunning="{Binding IsBusy}" 
+            IsVisible="{Binding IsBusy}" />
+        
+    </Grid>
+    
+</ContentPage>

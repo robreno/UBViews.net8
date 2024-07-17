@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:UBViews.ViewModels"
+             xmlns:behavior="clr-namespace:UBViews.Behaviors"
+             xmlns:converter="clr-namespace:UBViews.Converters"
+             x:Class="UBViews.Views.AppSettingsPage"
+             x:DataType="viewmodel:XmlAppSettingsViewModel"
+             Title="App Settings Page">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:String x:Key="ButtonWidth">165</x:String>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" /> 
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <behavior:EventToCommandBehavior 
+            EventName="Appearing" Command="{Binding SettingPageAppearingCommand}" />
+        <behavior:EventToCommandBehavior 
+            EventName="Loaded" Command="{Binding SettingPageLoadedCommand}" />
+        <behavior:EventToCommandBehavior 
+            EventName="Disappearing" Command="{Binding SettingPageDisappearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout x:Name="mainVSL"
+                         Padding="20,20,20,20">
+
+        <VerticalStackLayout Style="{StaticResource PageHeadingVSL}">
+            <Label Text="Application Settings"
+                    FontSize="Title" 
+                    HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="controlSettingsVSL"
+                             Style="{StaticResource AppSettingsVSL}">
+
+            <HorizontalStackLayout x:Name="MaxQueryResultHSL" Margin=".5">
+                <Label x:Name="maxNumberLabel" 
+                       Style="{StaticResource AppSettingsLabels}"
+                       Text="Max Query Results:" />
+                <Entry x:Name="maxNumberEntry"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Margin="0,0,1.5,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       IsEnabled="False"
+                       Text="{Binding Source={x:Reference maxNumberStepper},Path=Value}" />
+                <Stepper x:Name="maxNumberStepper" 
+                         WidthRequest="80"
+                         HeightRequest="50"
+                         Minimum="50" 
+                         Maximum="200" 
+                         Increment="10"
+                         Value="{Binding MaxQueryResults, Mode=OneWay}">
+                    <Stepper.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="ValueChanged" 
+                            Command="{Binding MaxQueryResultValueChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference maxNumberStepper}, Path=Value}"/>
+                    </Stepper.Behaviors>
+                </Stepper>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="LineHeightHSL" Margin=".5">
+                <Label x:Name="lineHeightLabel" 
+                       Style="{StaticResource AppSettingsLabels}"
+                       Text="Line Height:" />
+                <Entry x:Name="lineHeightEntry"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Margin="0,0,1.5,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       IsEnabled="False"
+                       Text="{Binding Source={x:Reference lineHeightStepper},Path=Value}"/>
+                <Stepper x:Name="lineHeightStepper" 
+                         WidthRequest="80"
+                         HeightRequest="50"
+                         Minimum="1.0" 
+                         Maximum="2.0" 
+                         Increment=".1"
+                         Value="{Binding LineHeight, Mode=OneWay}">
+                    <Stepper.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="ValueChanged" 
+                            Command="{Binding LineHeightValueChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference lineHeightStepper}, Path=Value}"/>
+                    </Stepper.Behaviors>
+                </Stepper>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="WindowSizeHSL" Margin=".5">
+                <Label x:Name="WindowSizeLabel" 
+                       Text="Window Size: " 
+                       Style="{StaticResource AppSettingsLabels}" />
+                <Picker x:Name="windowSizePicker" 
+                        HorizontalOptions="FillAndExpand" 
+                        SelectedIndex="{Binding WindowSize, Mode=TwoWay}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Small (680,520)</x:String>
+                            <x:String>Medium (880,720)</x:String>
+                            <x:String>Large (1080,920)</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                    <Picker.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding WindowSizeSelectedIndexChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference windowSizePicker}, Path=SelectedIndex}"/>
+                    </Picker.Behaviors>
+                </Picker>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="PidsHSL" Margin=".5">
+                <Label x:Name="showPidsLabel" 
+                       Text="Show References:"
+                       Style="{StaticResource AppSettingsLabels}"/>
+                <CheckBox x:Name="pidsCheckBox"
+                          Color="Blue"
+                          IsChecked="{Binding ShowReferencePids, Mode=OneWay}">
+                    <CheckBox.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="CheckedChanged" 
+                            Command="{Binding ShowPidsCheckedChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference pidsCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="PaperContentHSL" Margin=".5">
+                <Label x:Name="showContentsLabel" 
+                       Text="Paper Contents:"
+                       Style="{StaticResource AppSettingsLabels}" />
+
+                <CheckBox x:Name="paperContentsCheckBox"
+                          Color="Blue"
+                          IsChecked="{Binding ShowPaperContents, Mode=OneWay}">
+                    <CheckBox.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="CheckedChanged" 
+                            Command="{Binding ShowPaperContentsCheckedChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference paperContentsCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="AutoSendEmailHSL" Margin=".5">
+                <Label x:Name="autoSendEmailLabel" 
+                       Text="Auto Share Email:"
+                       Style="{StaticResource AppSettingsLabels}" />
+                <CheckBox x:Name="autoSendEmailCheckBox"
+                          Color="Blue"
+                          IsChecked="{Binding AutoSendEmail, Mode=OneWay}">
+                    <CheckBox.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="CheckedChanged" 
+                            Command="{Binding AutoSendEmailCheckedChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference autoSendEmailCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="CachingHSL" Margin=".5">
+                <Label x:Name="useCachingLabel" 
+                       Text="Use Query Caching:"
+                       Style="{StaticResource AppSettingsLabels}"/>
+                <CheckBox x:Name="cachingCheckBox"
+                          Color="Blue"
+                          IsChecked="{Binding UseCaching, Mode=OneWay}">
+                    <CheckBox.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="CheckedChanged" 
+                            Command="{Binding UseCachingCheckedChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference cachingCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="PlaybackControlsHSL" Margin=".5">
+                <Label x:Name="showControlsLabel" 
+                       Text="Media Controls:"
+                       Style="{StaticResource AppSettingsLabels}" />
+                <CheckBox x:Name="playbackControlsCheckBox"
+                          Color="Blue"
+                          IsChecked="{Binding ShowPlaybackControls, Mode=OneWay}">
+                    <CheckBox.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                            EventName="CheckedChanged" 
+                            Command="{Binding ShowPlaybackControlsCheckedChangedCommand}"
+                            CommandParameter="{Binding Source={x:Reference playbackControlsCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="AppThemeChoiceHSL" Margin=".5" IsVisible="False">
+                <Label x:Name="appThemeControlLabel" 
+                        Text="Theme Mode:"
+                        Style="{StaticResource AppSettingsLabels}" />
+                <CheckBox x:Name="lightThemeCheckBox"
+                          
+                          Color="Blue"
+                          IsChecked="{Binding ShowPlaybackControls, Mode=OneWay}">
+                    <!--<CheckBox.Behaviors>
+                        <behavior:EventToCommandBehavior 
+                             EventName="CheckedChanged" 
+                             Command="{Binding ShowPlaybackControlsCheckedChangedCommand}"
+                             CommandParameter="{Binding Source={x:Reference playbackControlsCheckBox}, Path=IsChecked}"/>
+                    </CheckBox.Behaviors>-->
+                </CheckBox>
+            </HorizontalStackLayout>
+
+            <Border Stroke="Blue"
+                    Padding="10">
+                
+                <VerticalStackLayout x:Name="audioPathVSL">
+                    
+                    <HorizontalStackLayout x:Name="audioUseDefaultHSL" 
+                                           IsVisible="False">
+                        <Label Text="Use Default: "
+                               HorizontalOptions="Start"
+                               HorizontalTextAlignment="Start"
+                               WidthRequest="80"
+                               Style="{StaticResource  AppSettingsLabels}"/>
+                        <CheckBox x:Name="useLocatState"
+                                  Color="Blue"
+                                  IsChecked="{Binding UseDefaultAudoPath, Mode=OneWay}">
+                            <CheckBox.Behaviors>
+                                <behavior:EventToCommandBehavior 
+                                     EventName="CheckedChanged" 
+                                     Command="{Binding UseDefaultAudioPathChangedCommand}"
+                                     CommandParameter="{Binding Source={x:Reference useLocatState}, Path=IsChecked}"/>
+                            </CheckBox.Behaviors>
+                        </CheckBox>
+                    </HorizontalStackLayout>
+                    
+                    <Button x:Name="audioPathButton"
+                            Text="Audio Folder Picker:"
+                            HeightRequest="20"
+                            WidthRequest="160"
+                            HorizontalOptions="Start"
+                            Margin="0,0,10,10"
+                            IsEnabled="{Binding Source={x:Reference useLocatState}, 
+                                                Path=IsChecked, 
+                                                Converter={toolkit:InvertedBoolConverter}}"
+                            Command="{Binding PickAudioFolderCommand}" />
+                    <Label x:Name="audioPathLabel"
+                           HorizontalOptions="StartAndExpand"
+                           Text="{Binding AudioFolderPath, Mode=TwoWay}"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="20">
+            <Button Text="Save Settings" 
+                    FontSize="18"
+                    FontAttributes="Bold" 
+                    HorizontalOptions="Center" 
+                    SemanticProperties.HeadingLevel="None"
+                    SemanticProperties.Description="Button for saving settings."
+                    SemanticProperties.Hint="Save Settings Button."
+                    WidthRequest="{x:StaticResource ButtonWidth}"
+                    Command="{Binding SaveSettingsCommand}" />
+
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

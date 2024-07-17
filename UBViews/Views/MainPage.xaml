@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converter="clr-namespace:UBViews.Converters" 
+             xmlns:behavior="clr-namespace:UBViews.Behaviors"
+             xmlns:models="clr-namespace:UBViews.Models.Query"
+             xmlns:viewmodels="clr-namespace:UBViews.ViewModels"
+             x:Class="UBViews.MainPage"
+             Title="{Binding Title}"
+             x:DataType="viewmodels:MainViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:String x:Key="audioBaseUri">https://s3.amazonaws.com/urantia/media/en/</x:String>
+            <x:String x:Key="audioFilePath">[Empty]</x:String>
+            <x:String x:Key="audioFileName">BookIntro.mp3</x:String>
+            <x:String x:Key="ButtonWidth">165</x:String>
+            <x:String x:Key="SearchBarWidth">300</x:String>
+        </ResourceDictionary>
+        <toolkit:TimeSpanToSecondsConverter x:Key="TimeSpanConverter" />
+        <converter:SecondsToStringConverter x:Key="SecondsToStringConverter" />
+        <converter:MediaStateChangedEventArgsConverter x:Key="MediaStateChangedEventArgsConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <behavior:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding MainPageAppearingCommand}" />
+        <behavior:EventToCommandBehavior
+            EventName="Disappearing"
+            Command="{Binding MainPageDisappearingCommand}" />
+        <behavior:EventToCommandBehavior
+            EventName="Unloaded"
+            Command="{Binding MainPageUnloadedCommand}" />
+    </ContentPage.Behaviors>
+
+    <!-- Main Content Grid-->
+    <Grid x:Name="contentGrid">
+
+        <ScrollView>
+            <VerticalStackLayout
+                Spacing="25"
+                Padding="30,0"
+                VerticalOptions="Center">
+
+                <Border HeightRequest="70"
+                    WidthRequest="70"
+                    HorizontalOptions="Center"
+                    StrokeShape="RoundRectangle 70,70,70,70"
+                    SemanticProperties.HeadingLevel="None"
+                    SemanticProperties.Description="Three Azure Concentric Circles Image"
+                    SemanticProperties.Hint="Three Circles Image">
+                    <Image Style="{StaticResource SmallHeaderImage}" />
+                </Border>
+
+                <Label Text="Urantia Book Viewer"
+                       FontSize="32"
+                       HorizontalOptions="Center" 
+                       SemanticProperties.HeadingLevel="Level1"
+                       SemanticProperties.Description="Opening Title"
+                       SemanticProperties.Hint="Title" 
+                       TextColor="{AppThemeBinding Light={StaticResource Gray900}, 
+                                                   Dark={StaticResource PrimaryLight}}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            NumberOfTapsRequired="1"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=TappedGestureCommand}" 
+                            CommandParameter="PlayPause" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <SearchBar x:Name="searchBarControl" 
+                           Text="{Binding QueryInputString, Mode=TwoWay}" 
+                           WidthRequest="{x:StaticResource SearchBarWidth}"
+                           Placeholder="Enter search query ..."
+                           SemanticProperties.HeadingLevel="None"
+                           SemanticProperties.Hint="SearchBar query text."
+                           SemanticProperties.Description="Enter query text for searching the book.">
+                    <SearchBar.Behaviors>
+                        <behavior:EventToCommandBehavior
+                            EventName="SearchButtonPressed"
+                            Command="{Binding SubmitQueryCommand}"
+                            CommandParameter="{Binding QueryInputString}" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+
+                <Button Text="Query" 
+                        FontSize="18"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Hint="Query Button"
+                        SemanticProperties.Description="Query Button for submitting query text."
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding SubmitQueryCommand}"
+                        CommandParameter="{Binding QueryInputString}" />
+
+                <Button Text="Parts of Book"
+                        FontSize="18"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for navigating to Parts of Book page."
+                        SemanticProperties.Hint="Navigation Button."
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding NavigateToCommand}"
+                        CommandParameter="PartsPage" />
+
+                <Button Text="Titles of Papers"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for navigating to Titles of Papers page."
+                        SemanticProperties.Hint="Navigation Button."
+                        Style="{StaticResource AppButtonsStyle}"
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding NavigateToCommand}"
+                        CommandParameter="PaperTitles"/>
+
+                <Button Text="Settings" 
+                        FontSize="18"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for navigating to App Settings page."
+                        SemanticProperties.Hint="Navigation Button."
+                        Style="{StaticResource AppButtonsStyle}"
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding NavigateToCommand}"
+                        CommandParameter="AppSettings" />
+
+                <Button Text="Contacts" 
+                        FontSize="18"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for navigating to Contacts page."
+                        SemanticProperties.Hint="Navigation Button."
+                        Style="{StaticResource AppButtonsStyle}"
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding NavigateToCommand}"
+                        CommandParameter="AppContacts" />
+
+                <!--<Button Text="Notes" 
+                        FontSize="18"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for showing notes."
+                        SemanticProperties.Hint="Show Notes Button."
+                        Style="{StaticResource AppButtonsStyle}"
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding NavigateToCommand}"
+                        CommandParameter="AppNotesCollection"/>-->
+
+                <Button Text="Help" 
+                        FontSize="18"
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center" 
+                        SemanticProperties.HeadingLevel="None"
+                        SemanticProperties.Description="Button for showing popup."
+                        SemanticProperties.Hint="Show Popup Button."
+                        Style="{StaticResource AppButtonsStyle}"
+                        WidthRequest="{x:StaticResource ButtonWidth}"
+                        Command="{Binding NavigateToCommand}"
+                        CommandParameter="PopupHelp"/>
+
+                <!--<Button Text="Check Internet" 
+                FontSize="18"
+                FontAttributes="Bold" 
+                HorizontalOptions="Center" 
+                SemanticProperties.HeadingLevel="None"
+                SemanticProperties.Description="Button for checking connectivity."
+                SemanticProperties.Hint="Check Internet Button."
+                Style="{StaticResource AppButtonsStyle}"
+                WidthRequest="{x:StaticResource ButtonWidth}"
+                Command="{Binding CheckInternetCommand}" />-->
+
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </Grid>
+
+</ContentPage>

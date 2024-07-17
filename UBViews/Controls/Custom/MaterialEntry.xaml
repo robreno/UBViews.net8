@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:UBViews.Controls"
+             xmlns:viewodels="clr-namespace:UBViews.ViewModels"
+             x:Class="UBViews.Controls.MaterialEntry">
+
+    <!-- Make Grid.WidthRequest a BindableProperty of the Control -->
+    <Grid WidthRequest="250">
+        
+        <Label x:Name="meLabel" 
+               Text="{Binding Label}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
+                                                 Dark={StaticResource Black}}">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label" 
+                             Binding="{Binding Source={x:Reference meEntry}, Path=IsFocused}"
+                             Value="True">
+                    <Setter Property="TextColor"
+                            Value="{StaticResource Primary}"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Label" 
+                             Binding="{Binding Source={x:Reference meEntry}, Path=IsFocused}"
+                             Value="False">
+                    <Setter Property="TextColor"
+                            Value="{AppThemeBinding Dark={StaticResource White}, 
+                                                    Light={StaticResource Black}}"/>
+                </DataTrigger>
+            </Label.Triggers>
+        
+        </Label>
+
+        <Border x:Name="meBorder" 
+                BackgroundColor="Transparent"
+                StrokeShape="RoundRectangle 5"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" 
+                             Binding="{Binding Source={x:Reference meEntry}, Path=IsFocused}"
+                             Value="True">
+                    <Setter Property="Stroke"
+                            Value="{StaticResource Primary}"/>
+                    <Setter Property="StrokeThickness"
+                            Value="3"/>
+                </DataTrigger>
+                <DataTrigger TargetType="Border" 
+                             Binding="{Binding Source={x:Reference meEntry}, Path=IsFocused}"
+                             Value="False">
+                    <Setter Property="Stroke"
+                            Value="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
+                    <Setter Property="StrokeThickness"
+                            Value="1"/>
+                </DataTrigger>
+            </Border.Triggers>
+
+            <Border.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="Android"
+                        Value="20,0,20,0" />
+                </OnPlatform>
+            </Border.Padding>
+
+            <controls:BorderlessEntry x:Name="meEntry"
+                                      Text="{Binding Text}"
+                                      HorizontalOptions="Center"                  
+                                      VerticalOptions="Center"
+                                      WidthRequest="200"
+                                      HeightRequest="{OnPlatform iOS=40, MacCatalyst=40, WinUI=32}"
+                                      Focused="meEntry_Focused"
+                                      Unfocused="meEntry_Unfocused">
+                <controls:BorderlessEntry.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" 
+                            Value="20,0,20,0" />
+                        <On Platform="MacCatalyst" 
+                            Value="20,0,20,0" />
+                    </OnPlatform>
+                </controls:BorderlessEntry.Margin>
+            </controls:BorderlessEntry>
+
+        </Border>
+
+    </Grid>
+    
+</ContentView>

@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "path": "UBViews.sln",
+    "projects": [
+      "LexParser\\LexParser.fsproj",
+      "QueryEngine\\QueryEngine.fsproj",
+      "QueryFilter\\QueryFilter.fsproj",
+      "UBViews\\UBViews.csproj"
+    ]
+  }
+}

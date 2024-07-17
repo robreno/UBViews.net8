@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-windows10.0.19041.0</TargetFrameworks>
+    <!--<FsLexToolPath>..\..\src\FsLex\bin\$(Configuration)\net8.0</FsLexToolPath>
+    <FsYaccToolPath>..\..\src\FsYacc\bin\$(Configuration)\net8.0</FsYaccToolPath>-->
+  </PropertyGroup>
+
+  <!--<Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
+  <Import Project="..\..\src\FsLexYacc.Build.Tasks\FsLexYacc.targets" />-->
+
+  <ItemGroup>
+    <!--<FsYacc Include="Parser.fsy">
+      <OtherFlags>dashdash module UBViews.Query.Parser</OtherFlags>
+    </FsYacc>
+    <FsLex Include="Lexer.fsl">
+      <OtherFlags>dashdash unicode</OtherFlags>
+    </FsLex>-->
+    <Compile Include="FSharpStringExtensions.fs" />
+    <Compile Include="QueryTypes.fs" />
+    <Compile Include="Parser.fs" />
+    <Compile Include="Lexer.fs" />
+    <Compile Include="Evaluators.fs" />
+    <Compile Include="LexParser.fs" />
+    <None Include="Parser.fsy" />
+    <None Include="Lexer.fsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FsLexYacc.Runtime" Version="11.2.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>
