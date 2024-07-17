@@ -1,0 +1,4 @@
+
+Android Build Number error. Removed the following attributes from the AndroidManifest.xml file and it compiled without errors:
+
+ android:versionCode="1.8" android:versionName="1.8"
