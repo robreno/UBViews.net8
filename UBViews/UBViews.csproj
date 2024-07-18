@@ -130,6 +130,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Help\application_settings_a.png" />
+	  <None Remove="Resources\Images\Help\context_menu_a.png" />
+	  <None Remove="Resources\Images\Help\navigation_tooltip.png" />
 	  <None Remove="Resources\Images\quick_note.png" />
 	  <None Remove="Resources\Images\ub_viewer.png" />
 	  <None Remove="Resources\Images\urantia_circles_one.png" />
@@ -156,6 +159,12 @@
 	<ItemGroup>
 	  <Folder Include="Resources\Raw\Audio\" />
 	  <Folder Include="Resources\Raw\Notes\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Help\application_settings_a.png" />
+	  <MauiImage Include="Resources\Images\Help\context_menu_a.png" />
+	  <MauiImage Include="Resources\Images\Help\navigation_tooltip.png" />
 	</ItemGroup>
 
 	<ItemGroup>
