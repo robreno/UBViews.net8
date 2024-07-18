@@ -26,7 +26,6 @@ using UBViews.Models.Query;
 using UBViews.Services;
 using UBViews.Views;
 
-
 [QueryProperty(nameof(QueryLocations), nameof(QueryLocations))]
 public partial class QueryResultViewModel : BaseViewModel
 {
