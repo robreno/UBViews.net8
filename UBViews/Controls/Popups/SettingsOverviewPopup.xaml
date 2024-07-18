@@ -68,7 +68,7 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Image Source="application_settings.png" Aspect="AspectFit" />
+                    <Image Source="application_settings_a.png" Aspect="AspectFit" />
 
                     <Label Margin="10,10,10,10"
                            Style="{StaticResource RegularParagraph}">    
