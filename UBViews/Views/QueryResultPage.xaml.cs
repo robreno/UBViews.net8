@@ -1,6 +1,6 @@
 using UBViews.ViewModels;
 
-namespace UBViews;
+namespace UBViews.Views;
 
 public partial class QueryResultPage : ContentPage
 {
