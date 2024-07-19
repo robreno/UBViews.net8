@@ -636,14 +636,11 @@
             <!-- App Button Styles -->
             <Style x:Key="AppButtonsStyle"
                    TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, 
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light={StaticResource Primary}, 
                                                                            Dark={StaticResource Primary}}" />
-                <Setter Property="TextColor" Value="White" />
-            </Style>
-
-            <Style x:Name="PageHeadingVSL" TargetType="VerticalStackLayout">
-                <Setter Property="Margin" Value="0, 20, 0, 20" />
-                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="TextColor"
+                        Value="White" />
             </Style>
 
             <!-- Popup Styles -->
