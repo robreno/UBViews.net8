@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behavior="clr-namespace:UBViews.Behaviors"
-             xmlns:model="clr-namespace:UBViews.Models.Query"
+             xmlns:model="clr-namespace:UBViews.Models"
              xmlns:viewmodel="clr-namespace:UBViews.ViewModels"
              x:Class="UBViews.Views.QueryResultPage"
              Title="{Binding Title}"
@@ -11,7 +11,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:String x:Key="ButtonWidth">165</x:String>
-            <x:String x:Key="SearchBarWidth">400</x:String>
+            <x:String x:Key="SearchBarWidth">300</x:String>
         </ResourceDictionary>
         <Style x:Key="basePidStyle" TargetType="Label">
             <Setter Property="Margin" Value="0,20,5,0" />
@@ -36,7 +36,7 @@
                          HorizontalOptions="CenterAndExpand"
                          BackgroundColor="{Binding DefaultColorForMainVSL}">
 
-        <Label x:Name="maxQueryResultsLable" 
+        <Label x:Name="maxQueryResultsLabel" 
             Margin="0,20,0,0"
             VerticalOptions="Center"
             HorizontalOptions="Center"
@@ -53,10 +53,10 @@
             </Label.FormattedText>
         </Label>
 
-        <!--<Border Style="{StaticResource QuerySearchBarBorderStyle}">
+        <Border Style="{StaticResource QuerySearchBarBorderStyle}">
 
             <SearchBar x:Name="searchBar" 
-                       Text="{Binding QueryString, Mode=TwoWay}" 
+                       Text="{Binding QueryInputString, Mode=TwoWay}" 
                        ToolTipProperties.Text="Expand query based upon existing results ..."
                        WidthRequest="350"
                        Placeholder="Modify query here"
@@ -68,11 +68,11 @@
                     <behavior:EventToCommandBehavior 
                         EventName="SearchButtonPressed"
                         Command="{Binding SubmitQueryCommand}"
-                        CommandParameter="{Binding Text, Source={x: searchBar}}"/>
+                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
                 </SearchBar.Behaviors>
             </SearchBar>
 
-        </Border>-->
+        </Border>
 
         <HorizontalStackLayout x:Name="checkBoxLabelPair" 
                                HeightRequest="50"

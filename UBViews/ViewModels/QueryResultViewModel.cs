@@ -79,7 +79,7 @@ public partial class QueryResultViewModel : BaseViewModel
     bool isRefreshing;
 
     [ObservableProperty]
-    QueryResultLocationsDto queryLocations;
+    QueryResultLocationsDto queryLocations = new();
 
     [ObservableProperty]
     string queryString;
@@ -160,15 +160,15 @@ public partial class QueryResultViewModel : BaseViewModel
 
             if (dto.DefaultQueryString != null)
             {
-                QueryInputString = this.PreviousQueryInputString = dto.DefaultQueryString;
+                QueryInputString = PreviousQueryInputString = dto.DefaultQueryString;
             }
             else
             {
-                QueryInputString = this.PreviousQueryInputString = dto.QueryString;
+                QueryInputString = PreviousQueryInputString = dto.QueryString;
             }
                 
-            this.QueryHits = dto.Hits;
-            this.MaxQueryResults = await settingsService.Get("max_query_results", 50);
+            QueryHits = dto.Hits;
+            MaxQueryResults = await settingsService.Get("max_query_results", 50);
 
             string titleMessage = $"Query Result {QueryHits} hits ...";
             Title = titleMessage;
@@ -176,7 +176,7 @@ public partial class QueryResultViewModel : BaseViewModel
             var locations = dto.QueryLocations.Take(MaxQueryResults).ToList();
             foreach (var location in locations)
             {
-                this.QueryLocationsDto.Add(location);
+                QueryLocationsDto.Add(location);
             }
         }
         catch (NullReferenceException ex)
@@ -215,7 +215,7 @@ public partial class QueryResultViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            await App.Current.MainPage.DisplayAlert($"Exception raised => {_method}.", ex.Message, "Cancel");
+            await App.Current.MainPage.DisplayAlert($"Exception raised => {_class}.{_method}.", ex.Message, "Cancel");
             return;
         }
         finally
@@ -629,28 +629,37 @@ public partial class QueryResultViewModel : BaseViewModel
         try
         {
             FormattedString formattedString = new FormattedString();
-            await Task.Run(() =>
+
+            var paperId = paragraph.PaperId;
+            var seqId = paragraph.SeqId;
+            var pid = paragraph.Pid;
+            var labelName = "_" + paperId.ToString("000") + "_" + seqId.ToString("000");
+
+            Span tabSpan = new Span() { Style = (Style)App.Current.Resources["TabsSpan"] };
+            Span pidSpan = new Span()
             {
-                var paperId = paragraph.PaperId;
-                var seqId = paragraph.SeqId;
-                var pid = paragraph.Pid;
-                var labelName = "_" + paperId.ToString("000") + "_" + seqId.ToString("000");
+                Style = (Style)App.Current.Resources["PID"],
+                StyleId = labelName,
+                Text = pid
+            };
+            Span spaceSpan = new Span() { Style = (Style)App.Current.Resources["RegularSpaceSpan"] };
+            Span hitsSpan = new Span()
+            {
+                Style = (Style)App.Current.Resources["HID"],
+                StyleId = labelName,
+                Text = $"[hit {hit}]"
+            };
 
-                Span tabSpan = new Span() { Style = (Style)App.Current.Resources["TabsSpan"] };
-                Span pidSpan = new Span() { Style = (Style)App.Current.Resources["PID"], StyleId = labelName, Text = pid };
-                Span spaceSpan = new Span() { Style = (Style)App.Current.Resources["RegularSpaceSpan"] };
-                Span hitsSpan = new Span() { Style = (Style)App.Current.Resources["HID"], StyleId = labelName, Text = $"[hit {hit}]" };
+            formattedString.Spans.Add(hitsSpan);
+            formattedString.Spans.Add(tabSpan);
+            formattedString.Spans.Add(pidSpan);
+            formattedString.Spans.Add(spaceSpan);
 
-                formattedString.Spans.Add(hitsSpan);
-                formattedString.Spans.Add(tabSpan);
-                formattedString.Spans.Add(pidSpan);
-                formattedString.Spans.Add(spaceSpan);
+            foreach (var span in spans)
+            {
+                formattedString.Spans.Add(span);
+            }
 
-                foreach (var span in spans)
-                {
-                    formattedString.Spans.Add(span);
-                }
-            });
             return formattedString;
         }
         catch (Exception ex)
@@ -665,6 +674,7 @@ public partial class QueryResultViewModel : BaseViewModel
         try
         {
             Label label = new Label { FormattedText = fs };
+            //label.Style = (Style)App.Current.Resources["HighlightSpan"];
             label.ClassId = paperId + "." + seqId;
             TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.SetBinding(TapGestureRecognizer.CommandProperty, "TappedGestureCommand");

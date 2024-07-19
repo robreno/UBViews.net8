@@ -168,7 +168,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\LexParser\LexParser.fsproj" />
 	  <ProjectReference Include="..\QueryEngine\QueryEngine.fsproj" />
 	  <ProjectReference Include="..\QueryFilter\QueryFilter.fsproj" />
 	</ItemGroup>
