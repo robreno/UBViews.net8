@@ -70,7 +70,7 @@ public partial class QueryResultViewModel : BaseViewModel
     bool audioStreaming = false;
 
     [ObservableProperty]
-    bool isInitialized;
+    bool isInitialized = false;
 
     [ObservableProperty]
     string pageTitle;
@@ -141,7 +141,7 @@ public partial class QueryResultViewModel : BaseViewModel
 
     #region Relay Commands
     [RelayCommand]
-    async Task QueryResultAppearing(QueryResultLocationsDto dto)
+    async Task QueryResultPageAppearing(QueryResultLocationsDto dto)
     {
         string _method = "QueryResultAppearing";
         try
@@ -178,10 +178,7 @@ public partial class QueryResultViewModel : BaseViewModel
             {
                 QueryLocationsDto.Add(location);
             }
-        }
-        catch (NullReferenceException ex)
-        {
-            await App.Current.MainPage.DisplayAlert($"Null reference raised in {_class}.{_method} => ", ex.Message, "Cancel");
+            IsInitialized = true;
         }
         catch (Exception ex)
         {
@@ -191,12 +188,12 @@ public partial class QueryResultViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task QueryResultLoaded()
+    async Task QueryResultPageLoaded()
     {
         string _method = "QueryResultLoaded";
         try
         {
-            IsBusy = true;
+            IsBusy = true; IsInitialized = true;
 
             var locations = QueryLocationsDto;
             if (locations == null)
@@ -210,7 +207,7 @@ public partial class QueryResultViewModel : BaseViewModel
                 {
                     dtos.Add(location);
                 }
-                await LoadXamlAsync(dtos);
+                await LoadXamlAsync(dtos, IsInitialized);
             }
         }
         catch (Exception ex)
@@ -222,6 +219,26 @@ public partial class QueryResultViewModel : BaseViewModel
         {
             IsBusy = false;
             IsRefreshing = false;
+        }
+    }
+
+    [RelayCommand]
+    async Task QueryResultDisappearing()
+    {
+        string _method = "QueryResultDisappearing";
+        try
+        {
+            QueryLocationsDto.Clear();
+
+        }
+        catch (NullReferenceException ex)
+        {
+            await App.Current.MainPage.DisplayAlert($"Null reference raised in {_class}.{_method} => ", ex.Message, "Cancel");
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert($"Exception raised {_class}.{_method} => ", ex.Message, "Cancel");
+            return;
         }
     }
 

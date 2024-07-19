@@ -14,8 +14,8 @@
     </ContentPage.Resources>
     
     <ContentPage.Behaviors>
-        <behavior:EventToCommandBehavior
-            EventName="Loaded"
+        <behavior:EventToCommandBehavior 
+            EventName="Appearing"
             Command="{Binding AppDataPageAppearingCommand}"/>
     </ContentPage.Behaviors>
     
