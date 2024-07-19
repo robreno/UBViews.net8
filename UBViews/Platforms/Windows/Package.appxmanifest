@@ -29,7 +29,7 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
       <uap:VisualElements
         DisplayName="UBViews"
-        Description="Urantia Book Viewer"
+        Description="UBViews requires .NET Desktop Runtime. UBViews allows users to search and read the Urantia text and to share quotes with friends and family."
         Square150x150Logo="$placeholder$.png"
         Square44x44Logo="$placeholder$.png"
         BackgroundColor="transparent">
