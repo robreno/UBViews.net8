@@ -231,10 +231,6 @@ public partial class QueryResultViewModel : BaseViewModel
             QueryLocationsDto.Clear();
 
         }
-        catch (NullReferenceException ex)
-        {
-            await App.Current.MainPage.DisplayAlert($"Null reference raised in {_class}.{_method} => ", ex.Message, "Cancel");
-        }
         catch (Exception ex)
         {
             await App.Current.MainPage.DisplayAlert($"Exception raised {_class}.{_method} => ", ex.Message, "Cancel");
