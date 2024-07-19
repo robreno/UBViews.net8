@@ -22,8 +22,9 @@
     <ScrollView>
         
         <VerticalStackLayout x:Name="mainVSL">
-            
-            <VerticalStackLayout Style="{StaticResource PageHeadingVSL}">
+
+            <VerticalStackLayout Margin="0,20,0,20"
+                                 HorizontalOptions="Center">
                 <Label Text="Files"
                        FontSize="Title" 
                        HorizontalOptions="Center" />

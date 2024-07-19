@@ -28,7 +28,8 @@
     <VerticalStackLayout x:Name="mainVSL"
                          Padding="20,20,20,20">
 
-        <VerticalStackLayout Style="{StaticResource PageHeadingVSL}">
+        <VerticalStackLayout Margin="0,20,0,20"
+                             HorizontalOptions="Center">
             <Label Text="Application Settings"
                     FontSize="Title" 
                     HorizontalOptions="Center" />
