@@ -10,7 +10,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <x:String x:Key="ButtonWidth">165</x:String>
+            <x:String x:Key="ButtonWidth">160</x:String>
             <x:String x:Key="SearchBarWidth">300</x:String>
         </ResourceDictionary>
         <Style x:Key="basePidStyle" TargetType="Label">
@@ -32,19 +32,17 @@
             EventName="Disappearing"
             Command="{Binding QueryResultDisappearingCommand}" />
     </ContentPage.Behaviors>
-
     
     <VerticalStackLayout x:Name="mainVSL" 
-                         Margin="50"
                          HorizontalOptions="CenterAndExpand"
                          BackgroundColor="{Binding DefaultColorForMainVSL}">
 
-        <Label x:Name="maxQueryResultsLabel" 
-            Margin="0,20,0,0"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Style="{DynamicResource RegularParagraph}"
-            ToolTipProperties.Text="To display more query results go to settings page.">
+        <Label x:Name="maxQueryResultsLabel"
+               Margin="0,20,0,0"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Style="{DynamicResource RegularParagraph}"
+               ToolTipProperties.Text="To display more query results go to settings page.">
             <Label.FormattedText>
                 <FormattedString>
                     <Span Style="{StaticResource RegularSpan}" Text="Query Entered (" />
@@ -58,40 +56,37 @@
 
         <Border Style="{StaticResource QuerySearchBarBorderStyle}">
 
-            <SearchBar x:Name="searchBar" 
-                       Text="{Binding QueryInputString, Mode=TwoWay}" 
+            <SearchBar x:Name="searchBar"
+                       Text="{Binding QueryInputString, Mode=TwoWay}"
                        ToolTipProperties.Text="Expand query based upon existing results ..."
-                       WidthRequest="350"
+                       WidthRequest="{x:StaticResource SearchBarWidth}"
                        Placeholder="Modify query here"
                        SemanticProperties.Description="SearchBar for entering search query."
                        SemanticProperties.HeadingLevel="Level1"
-                       SemanticProperties.Hint="Text SearchBar"
-                       IsEnabled="True">
+                       SemanticProperties.Hint="Text SearchBar">
                 <SearchBar.Behaviors>
-                    <behavior:EventToCommandBehavior 
-                        EventName="SearchButtonPressed"
-                        Command="{Binding SubmitQueryCommand}"
-                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                    <behavior:EventToCommandBehavior EventName="SearchButtonPressed"
+                                                     Command="{Binding SubmitQueryCommand}"
+                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
                 </SearchBar.Behaviors>
             </SearchBar>
 
         </Border>
 
-        <HorizontalStackLayout x:Name="checkBoxLabelPair" 
-                               HeightRequest="50"
-                               BackgroundColor="{Binding DefaultColorForSelectionHSL}">
-            <Label x:Name="hideUncheckedLabel" 
-                Margin="10,0,0,0"
-                Text="Hide Unchecked" 
-                Style="{StaticResource CheckBoxCaption}"  />
-            <CheckBox x:Name="selectedCheckBox" 
-                   VerticalOptions="Start"
-                   IsChecked="{Binding HideUnselected, Mode=TwoWay}">
+        <HorizontalStackLayout x:Name="checkBoxLabelPair"
+                               HeightRequest="50">
+            <Label x:Name="hideUncheckedLabel"
+                   Margin="10,0,0,0"
+                   Text="Hide Unchecked"
+                   Style="{StaticResource CheckBoxCaption}" />
+            <CheckBox x:Name="selectedCheckBox"
+                      VerticalOptions="Start"
+                      IsChecked="{Binding HideUnselected, Mode=TwoWay}">
                 <CheckBox.Behaviors>
                     <behavior:EventToCommandBehavior 
-                     EventName="CheckedChanged" 
-                     Command="{Binding SelectedCheckboxChangedCommand}"
-                     CommandParameter="{Binding Source={x:Reference selectedCheckBox}, Path=IsChecked}"/>
+                        EventName="CheckedChanged"
+                        Command="{Binding SelectedCheckboxChangedCommand}"
+                        CommandParameter="{Binding Source={x:Reference selectedCheckBox}, Path=IsChecked}" />
                 </CheckBox.Behaviors>
             </CheckBox>
         </HorizontalStackLayout>
@@ -107,20 +102,20 @@
                     CommandParameter="{Binding QueryString}" />
         </HorizontalStackLayout>
 
-        <ScrollView x:Name="contentScrollView" 
+        <ScrollView x:Name="contentScrollView"
                     HorizontalOptions="Center"
-                    MaximumHeightRequest="550"
                     MaximumWidthRequest="750"
-                    VerticalScrollBarVisibility="Default"
-                    BackgroundColor="{Binding DefaultColorForScrollView}">
+                    MaximumHeightRequest="550"
+                    HorizontalScrollBarVisibility="Always">
 
+            <!--<VerticalStackLayout x:Name="outerVerticalStackLayout">-->
 
             <VerticalStackLayout x:Name="contentVerticalStackLayout"
-                                 HorizontalOptions="Center"
-                                 BackgroundColor="{Binding DefaulColorForContentVSL}">
+                                 Style="{DynamicResource QueryResultContentVSL}">
 
             </VerticalStackLayout>
 
+            <!--</VerticalStackLayout>-->
 
         </ScrollView>
 
