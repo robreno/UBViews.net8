@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+               xmlns:bahaviors="clr-namespace:UBViews.Behaviors"
+               xmlns:viewmodels="clr-namespace:UBViews.ViewModels"            
+               x:Class="UBViews.Controls.Help.PrivacyPolicyOverviewPopup"
+               x:DataType="viewmodels:PopupViewModel">
+
+    <Border x:Name="popuBorder" 
+            Stroke="Blue">
+        
+        <VerticalStackLayout BackgroundColor="WhiteSmoke">
+
+            <Label Text="Privacy Policy Overview"
+                   Style="{StaticResource PopupTitleLabel}" />
+
+            <ScrollView x:Name="mainScrollView"
+                        Style="{StaticResource PopupScrollViewStyle}">
+
+                <VerticalStackLayout x:Name="mainSCVSL">
+
+                    <Label Margin="10,10,10,10"
+                           Style="{StaticResource RegularParagraph}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Privacy Policy: "
+                                      FontAttributes="Bold"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Text="UBViews, published by Agondonter Media, takes your privacy seriously."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="To better protect your privacy I provide this privacy policy notice"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="explaining the way your personal information is collected and used."
+                                      Style="{StaticResource RegularSpan}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Margin="10,10,10,10"
+                           Style="{StaticResource RegularParagraph}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Collection of Routine Information: "
+                                      FontAttributes="Bold"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Text="UBViews does not collect or track basic information about users."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="It does not track a users IP address or App usage details or timestamps."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="UBViews allows users to save queries to a local XML storage file."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="User queries are saved to the Local storage of the App to facilitate"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="faster query searches. Users can add contact details for those"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="they want to share Urantia quotes with via email."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="The personal information saved to the Contacts XML file are"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="first name, last name, alias, and email address."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="Contacts information is not backed up to cloud or shared with third parties."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Margin="10,10,10,10"
+                           Style="{StaticResource RegularParagraph}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Security: "
+                                      FontAttributes="Bold"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Text="The security of your personal information is important to us,"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="but remember that no method of transmission over the Internet,"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="or method of electronic storage, is 100% secure. While we strive"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="to use commercially acceptable means to protect your personal"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="information, we cannot guarantee its absolute security."
+                                      Style="{StaticResource RegularSpan}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Margin="10,10,10,10"
+                           Style="{StaticResource RegularParagraph}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Changes to Privacy Policy: "
+                                      FontAttributes="Bold"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Text="This Privacy Policy is effective as of July 13, 2024"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="and will remain in effect except with respect to any changes"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="in its provisions in the future, which will be in effect immediately"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="after being posted on this page."
+                                      Style="{StaticResource RegularSpan}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Margin="10,10,10,10"
+                           Style="{StaticResource RegularParagraph}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="We reserve the right to update or change our Privacy Policy"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="at any time and you should check this Privacy Policy periodically."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="If we make any material changes to this Privacy Policy, we will"
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="update this privacy policy and post it here."
+                                      Style="{StaticResource RegularSpan}" />
+                                <Span Style="{StaticResource RegularSpaceSpan}" />
+                                <Span Text="Please direct all inquiries to ubviewsinfo@gmail.com."
+                                      Style="{StaticResource RegularSpan}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                </VerticalStackLayout>
+                
+            </ScrollView>
+
+            <Button x:Name="closePopup" 
+                    Text="Close"
+                    Margin="20"
+                    WidthRequest="165"
+                    VerticalOptions="End">
+                <Button.Behaviors>  
+                    <bahaviors:EventToCommandBehavior 
+                        EventName="Clicked"
+                        Command="{Binding ClosePopupCommand}"
+                        CommandParameter="{Binding .}"/>
+                </Button.Behaviors>
+            </Button>
+            
+        </VerticalStackLayout>
+    </Border>
+    
+</toolkit:Popup>

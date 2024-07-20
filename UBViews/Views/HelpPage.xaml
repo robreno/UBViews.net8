@@ -199,6 +199,54 @@
                     </Label.FormattedText>
                 </Label>
             </Border>
+            
+            <Border x:Name="privacyPolicyOverviewBorder"
+                    Style="{StaticResource TitleBorderStyle}"
+                    Margin="0,10,0,0"
+                    Stroke="Blue"
+                    StrokeThickness="5">
+                <Label x:Name="privacyPolicyLabel"
+                       Text="Privacy Policy Overview"
+                       Style="{StaticResource RegularParagraph}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                AncestorType={x:Type viewmodel:HelpViewModel}}, 
+                                Path=ShowPopupCommand}"
+                                              CommandParameter="PrivacyPolicyOverviewPopup" />
+                    </Label.GestureRecognizers>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Style="{StaticResource PopupTabsSpan}" />
+                            <Span Text="Privacy Policy Overview"
+                                  Style="{StaticResource PopupTitleSpan}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Border>
+
+            <Border x:Name="aboutOverviewBorder"
+                    Style="{StaticResource TitleBorderStyle}"
+                    Margin="0,10,0,0"
+                    Stroke="Blue"
+                    StrokeThickness="5">
+                <Label x:Name="aboutPolicyLabel"
+                       Text="About UBViews Overview"
+                       Style="{StaticResource RegularParagraph}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                    AncestorType={x:Type viewmodel:HelpViewModel}}, 
+                    Path=ShowPopupCommand}"
+                                              CommandParameter="AboutOverviewPopup" />
+                    </Label.GestureRecognizers>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Style="{StaticResource PopupTabsSpan}" />
+                            <Span Text="About UBViews Overview"
+                                  Style="{StaticResource PopupTitleSpan}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Border>
 
         </VerticalStackLayout>
 

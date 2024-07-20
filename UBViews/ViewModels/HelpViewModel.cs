@@ -90,6 +90,14 @@ public partial class HelpViewModel : BaseViewModel
             //{
             //    popup = new NotesPopup(new PopupViewModel());
             //}
+            else if (target == "PrivacyPolicyOverviewPopup")
+            {
+                popup = new PrivacyPolicyOverviewPopup(new PopupViewModel());
+            }
+            else if (target == "AboutOverviewPopup")
+            {
+                popup = new AboutOverviewPopup(new PopupViewModel());
+            }
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
                 Shell.Current.CurrentPage.ShowPopup(popup);

@@ -127,6 +127,7 @@
 
 	<ItemGroup>
 	  <Compile Remove="Controls\NewNoteControl.xaml.cs" />
+	  <Compile Remove="Controls\Popups\AboutOverviewPopup - Copy.xaml.cs" />
 	  <Compile Remove="Controls\Popups\NotesPopup.xaml.cs" />
 	  <Compile Remove="Helpers\NoteService.cs" />
 	  <Compile Remove="Helpers\ServiceProvider.cs" />
@@ -156,6 +157,7 @@
 
 	<ItemGroup>
 	  <MauiXaml Remove="Controls\NewNoteControl.xaml" />
+	  <MauiXaml Remove="Controls\Popups\AboutOverviewPopup - Copy.xaml" />
 	  <MauiXaml Remove="Controls\Popups\NotesPopup.xaml" />
 	  <MauiXaml Remove="Views\NotesCollectionPage.xaml" />
 	  <MauiXaml Remove="Views\NotesDialogPage.xaml" />
@@ -206,6 +208,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Controls\Popups\AboutOverviewPopup.xaml.cs">
+	    <DependentUpon>AboutOverviewPopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiAsset Update="Resources\Raw\Templates\Notes.xml">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiAsset>
@@ -242,10 +250,16 @@
 	  <MauiXaml Update="Controls\Popups\NavigationOverviewPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\Popups\PrivacyPolicyOverviewPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\Popups\SearchOverviewPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\Popups\SettingsOverviewPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\Popups\AboutOverviewPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\Popups\SharingOverviewPopup.xaml">
