@@ -1496,10 +1496,6 @@ public partial class AudioService : IAudioService
         string _method = "DownloadAudioFileAsync";
         try
         {
-            // C:\Users\robre\AppData\Local\Packages\879ca98e-d45e-44b3-9be6-e6d900695058_9zz4h110yvjzm\LocalState
-
-            // https://dev.to/1001binary/download-file-using-httpclient-wrapper-asynchronously-1p6
-
             // Setup Uri and File Path
             string uriBasePath = "https://s3.amazonaws.com/urantia/media/en/";
             string uriFullPath = uriBasePath + fileName;
