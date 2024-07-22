@@ -1,0 +1,12 @@
+// C:\Users\robre\AppData\Local\Packages\64251AgondonterMedia.63599A5E40A94_eybjt1st3sczw\LocalState
+
+// https://dev.to/1001binary/download-file-using-httpclient-wrapper-asynchronously-1p6
+
+/* TODO:
+                1>C:\Archive\GitHub\UBViews_2024\UBViews\UBViews\ViewModels\XmlAppSettingsViewModel.cs(530,32,530,81): 
+                warning CA1416: This call site is reachable on: 'MacCatalyst' 13.1 and later. 
+                'IFolderPicker.PickAsync(CancellationToken)' is only supported on: 'Android', 'iOS' 14.0 and later, 
+                'maccatalyst' 14.0 and later, 'Tizen', 'Windows'. 
+                (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1416)
+             * 
+             */

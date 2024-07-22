@@ -32,6 +32,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C4C3AB12-106F-4EE7-B21B-F2C860C514F1}"
 	ProjectSection(SolutionItems) = preProject
 		Build_Error_Log.txt = Build_Error_Log.txt
+		AppInitializationNotes.txt = AppInitializationNotes.txt
 		Microsoft Store Submission Reports.txt = Microsoft Store Submission Reports.txt
 		Package.StoreAssociation.txt = Package.StoreAssociation.txt
 		Publishing.txt = Publishing.txt
