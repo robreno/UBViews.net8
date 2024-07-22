@@ -20,7 +20,6 @@ namespace UBViews.Helpers
     public class FSRepositoryService : IFSRepositoryService
     {
         #region Private Members
-        // C:\Users\robre\AppData\Local\Packages\879ca98e-d45e-44b3-9be6-e6d900695058_9zz4h110yvjzm\LocalState
         private static string _queriesDbPathLocalState = Path.Combine(FileSystem.AppDataDirectory, "queryResults.db3");
         private static string _queriesDbPathLocalCache =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "queryResults.db3");
