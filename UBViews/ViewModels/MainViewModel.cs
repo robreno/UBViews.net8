@@ -6,11 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
-//using System;
-//using System.Collections.ObjectModel;
-//using Microsoft.FSharp.Collections;
-//using Microsoft.FSharp.Core;
-
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Alerts;
 using Microsoft.Maui.Controls;
@@ -24,9 +19,6 @@ using UBViews.Models.Query;
 using UBViews.Models.Audio;
 using UBViews.Views;
 using UBViews.Models;
-
-//using UBViews.Models.Ubml;
-//using UBViews.Models.Notes;
 
 using UBViews.Controls.Help;
 using UBViews.ViewModels;

@@ -15,8 +15,6 @@ using CommunityToolkit.Mvvm.Input;
 using UBViews.Models.AppData;
 using UBViews.Services;
 
-// C:\Users\robre\AppData\Local\Packages\879ca98e-d45e-44b3-9be6-e6d900695058_9zz4h110yvjzm\LocalState
-
 public partial class AddContactsViewModel : ObservableValidator
 {
     /// <summary>

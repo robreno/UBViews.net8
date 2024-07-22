@@ -526,14 +526,6 @@ public partial class XmlAppSettingsViewModel : BaseViewModel
         string _method = "PickFolderAsync";
         try
         {
-            /* TODO:
-                1>C:\Archive\GitHub\UBViews_2024\UBViews\UBViews\ViewModels\XmlAppSettingsViewModel.cs(530,32,530,81): 
-                warning CA1416: This call site is reachable on: 'MacCatalyst' 13.1 and later. 
-                'IFolderPicker.PickAsync(CancellationToken)' is only supported on: 'Android', 'iOS' 14.0 and later, 
-                'maccatalyst' 14.0 and later, 'Tizen', 'Windows'. 
-                (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1416)
-             * 
-             */
             var result = await FolderPicker.Default.PickAsync(cancellationToken);
             string _name = string.Empty;
             string _path = string.Empty;

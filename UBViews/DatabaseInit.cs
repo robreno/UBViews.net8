@@ -15,14 +15,10 @@ namespace UBViews
         private string innerMessage = string.Empty;
 
         #region Database Paths and Data Members 
-        // C:\Users\robre\AppData\Local\Packages\64251AgondonterMedia.UBViews_eybjt1st3sczw\LocalState
         private string _appLocalState = FileSystem.Current.AppDataDirectory;
-        // C:\Users\robre\AppData\Local\Packages\com.agmedia.ubviews_9zz4h110yvjzm\LocalState
         private string _appLocalCache = FileSystem.Current.CacheDirectory;
-        // C:\Users\robre\AppData\Local\Packages\com.agmedia.ubviews_9zz4h110yvjzm\LocalState\postingLists.db3
         private string _plDatabaseName = "postingLists.db3";
         private string _postingsPathName = Path.Combine(FileSystem.Current.AppDataDirectory, "postingLists.db3");
-        // C:\Users\robre\AppData\Local\Packages\com.agmedia.ubviews_9zz4h110yvjzm\LocalState\queryResults.db3
         private string _qrDatabaseName = "queryResults.db3";
         private string _queriesPathName = Path.Combine(FileSystem.Current.AppDataDirectory, "queryResults.db3");
         #endregion
