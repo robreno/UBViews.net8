@@ -1,0 +1,132 @@
+public async Task<bool> DownloadAudioFileAsync()
+    {
+        string _method = "DownloadAudioFileAsync";
+        try
+        {
+            bool isSuccess = false;
+            if (File.Exists(AudioDownloadFullPathName))
+            {
+                isSuccess = true;
+            }
+            else
+            {
+                if (ValidAudioDownloadPath)
+                {
+                    using (var client = new HttpClient())
+                    {
+                        var response = await client.GetAsync(AudioUri);
+                        var result = response.EnsureSuccessStatusCode();
+                        if (result.IsSuccessStatusCode)
+                        {
+                            var stream = await response.Content.ReadAsStreamAsync();
+                            var fileInfo = new FileInfo(AudioDownloadFullPathName);
+                            using (var fileStream = fileInfo.OpenWrite())
+                            {
+                                await stream.CopyToAsync(fileStream);
+                            }
+                            isSuccess = true;
+                        }
+                        else
+                        {
+                            throw new Exception("File not found");
+                        }
+                    }
+                    return isSuccess;
+                }
+                else
+                {
+                    throw new Exception("Invalid Audio Path.");
+                }
+            }
+            return isSuccess;
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert($"Exception raised in {_class}.{_method} => ", ex.Message, "Cancel");
+            return false;
+        }
+    }
+    public async Task<bool> DownloadAudioFileExAsync()
+    {
+        string _method = "DownloadAudioFileAsync";
+        try
+        {
+            bool isSuccess = false;
+
+            if (ValidAudioDownloadPath)
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(AudioUri);
+                    var result = response.EnsureSuccessStatusCode();
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var stream = await response.Content.ReadAsStreamAsync();
+                        var fileInfo = new FileInfo(AudioDownloadFullPathName);
+                        using (var fileStream = fileInfo.OpenWrite())
+                        {
+                            await stream.CopyToAsync(fileStream);
+                        }
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        throw new Exception("File not found");
+                    }
+                }
+                return isSuccess;
+            }
+            else
+            {
+                throw new Exception("Invalid Audio Path.");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert($"Exception raised in {_class}.{_method} => ", ex.Message, "Cancel");
+            return false;
+        }
+    }
+    public async Task<bool> DownloadAudioFileAsync(string fileName, string audioDir)
+    {
+        string _method = "DownloadAudioFileAsync";
+        try
+        {
+            bool isSuccess = false;
+
+            // Setup Uri and File Path
+
+            string uriBasePath = AudioUriString;
+            string uriFullPath = uriBasePath + fileName;
+            Uri uri = new Uri(uriFullPath);
+
+            string fileNamePath = Path.Combine(audioDir, "000.mp3");
+
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(uri);
+                var result = response.EnsureSuccessStatusCode();
+                if (result.IsSuccessStatusCode)
+                {
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    var fileInfo = new FileInfo(fileNamePath);
+                    using (var fileStream = fileInfo.OpenWrite())
+                    {
+                        await stream.CopyToAsync(fileStream);
+                    }
+                    isSuccess = true;
+                }
+                else
+                {
+                    throw new Exception("File not found");
+                }
+            }
+            return isSuccess;
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert($"Exception raised in {_class}.{_method} => ", ex.Message, "Cancel");
+            return false;
+        }
+    }

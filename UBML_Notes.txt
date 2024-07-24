@@ -1,0 +1,4 @@
+
+Last sentence in the audio file is missing.
+
+<Paragraph seqId="66" pid="89:7.3" uid="066.089.007.003" startTime="0:30:32.787" endTime="0:31:5.556" Text="Even after most groups had ceased the ritual killing of children, it was the custom to put an infant away by itself, off in the wilderness or in a little boat on the water. If the child survived, it was thought that the gods had intervened to preserve him, as in the traditions of Sargon, Moses, Cyrus, and Romulus. Then came the practice of dedicating the first-born sons as sacred or sacrificial, allowing them to grow up and then exiling them in lieu of death; this was the origin of colonization. {missing audio:The Romans adhered to this custom in their scheme of colonization.}" />
