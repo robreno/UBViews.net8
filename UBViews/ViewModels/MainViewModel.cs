@@ -150,7 +150,7 @@ public partial class MainViewModel : BaseViewModel
 
             AudioStatus = await settingsService.Get("audio_status", "off");
             AudioStreaming = await settingsService.Get("stream_audio", false);
-            AudioDownloadStatus = await settingsService.Get("audio_download_status", "off");
+            //AudioDownloadStatus = await settingsService.Get("audio_download_status", "off");
 
             await audioService.SetContentPageAsync(contentPage);
 
@@ -244,10 +244,6 @@ public partial class MainViewModel : BaseViewModel
                         AudioStreaming = _streamAudio;
                     }
                     else if (message.Contains("Audio download"))
-                    {
-                        var _downloadStatus = await settingsService.Get("audio_download_status", "off");
-                        AudioDownloadStatus = _downloadStatus;
-                    }
                     return;
                 }
 
