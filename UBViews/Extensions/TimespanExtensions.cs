@@ -101,4 +101,17 @@ public static class TimespanExtensions
 
 		return ret;
 	}
+
+    public static string ToDisplayString(this TimeSpan t)
+    {
+        string ret = "";
+		ret = $"{t.Hours.ToString("D2")}"
+			+ ":" 
+			+ $"{t.Minutes.ToString("D2")}"
+			+ ":" 
+			+ $"{t.Seconds.ToString("D2")}"
+			+ "."
+			+ $"{t.Milliseconds.ToString("D2")}";
+        return ret;
+    }
 }
