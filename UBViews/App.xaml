@@ -567,30 +567,18 @@
                 <Setter Property="IsEnabled" Value="True" />
             </Style>
 
-            <Style x:Key="QueryResultBorderStyle"
-                   TargetType="Border">
-                <Setter Property="Stroke"
-                        Value="Blue" />
-                <Setter Property="StrokeShape"
-                        Value="RoundRectangle 10,10,10,10" />
-                <Setter Property="StrokeThickness"
-                        Value="3" />
-                <Setter Property="Padding"
-                        Value="10" />
-                <Setter Property="Margin"
-                        Value="10,5,10,5" />
-                <Setter Property="WidthRequest"
-                        Value="600" />
-                <Setter Property="MinimumWidthRequest"
-                        Value="600" />
-                <Setter Property="MaximumWidthRequest"
-                        Value="800" />
-                <Setter Property="MinimumHeightRequest"
-                        Value="200" />
-                <Setter Property="MaximumHeightRequest"
-                        Value="600" />
-                <Setter Property="HorizontalOptions"
-                        Value="Center" />
+            <Style x:Key="QueryResultBorderStyle" TargetType="Border">
+                <Setter Property="Stroke" Value="Blue" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+                <Setter Property="StrokeThickness" Value="3" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="10,5,10,5" />
+                <Setter Property="WidthRequest" Value="600" />
+                <Setter Property="MinimumWidthRequest" Value="600" />
+                <Setter Property="MaximumWidthRequest" Value="800" />
+                <Setter Property="MinimumHeightRequest" Value="200" />
+                <Setter Property="MaximumHeightRequest" Value="600" />
+                <Setter Property="HorizontalOptions" Value="Center" />
             </Style>
 
             <!-- Note Border Style-->
