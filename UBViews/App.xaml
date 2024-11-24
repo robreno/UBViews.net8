@@ -577,7 +577,6 @@
                 <Setter Property="MinimumWidthRequest" Value="600" />
                 <Setter Property="MaximumWidthRequest" Value="800" />
                 <Setter Property="MinimumHeightRequest" Value="200" />
-                <Setter Property="MaximumHeightRequest" Value="600" />
                 <Setter Property="HorizontalOptions" Value="Center" />
             </Style>
 
