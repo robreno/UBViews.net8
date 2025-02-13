@@ -12,7 +12,6 @@ using UBViews.Models;
 public interface IDownloadService
 {
     Task InitializeDataAsync(ContentPage contentPage, PaperDto dto);
-    Task<bool> DownloadAudioFileAsync();
-    Task<bool> DownloadAudioFileAsync(string fileName, string audioDir);
-    Task<bool> DownloadAudioFileAsync(Uri uri, string audioDir);
+    Task<bool> DownloadAudioFileAsync(Uri sourceUri, string targetFullPathName);
+    Task<bool> DownloadAudioFileExAsync(Uri sourceUri, string targetFullPathName);
 }

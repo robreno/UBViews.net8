@@ -23,7 +23,7 @@ public interface IAudioService
     /// <param name="mediaElement"></param>
     /// <param name="dto"></param>
     /// <returns></returns>
-    Task InitializeDataAsync(ContentPage contentPage, IMediaElement mediaElement, PaperDto dto);
+    Task InitializeDataAsync(ContentPage contentPage, IMediaElement mediaElement, PaperDto dto, Uri uri);
 
     /// <summary>
     /// 
