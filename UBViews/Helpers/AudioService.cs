@@ -74,28 +74,32 @@ public partial class AudioService : IAudioService
     #region   Services
     IFileService fileService;
     IAppSettingsService settingsService;
+    IDownloadService downloadService;
     #endregion
 
     #region   Constructors
-    public AudioService(IFileService fileService, IAppSettingsService settingsService)
+    public AudioService(IFileService fileService, IAppSettingsService settingsService, IDownloadService downloadService)
     {
         this.fileService = fileService;
         this.settingsService = settingsService;
+        this.downloadService = downloadService;
     }
     #endregion
 
     #region  Public Properties
+    public bool Initialized { get; set; } = false;
     public bool ContentPageInitialized { get; set; } = false;
     public bool MediaElementInitialized { get; set; } = false;
     public bool ShowPlaybackControls { get; set; } = false;
     public bool SendToastState { get; set; } = false;
-    public bool AudioDownloadStatus { get; set; } = false;
-    public bool AudioStreamingStatus { get; set; } = false;
+    
+
     public MediaStatePair MediaState { get; set; } = new();
     public MediaStatePair MediaElementMediaState { get; set; } = new();
-    public AudioFlag AudioStatus { get; set; } = new();
+    public AudioFlag AudioStatusFlag { get; set; } = new();
     public AudioMarkerSequence Markers { get; set; } = new();
     public PaperDto PaperDto { get; set; } = null;
+
     public int PaperId { get; set; }
     public string Plattform { get; set; }
     public string PaperTitle { get; set; }
@@ -108,6 +112,20 @@ public partial class AudioService : IAudioService
     public TimeSpan EndTime { get; set; }
     public string PreviousState { get; set; }
     public string CurrentState { get; set; }
+
+    public bool AudioDownloadStatus { get; set; } = false;
+    public bool AudioStreamingStatus { get; set; } = false;
+    public bool ValidAudioDownloadPath { get; set; } = false;
+    public bool ValidAudioUriPath { get; set; } = false;
+    public bool AudioFolderExists { get; set; } = false;
+    public string AudioUriString { get; set; } = null;
+    public Uri AudioUri { get; set; } = null;
+    public string AudioFileName { get; set; } = null;
+    public bool AudioFileDownloaded { get; set; } = false;
+    public string AudioStatus { get; set; }
+    public string AudioDownloadPath { get; set; } = null;
+    public string AudioDownloadFullPathName { get; set; } = null;
+    public string LocalStatePath { get; set; } = FileSystem.AppDataDirectory;
     #endregion
 
     #region  Interface Implementations
@@ -118,24 +136,64 @@ public partial class AudioService : IAudioService
     /// <param name="mediaElement"></param>
     /// <param name="dto"></param>
     /// <returns></returns>
-    public async Task InitializeDataAsync(ContentPage contentPage, IMediaElement mediaElement, PaperDto dto)
+    public async Task InitializeDataAsync(ContentPage contentPage, IMediaElement mediaElement, PaperDto dto, Uri uri)
     {
         string _method = "InitializeDataAsync";
         try
         {
-            this.httpClient = new HttpClient();
             this.contentPage = contentPage;
             this.mediaElement = mediaElement;
             await SetPaperDtoAsync(dto);
 
-            var audioStatus = await settingsService.Get("audio_status", "off");
-            if (audioStatus.Equals("on"))
+
+            AudioFileName = PaperDto.Id.ToString("000") + ".mp3";
+
+            if (uri != null)
             {
-                AudioStatus.SetAudioStatus(AudioFlag.AudioStatus.On);
+                AudioUriString = uri.OriginalString;
+                AudioUri = uri;
+                ValidAudioUriPath = true;
+            }
+
+            AudioStatus = await settingsService.Get("audio_status", "off");
+            AudioStreamingStatus = await settingsService.Get("stream_audio", false);
+            string audioFolderPath = await settingsService.Get("audio_folder_path", @"LocalState\AudioFiles");
+            string audioFolderName = await settingsService.Get("audio_folder_name", "AudioFiles");
+
+            if (!string.IsNullOrEmpty(audioFolderPath) && !string.IsNullOrEmpty(audioFolderName))
+            {
+                if (audioFolderPath == @"LocalState\AudioFiles")
+                {
+                    AudioDownloadPath = Path.Combine(LocalStatePath, audioFolderName);
+                    AudioFolderExists = Directory.Exists(AudioDownloadPath);
+                    if (!AudioFolderExists)
+                    {
+                        System.IO.Directory.CreateDirectory(AudioDownloadPath);
+                    }
+                    ValidAudioDownloadPath = true;
+                }
+                else
+                {
+                    AudioDownloadPath = audioFolderPath;
+                    ValidAudioDownloadPath = true;
+                }
+
+                if (ValidAudioDownloadPath)
+                {
+                    AudioDownloadFullPathName = Path.Combine(AudioDownloadPath, AudioFileName);
+                    AudioFileDownloaded = File.Exists(AudioDownloadFullPathName);
+                }
+            }
+
+            Initialized = (ValidAudioUriPath && ValidAudioDownloadPath);
+
+            if (AudioStatus.Equals("on"))
+            {
+                AudioStatusFlag.SetAudioStatus(AudioFlag.AudioStatus.On);
             }
             else
             {
-                AudioStatus.SetAudioStatus(AudioFlag.AudioStatus.Off);
+                AudioStatusFlag.SetAudioStatus(AudioFlag.AudioStatus.Off);
             }
 
             CurrentState = "None";
@@ -294,7 +352,7 @@ public partial class AudioService : IAudioService
     /// </summary>
     /// <param name="paperId"></param>
     /// <returns></returns>
-    public async Task<AudioMarkerSequence> LoadAudioMarkersAsync(int paperId)
+    public async Task<AudioMarkerSequence> LoadAudioMarkersExAsync(int paperId)
     {
         string _method = "LoadAudioMarkersAsync";
         try
@@ -302,6 +360,46 @@ public partial class AudioService : IAudioService
             var fileName = paperId.ToString("000") + ".audio.xml";
             var content = await fileService.LoadAsset("AudioMarkers", fileName);
             var xDoc = XDocument.Parse(content);
+            var root = xDoc.Root;
+            var markers = root.Descendants("Marker");
+
+            List<int> astriskSeqIds = new List<int>();
+            bool isAstriskPaper = _astriskDic.TryGetValue(paperId, out astriskSeqIds);
+            foreach (var marker in markers)
+            {
+                int seqId = Int32.Parse(marker.Attribute("seqId").Value);
+                if (isAstriskPaper)
+                {
+                    if (astriskSeqIds.Contains(seqId))
+                    {
+                        continue;
+                    }
+                }
+                var newMarker = new AudioMarker(marker);
+                Markers.Insert(newMarker);
+                AudioMarkers.Add(newMarker);
+            }
+            return Markers;
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert($"Exception raised in {_class}.{_method} => ", ex.Message, "Ok");
+            return null;
+        }
+    }
+    public async Task<AudioMarkerSequence> LoadAudioMarkersAsync(int paperId)
+    {
+        string _method = "LoadAudioMarkersAsync";
+        try
+        {
+            var filePathName = @"AudioMarkers\" + paperId.ToString("000") + ".audio.xml";
+            string targetFile = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, filePathName);
+
+            using FileStream inputStream = System.IO.File.OpenRead(targetFile);
+            using StreamReader reader = new StreamReader(inputStream);
+            string _content = reader.ReadToEnd();
+
+            var xDoc = XDocument.Parse(_content);
             var root = xDoc.Root;
             var markers = root.Descendants("Marker");
 
@@ -417,13 +515,13 @@ public partial class AudioService : IAudioService
         {
             if (value)
             {
-                AudioStatus.SetAudioStatus(AudioFlag.AudioStatus.On);
+                AudioStatusFlag.SetAudioStatus(AudioFlag.AudioStatus.On);
                 Preferences.Default.Set("audio_status", "on");
                 await settingsService.Set("audio_status", "on");
             }
             else
             {
-                AudioStatus.SetAudioStatus(AudioFlag.AudioStatus.Off);
+                AudioStatusFlag.SetAudioStatus(AudioFlag.AudioStatus.Off);
                 Preferences.Default.Set("audio_status", "off");
                 await settingsService.Set("audio_status", "off");
             }
@@ -508,7 +606,7 @@ public partial class AudioService : IAudioService
         try
         {
             bool _state = false;
-            var state = AudioStatus.State;
+            var state = AudioStatusFlag.State;
             switch (state)
             {
                 case AudioFlag.AudioStatus.Off:
@@ -810,13 +908,6 @@ public partial class AudioService : IAudioService
         string _method = "DownloadAudioFile";
         try
         {
-            // Create Download Directory if doesn't exist
-            string audioDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "AudioFiles");
-            if (!Directory.Exists(audioDir))
-            {
-                System.IO.Directory.CreateDirectory(audioDir);
-            }
-
             // Setup Uri and File Path
             //string uriBasePath = "https://s3.amazonaws.com/urantia/media/en/";
             //string uriFullPath = uriBasePath + fileName;
@@ -880,7 +971,7 @@ public partial class AudioService : IAudioService
 
             // https://stackoverflow.com/questions/73403608/net-maui-c-sharp-background-task-continuewith-and-notification-event
 
-            await DownloadAudioFileAsync(fileName, audioDir);
+            //await DownloadAudioFileAsync(fileName, audioDir);
         }
         catch (Exception ex)
         {
@@ -988,7 +1079,7 @@ public partial class AudioService : IAudioService
             return;
         }
     }
-    public async Task TappedGestureAsync(string id)
+    public async Task TappedGestureAsync(string id) 
     {
         string _method = "TappedGestureAsync";
         try
@@ -996,19 +1087,30 @@ public partial class AudioService : IAudioService
             if (contentPage == null)
                 return;
 
+            var audioSource = mediaElement.Source;
+
+            if (!AudioFileDownloaded && !AudioStreamingStatus)
+            {
+                // Download Audio File and set MediaElement Source
+                if (AudioDownloadFullPathName != null && AudioFolderExists)
+                {
+                    bool result = await downloadService.DownloadAudioFileAsync(AudioUri, AudioDownloadFullPathName);
+                    if (result == true)
+                    {
+                        AudioFileDownloaded = true;
+                        await SetMediaSourceAsync(AudioDownloadFullPathName);
+                        audioSource = mediaElement.Source;
+                    }
+                }
+            }
+
+            var mediaElementCurrentState = mediaElement.CurrentState;
             CurrentState = MediaState.CurrentState;
             PreviousState = MediaState.PreviousState;
 
             int paperId = Int32.Parse(id.Substring(1, 3));
             int sequenceId = Int32.Parse(id.Substring(5, 3));
             var audioMarker = AudioMarkers.Where(m => m.SequenceId == sequenceId).FirstOrDefault();
-
-            var startTimeStr = audioMarker.StartTime.ToLongTimeString();
-            var endTimeStr = audioMarker.EndTime.ToLongTimeString();
-            string timeRange = startTimeStr + " - " + endTimeStr;
-
-            //TimeSpan startTime = new TimeSpan(startTimeStr);
-            //TimeSpan endTime = new TimeSpan(endTimeStr);
 
             Label currentLabel = (Label)contentPage.FindByName(id);
             string uid = currentLabel.GetValue(AttachedProperties.Ubml.UniqueIdProperty) as string;
@@ -1020,6 +1122,7 @@ public partial class AudioService : IAudioService
                          + "." +
                          Int32.Parse(arr[3]).ToString("0");
 
+            string timeRange = audioMarker.MarkerRange;
             string message = $"Playing {pid} Timespan {timeRange}";
 
             // Initial State -> Trigger Play
@@ -1089,6 +1192,7 @@ public partial class AudioService : IAudioService
             if (contentPage == null)
                 return;
 
+            var mediaElementCurrentState = mediaElement.CurrentState;
             CurrentState = MediaState.CurrentState;
             PreviousState = MediaState.PreviousState;
             SendToastState = value;
@@ -1096,13 +1200,6 @@ public partial class AudioService : IAudioService
             int paperId = Int32.Parse(id.Substring(1, 3));
             int sequenceId = Int32.Parse(id.Substring(5, 3));
             var audioMarker = AudioMarkers.Where(m => m.SequenceId == sequenceId).FirstOrDefault();
-
-            var startTimeStr = audioMarker.StartTime.ToLongTimeString();
-            var endTimeStr = audioMarker.EndTime.ToLongTimeString();
-            string timeRange = startTimeStr + " - " + endTimeStr;
-
-            //TimeSpan startTime = new TimeSpan(startTimeStr);
-            //TimeSpan endTime = new TimeSpan(endTimeStr);
 
             Label currentLabel = (Label)contentPage.FindByName(id);
             string uid = currentLabel.GetValue(AttachedProperties.Ubml.UniqueIdProperty) as string;
@@ -1114,6 +1211,7 @@ public partial class AudioService : IAudioService
                          + "." +
                          Int32.Parse(arr[3]).ToString("0");
 
+            string timeRange = audioMarker.MarkerRange;
             string message = $"Playing {pid} Timespan {timeRange}";
 
             // Initial State -> Trigger Play
@@ -1183,6 +1281,7 @@ public partial class AudioService : IAudioService
             if (contentPage == null)
                 return;
 
+            var mediaElementCurrentState = mediaElement.CurrentState;
             CurrentState = MediaState.CurrentState;
             PreviousState = MediaState.PreviousState;
 
@@ -1232,6 +1331,7 @@ public partial class AudioService : IAudioService
             if (contentPage == null)
                 return;
 
+            var mediaElementCurrentState = mediaElement.CurrentState;
             CurrentState = MediaState.CurrentState;
             PreviousState = MediaState.PreviousState;
             SendToastState = value;
@@ -1437,7 +1537,6 @@ public partial class AudioService : IAudioService
             StartTime = start;
             EndTime = end;
 
-            //var me = contentPage.FindByName("mediaElement") as IMediaElement;
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
                 mediaElement.SeekTo(start);
@@ -1531,8 +1630,6 @@ public partial class AudioService : IAudioService
         string _method = "DownloadAudioFileAsync";
         try
         {
-            // C:\Users\robre\AppData\Local\Packages\879ca98e-d45e-44b3-9be6-e6d900695058_9zz4h110yvjzm\LocalState
-
             // Setup Uri and File Path
             string fileNamePath = Path.Combine(audioDir, "000.mp3");
 

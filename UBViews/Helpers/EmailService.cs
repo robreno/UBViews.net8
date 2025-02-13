@@ -23,12 +23,16 @@ using UBViews.Models.Ubml;
 public class EmailService : IEmailService
 {
     #region  Private Data Members
+    private const string _emdash = "—";
+    private const string _endash = "–";
     private const string _htmlEmailTemplate = $"<html><body><p id=\"pre\"></p><blockquote></blockquote><p id=\"post\"></p></body></html>";
     private const string _shareTitle = "Quote From Urantia Book";
     private const string _shareSubject = "Sharing a quote from The Urantia Book";
-    private const string _preText = "I thought of you when I read this quote from The Urantia Book by The Urantia Foundation - ";
-    private const string _preTextHtml = "I thought of you when I read this quote from <i>The Urantia Book</i> by The Urantia Foundation - ";
+    private const string _preText = "I thought of you when I read this quote from The Urantia Book by The Urantia Foundation – ";
+    private const string _preTextHtml = "I thought of you when I read this quote from <i>The Urantia Book</i> by The Urantia Foundation – ";
     private const string _postText = "UBViews: The Urantia Book Viewer & Search Engine – Agondonter Media.";
+    private string _quoteOfTheDay = "UBViews Quote of the day ...";
+    private string _queryString = "";
     
     private string _subject = string.Empty;
     private List<string> _recipients = new List<string>();
@@ -399,7 +403,8 @@ public class EmailService : IEmailService
             // Send Email
             if (Email.Default.IsComposeSupported)
             {
-                string subject = "UBViews Quote of the day ...";
+                _queryString = Preferences.Default.Get("CurrentQueryString", "");
+                string subject = _quoteOfTheDay;
 
                 var message = new EmailMessage
                 {
@@ -462,7 +467,8 @@ public class EmailService : IEmailService
             // Send Email
             if (Email.Default.IsComposeSupported)
             {
-                string subject = "UBViews Quote of the day ...";
+                _queryString = Preferences.Default.Get("CurrentQueryString", "");
+                string subject = _quoteOfTheDay + " Query: " + _queryString;
 
                 var message = new EmailMessage
                 {
@@ -498,11 +504,14 @@ public class EmailService : IEmailService
                 await InitializeContactsAsync();
             }
 
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + " Query: [" + _queryString + "]";
+
             string emailText = string.Empty;
             string body = paragraph.CreatePlainTextBody();
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(_preText);
+            sb.AppendLine(preText);
             sb.AppendLine("");
 
             sb.Append(body);
@@ -537,9 +546,12 @@ public class EmailService : IEmailService
                 await InitializeContactsAsync();
             }
 
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + "Query: [" + _queryString + "]";
+
             string bodyText = string.Empty;
             StringBuilder sb = new StringBuilder();
-            sb.Append(_preText);
+            sb.Append(preText);
             sb.AppendLine();
             sb.AppendLine();
             foreach (var paragraph in paragraphs)
@@ -575,6 +587,9 @@ public class EmailService : IEmailService
             {
                 await InitializeContactsAsync();
             }
+
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + " Query: " + _queryString;
 
             string emailText = string.Empty;
             string body = paragraph.CreateHtmlTextBody();
@@ -614,6 +629,9 @@ public class EmailService : IEmailService
                 await InitializeContactsAsync();
             }
 
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + " Query: " + _queryString;
+
             string emailText = string.Empty;
             return emailText;
         }
@@ -643,6 +661,9 @@ public class EmailService : IEmailService
                 await InitializeContactsAsync();
             }
 
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + " Query: " + _queryString;
+
             string emailText = string.Empty;
             return emailText;
         }
@@ -671,6 +692,9 @@ public class EmailService : IEmailService
                 await InitializeContactsAsync();
             }
 
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + " Query: " + _queryString;
+
             string emailText = string.Empty;
             return emailText;
         }
@@ -697,6 +721,9 @@ public class EmailService : IEmailService
             {
                 await InitializeContactsAsync();
             }
+
+            _queryString = Preferences.Default.Get("CurrentQueryString", "");
+            string preText = _preText + " Query: " + _queryString;
 
             string emailText = string.Empty;
             return emailText;
