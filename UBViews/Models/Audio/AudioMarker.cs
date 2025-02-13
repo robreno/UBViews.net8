@@ -38,6 +38,7 @@ public class AudioMarker
         EndTime = endValue;
         Type = type;
         ParagraphId = paragraphId;
+        MarkerRange = SetAudioMarkerRange(startValue, endValue);
     }
 
     /// <summary>
@@ -62,6 +63,7 @@ public class AudioMarker
         EndTime = endTime;
         Type = type;
         ParagraphId = pid;
+        MarkerRange = SetAudioMarkerRange(startTime, endTime);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
     }
     #endregion
@@ -135,6 +137,32 @@ public class AudioMarker
             string innerMessage = $"Exception raised in {_class}.{_method} => {ex.Message}";
             throw new Exception(innerMessage);
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="startValue"></param>
+    /// <param name="endValue"></param>
+    internal string SetAudioMarkerRange(TimeSpan startValue, TimeSpan endValue)
+    {
+        string _start = $"{startValue.Hours.ToString("D2")}"
+                        + ":"
+                        + $"{startValue.Minutes.ToString("D2")}"
+                        + ":"
+                        + $"{startValue.Seconds.ToString("D2")}"
+                        + "."
+                        + $"{startValue.Milliseconds.ToString("D2")}";
+
+        string _end = $"{endValue.Hours.ToString("D2")}"
+                      + ":"
+                      + $"{endValue.Minutes.ToString("D2")}"
+                      + ":"
+                      + $"{endValue.Seconds.ToString("D2")}"
+                      + "."
+                      + $"{endValue.Milliseconds.ToString("D2")}";
+
+        return _start + " - " + _end;
     }
     #endregion
 
@@ -278,6 +306,12 @@ public class AudioMarker
     /// Gets the offset in the media timeline where the marker occurs.
     /// </summary>
     public TimeSpan EndTime { get; set; }
+
+
+    /// <summary>
+    /// Return string of start time and end time
+    /// </summary>
+    public string MarkerRange { get; private set; }
     #endregion
 }
 
