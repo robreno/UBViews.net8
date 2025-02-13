@@ -2,23 +2,23 @@
 <AudioMarkers count="185" version="amazonaws">
   <Marker pid="0:0.0" seqId="1">
     <Start>0:0:0.0</Start>
-    <End>0:0:2.16</End>
-    <TimeSpan>0:0:0.0_0:0:2.16</TimeSpan>
+    <End>0:0:01.16</End>
+    <TimeSpan>0:0:0.0_0:0:01.16</TimeSpan>
   </Marker>
   <Marker pid="0:0.1" seqId="2">
-    <Start>0:0:2.23</Start>
-    <End>0:0:56.0</End>
-    <TimeSpan>0:0:2.23_0:0:56.0</TimeSpan>
+    <Start>0:0:01.16</Start>
+    <End>0:0:56.00</End>
+    <TimeSpan>0:0:01.16_0:0:56.00</TimeSpan>
   </Marker>
   <Marker pid="0:0.2" seqId="3">
-    <Start>0:0:56.0</Start>
+    <Start>0:0:56.00</Start>
     <End>0:1:42.06</End>
-    <TimeSpan>0:0:56.0_0:1:42.06</TimeSpan>
+    <TimeSpan>0:0:56.00_0:1:42.06</TimeSpan>
   </Marker>
   <Marker pid="0:0.3" seqId="4">
-    <Start>0:1:42.350</Start>
+    <Start>0:1:42.06</Start>
     <End>0:2:10.12</End>
-    <TimeSpan>0:1:42.350_0:2:10.12</TimeSpan>
+    <TimeSpan>0:1:42.06_0:2:10.12</TimeSpan>
   </Marker>
   <Marker pid="0:0.4" seqId="5">
     <Start>0:2:10.12</Start>
@@ -32,74 +32,74 @@
   </Marker>
   <Marker pid="0:0.6" seqId="7">
     <Start>0:3:34.12</Start>
-    <End>0:3:58.9</End>
+    <End>0:3:58.09</End>
     <TimeSpan>0:3:34.12_0:3:58.09</TimeSpan>
   </Marker>
   <Marker pid="0:1.0" seqId="8">
-    <Start>0:3:58.9</Start>
-    <End>0:4:02.23</End>
-    <TimeSpan>0:3:58.9_0:4:02.23</TimeSpan>
+    <Start>0:3:58.09</Start>
+    <End>0:4:02.26</End>
+    <TimeSpan>0:3:58.9_0:4:02.26</TimeSpan>
   </Marker>
   <Marker pid="0:1.1" seqId="9">
-    <Start>0:4:03.06</Start>
+    <Start>0:4:02.26</Start>
     <End>0:4:20.24</End>
-    <TimeSpan>0:4:03.06_0:4:20.24</TimeSpan>
+    <TimeSpan>0:4:02.26_0:4:20.24</TimeSpan>
   </Marker>
-  <!-- stopped here -->
   <Marker pid="0:1.2" seqId="10">
-    <Start>0:3:52.0</Start>
-    <End>0:4:21.0</End>
-    <TimeSpan>0:3:52.0_0:4:21.0</TimeSpan>
+    <Start>0:4:20.26</Start>
+    <End>0:4:50.29</End>
+    <TimeSpan>0:4:20.26_0:4:51.05</TimeSpan>
   </Marker>
   <Marker pid="0:1.3" seqId="11">
-    <Start>0:4:21.0</Start>
-    <End>0:4:32.0</End>
-    <TimeSpan>0:4:21.0_0:4:32.0</TimeSpan>
+    <Start>0:4:51.05</Start>
+    <End>0:4:58.11</End>
+    <TimeSpan>0:4:51.05_0:4:58.11</TimeSpan>
   </Marker>
+  <!-- Edited To Here -->
   <Marker pid="0:1.4" seqId="12">
-    <Start>0:4:32.0</Start>
-    <End>0:4:38.0</End>
-    <TimeSpan>0:4:32.0_0:4:38.0</TimeSpan>
+    <Start>0:5:03.15</Start>
+    <End>0:5:10.23</End>
+    <TimeSpan>0:5:03.15_0:5:10.23</TimeSpan>
   </Marker>
   <Marker pid="0:1.5" seqId="13">
-    <Start>0:4:38.0</Start>
-    <End>0:4:45.0</End>
-    <TimeSpan>0:4:38.0_0:4:45.0</TimeSpan>
+    <Start>0:5:10.23</Start>
+    <End>0:5:18.0</End>
+    <TimeSpan>0:5:10.23_0:5:18.0</TimeSpan>
   </Marker>
   <Marker pid="0:1.6" seqId="14">
-    <Start>0:4:45.0</Start>
+    <Start>0:5:18.0</Start>
     <End>0:4:53.0</End>
-    <TimeSpan>0:4:45.0_0:4:53.0</TimeSpan>
+    <TimeSpan>0:5:18.0_0:5:27.08</TimeSpan>
   </Marker>
   <Marker pid="0:1.7" seqId="15">
-    <Start>0:4:53.0</Start>
-    <End>0:4:60.0</End>
-    <TimeSpan>0:4:53.0_0:4:60.0</TimeSpan>
+    <Start>0:5:27.08</Start>
+    <End>0:5:34.24</End>
+    <TimeSpan>0:5:27.08_0:5:34.24</TimeSpan>
   </Marker>
   <Marker pid="0:1.8" seqId="16">
-    <Start>0:4:60.0</Start>
-    <End>0:4:68.0</End>
-    <TimeSpan>0:4:60.0_0:4:68.0</TimeSpan>
+    <Start>0:5:34.24</Start>
+    <End>0:5:43.12</End>
+    <TimeSpan>0:5:34.24_0:5:43.12</TimeSpan>
   </Marker>
   <Marker pid="0:1.9" seqId="17">
-    <Start>0:4:68.0</Start>
+    <Start>0:5:43.12</Start>
     <End>0:4:89.0</End>
-    <TimeSpan>0:4:68.0_0:4:89.0</TimeSpan>
+    <TimeSpan>0:5:43.12_0:6:06.18</TimeSpan>
   </Marker>
   <Marker pid="0:1.10" seqId="18">
-    <Start>0:4:89.0</Start>
-    <End>0:6:8.0</End>
-    <TimeSpan>0:4:89.0_0:6:8.0</TimeSpan>
+    <Start>0:6:06.18</Start>
+    <End>0:6:50.04</End>
+    <TimeSpan>0:6:06.18_0:6:50.04</TimeSpan>
   </Marker>
   <Marker pid="0:1.11" seqId="19">
-    <Start>0:6:8.0</Start>
+    <Start>0:6:50.04</Start>
     <End>0:6:32.0</End>
-    <TimeSpan>0:6:8.0_0:6:32.0</TimeSpan>
+    <TimeSpan>0:6:50.04_0:7:16.15</TimeSpan>
   </Marker>
   <Marker pid="0:1.12" seqId="20">
-    <Start>0:6:32.0</Start>
+    <Start>0:7:16.15</Start>
     <End>0:7:11.0</End>
-    <TimeSpan>0:6:32.0_0:7:11.0</TimeSpan>
+    <TimeSpan>0:7:16.15_0:7:11.0</TimeSpan>
   </Marker>
   <Marker pid="0:1.13" seqId="21">
     <Start>0:7:11.0</Start>
