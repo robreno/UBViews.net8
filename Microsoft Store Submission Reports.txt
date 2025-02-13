@@ -23,3 +23,25 @@ Products may depend on non-integrated software (such as another product or modul
 
 Undisclosed software: [.NET Desktop Runtime]
 Tested devices: Lenovo Thinkpad 450s
+
+UBViews_8.1.5.0_x64.msix on 7/26/2024
+Product name: UBViews
+Product ID:9N1JDFCM7XLX
+
+Report details
+
+Technical requirement policies	Notes to publisher	
+
+10.1.2.10 Functionality	
+
+The product crashes at launch.The issue was observed on the following devices running OS build  22621.1265
+
+Observed On: Dell Latitude 5520
+
+Tested On: Dell Latitude 5520
+
+Error Message: N/A
+
+Tip: A Windows product may run flawlessly during development and testing, but after submitting it for certification testing, the product may crash or perform unexpectedly. Along these same lines, your product may not perform as expected after publication. You can contact Developer Support at http://aka.ms/storesupport if you need assistance with troubleshooting.
+
+Tested devices: Dell Latitude 5400

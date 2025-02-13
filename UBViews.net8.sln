@@ -31,11 +31,14 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FsYacc.Core", "src\FsYacc.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C4C3AB12-106F-4EE7-B21B-F2C860C514F1}"
 	ProjectSection(SolutionItems) = preProject
-		Build_Error_Log.txt = Build_Error_Log.txt
 		AppInitializationNotes.txt = AppInitializationNotes.txt
+		Build_Error_Log.txt = Build_Error_Log.txt
 		Microsoft Store Submission Reports.txt = Microsoft Store Submission Reports.txt
 		Package.StoreAssociation.txt = Package.StoreAssociation.txt
 		Publishing.txt = Publishing.txt
+		Sideloading.txt = Sideloading.txt
+		TextFile1.txt = TextFile1.txt
+		UBML_Notes.txt = UBML_Notes.txt
 	EndProjectSection
 EndProject
 Global

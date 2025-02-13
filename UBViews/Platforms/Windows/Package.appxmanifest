@@ -6,13 +6,13 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity Name="64251AgondonterMedia.63599A5E40A94" 
-            Publisher="CN=159B4EF4-25E0-45FD-B9EF-470F34B731B8" 
+  <Identity Name="AgondonterMedia.UBViews" 
+            Publisher="CN=AgondonterMedia.UBViews" 
             Version="8.1.5.0" />
 
   <Properties>
     <DisplayName>UBViews</DisplayName>
-    <Description>UBViews requires the following software: .NET Desktop Runtime. It depends on F# libraries. UBViews allows users to search and read the Urantia text and to share quotes with friends and family.</Description>
+    <Description>UBViews requires the following software: .NET Desktop Runtime, FSharp.Core (8.0.2), FsLexYacRuntime (11.2.0), Microsoft.Data.Sqlite (8.0.1), and sqlite-net-pcl (1.8.116). It depends on F# libraries. UBViews allows users to search and read the Urantia text and to share quotes with friends and family.</Description>
     <PublisherDisplayName>Agondonter Media</PublisherDisplayName>
     <Logo>$placeholder$.png</Logo>
   </Properties>

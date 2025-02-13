@@ -105,6 +105,10 @@
                 <Setter Property="FontFamily" Value="OldStyle7Std" />
             </Style>
 
+            <Style x:Key="TemperatureSpan" TargetType="Span" BasedOn="{StaticResource BaseSpan}">
+                <Setter Property="FontFamily" Value="OldStyle7Std" />
+            </Style>
+
             <!-- Contents Styles Span -->
             <Style x:Key="ContentsHeadingSpan" TargetType="Span" BasedOn="{StaticResource BaseSpan}">
                 <Setter Property="FontFamily"  Value="ACaslonProBold" />

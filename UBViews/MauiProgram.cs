@@ -61,7 +61,10 @@ public static class MauiProgram
         builder.Services.AddTransient<IAudioService>((e) => new AudioService(
                                                                 new FileService(),
                                                                 new XmlAppSettingsService(
-                                                                      new FileService()))
+                                                                      new FileService()),
+                                                                new DownloadService(
+                                                                    new XmlAppSettingsService(
+                                                                      new FileService())))
                                                             );
 
         builder.Services.AddTransient<IDownloadService>((e) => new DownloadService(

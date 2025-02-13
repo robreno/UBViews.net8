@@ -1,0 +1,66 @@
+
+#Sideloading .MET Maui App
+
+Publisher: CN=159B4EF4-25E0-45FD-B9EF-470F34B731B8
+MainPackageIdentityName: 64251AgondonterMedia.63599A5E40A94
+Version: 
+
+Gerald Versluis on YouTube: 
+
+Create a .NET MAUI Windows MSIX to Sideload Or Publish to the Microsoft Store
+
+	https://youtu.be/FNwv_W3TtSU?t=910
+
+#Links
+
+Create a certificate for package signing (pwd: ub606)
+
+ <Identity Name="AgondonterMedia.UBViews" 
+           Publisher="CN=AgondonterMedia.UBViews" 
+           Version="8.1.5.0" />
+
+	https://learn.microsoft.com/en-us/windows/msix/package/create-certificate-package-signing
+
+First Command: 
+New-SelfSignedCertificate -Type Custom -Subject "CN=AgondonterMedia.UBViews" -KeyUsage DigitalSignature -FriendlyName "UBViews .NET Maui Certificate" -CertStoreLocation "Cert:\CurrentUser\Personal\Certificates" -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
+
+
+ PSParentPath: Microsoft.PowerShell.Security\Certificate::CurrentUser\My
+
+Thumbprint                                Subject
+----------                                -------
+E51264B2C5827018C3953485E9E2E099A9333511  CN=AgondonterMedia.UBViews
+
+Note: Change PS path to folder you want to store or provide file path as below:
+- FilePath "C:\Archive\GitHub\UBViews_2024\CertificateData"
+
+Enter commands below in order to produce the <installcert>.pfx file.
+
+Second & Third Commands:
+
+$password = ConvertTo-SecureString "ub606" -AsPlainText -Force 
+
+Export-PfxCertificate -cert "Cert:\CurrentUser\My\E51264B2C5827018C3953485E9E2E099A9333511" -FilePath UBViewsInstallCertificate.pfx -Password $password
+
+ Directory: C:\Archive\GitHub\UBViews_2024\certificatedata
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         9/14/2024   4:33 PM           2718 UBViewsInstallCertificate.pfx
+
+MSBuidlCommand: 
+	msbuild .\UBViews.Maui\UBViews.csproj /restore /t:Publish /p:TargetFramework=net8.0-windows10.0.19041.0 /p:configuration=release /p:GenerateAppxPackageOnBuild=true /p:Platform=x64
+
+MSBuild Command:
+	msbuild .\UBViews\UBViews.csproj /restore /t:Publish /p:TargetFramework=net8.0-windows10.0.19041.0 /p:configuration=release /p:GenerateAppxPackageOnBuild=true /p:Platform=x64 /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="E51264B2C5827018C3953485E9E2E099A9333511" /p:PackageCertificatePassword="ub606"
+
+Install Certificate into Root store:
+	1. Install certificate to LocalMachine
+	2. Certificate Import Wizard -> Place all certificates in the following store -> Browse -> 
+	3. Choose "Trusted Root Certification Authorities" -> next -> finish
+
+Then Install application and run.
+
+
+

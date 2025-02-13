@@ -1,4 +1,6 @@
 ﻿
+using Windows.Storage;
+
 namespace UBViews
 {
     public partial class App
@@ -36,27 +38,41 @@ namespace UBViews
         string[] srcNames = new string[]
         {
             "Templates/Contacts.xml",
-            "Templates/Notes.xml",
+            //"Templates/Notes.xml",
             "Templates/Settings.xml",
         };
 
         string[] trgNames = new string[]
         {
             "Contacts.xml",
-            "Notes.xml",
+            //"Notes.xml",
             "Settings.xml",
         };
 
         Dictionary<string, bool> UserFiles = new();
-        private string _appDir;
+        private string _appDir = string.Empty;
+        private string _audioDir = string.Empty;
+        private bool _audioDirExists = false;
         private bool _appInitialized = false;
         private bool _hasAllUserFiles = false;
         private bool _missingUserFile = false;
+
         public async Task AppInitData(bool debug = false)
         {
             string _method = "AppInitData";
             try
             {
+                _appDir = FileSystem.Current.AppDataDirectory;
+                _audioDir = Path.Combine(_appDir, "AudioMarkers");
+                _audioDirExists = Directory.Exists(_audioDir);
+                if (!_audioDirExists)
+                {
+                    // Create AudioMarkers folder
+                    Directory.CreateDirectory(_audioDir);
+                    // Copy audio markers to folder
+                    await CopyAudioMarkerFiles();
+                }
+
                 bool hasUserData = await HasUserData(trgNames);
                 if (hasUserData)
                 {
@@ -125,7 +141,6 @@ namespace UBViews
             string _method = "HasUserData";
             try
             {
-                _appDir = FileSystem.Current.AppDataDirectory;
                 foreach (var file in userFiles)
                 {
                     string fullPath = Path.Combine(_appDir, file);
@@ -145,6 +160,27 @@ namespace UBViews
                 await App.Current.MainPage.DisplayAlert($"Exception raised in " +
                     $"{_class}.{_method} => ", ex.Message, "Ok");
                 return false;
+            }
+        }
+
+        public async Task CopyAudioMarkerFiles()
+        {
+            string _method = "CopyAudioMarkerFiles";
+            try
+            {
+                for (int i = 0; i <= 196; i++)
+                {
+                    string sourceFileName = i.ToString("000") + ".audio.xml";
+                    string sourceFilePathName = Path.Combine("AudioMarkers", sourceFileName);
+                    string targetFilePathName = Path.Combine(_audioDir, sourceFileName);
+                    await SetupDefaultData(sourceFilePathName, targetFilePathName);
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert($"Exception raised in " +
+                    $"{_class}.{_method} => ", ex.Message, "Ok");
+                return;
             }
         }
         public async Task SetupDefaultData(string source, string target)

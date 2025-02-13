@@ -38,9 +38,10 @@
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <GenerateTemporaryStoreCertificate>False</GenerateTemporaryStoreCertificate>
-    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <Platforms>AnyCPU;x64</Platforms>
+    <PackageCertificateThumbprint>4597D00C7BF8B850759A6DFD4B4C2BF125FECEE5</PackageCertificateThumbprint>
     
 	</PropertyGroup>
 

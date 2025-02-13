@@ -218,19 +218,20 @@
             <Border x:Name="audioPathBorder" 
                     Stroke="Blue"
                     Padding="10"
-                    IsVisible="False">
+                    IsVisible="True">
                 
                 <VerticalStackLayout x:Name="audioPathVSL">
 
                     <HorizontalStackLayout x:Name="audioPathHSL" 
-                                           IsVisible="False">
-                        <Label Text="Use Default: "
+                                           IsVisible="True">
+                        <Label Text="Use Local Folder: "
                                HorizontalOptions="Start"
                                HorizontalTextAlignment="Start"
-                               WidthRequest="80"
+                               ToolTipProperties.Text="Import to Local App Folder."
                                Style="{StaticResource  AppSettingsLabels}"/>
                         <CheckBox x:Name="useLocatState"
                                   Color="Blue"
+                                  HorizontalOptions="Start"
                                   IsChecked="{Binding UseDefaultAudoPath, Mode=OneWay}">
                             <CheckBox.Behaviors>
                                 <behavior:EventToCommandBehavior 
@@ -246,7 +247,7 @@
                             HeightRequest="20"
                             WidthRequest="160"
                             HorizontalOptions="Start"
-                            Margin="0,0,10,10"
+                            Margin="10,10,10,10"
                             IsEnabled="{Binding Source={x:Reference useLocatState}, 
                                                 Path=IsChecked, 
                                                 Converter={toolkit:InvertedBoolConverter}}"
@@ -263,7 +264,8 @@
             <Button Text="Save Settings" 
                     FontSize="18"
                     FontAttributes="Bold" 
-                    HorizontalOptions="Center" 
+                    HorizontalOptions="Center"
+                    Margin="10,10,10,10"
                     SemanticProperties.HeadingLevel="None"
                     SemanticProperties.Description="Button for saving settings."
                     SemanticProperties.Hint="Save Settings Button."
