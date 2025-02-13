@@ -118,7 +118,7 @@ public partial class XmlAppSettingsViewModel : BaseViewModel
             windowSizeHSL.IsVisible = false;
             playbackControlsHSL.IsVisible = false;
             lineHeightHSL.IsVisible = false;
-            audioPathBorder.IsVisible = false;
+            audioPathBorder.IsVisible = true;
 #elif ANDROID
             playbackControlsHSL.IsVisible = false;
             windowSizeHSL.IsVisible = false;

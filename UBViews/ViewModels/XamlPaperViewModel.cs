@@ -176,7 +176,16 @@ namespace UBViews.ViewModels
         Uri audioUri;
 
         [ObservableProperty]
-        string downloadAudioStatus;
+        string audioStatus;
+
+        [ObservableProperty]
+        bool streamingStatus;
+
+        [ObservableProperty]
+        double progress;
+
+        [ObservableProperty]
+        string progressBarText = string.Empty;
         #endregion
 
         #region Relay Commands
@@ -232,14 +241,10 @@ namespace UBViews.ViewModels
                         AudioUri = new Uri(AudioUriString);
                     }
 
-                    await downloadService.InitializeDataAsync(contentPage, dto);
-                    DownloadAudioStatus = await settingsService.Get("audio_download_status", "off");
-                    if (DownloadAudioStatus.Equals("on")) 
-                    {
-                        await downloadService.DownloadAudioFileAsync();
-                    }
+                    AudioStatus = await settingsService.Get("audio_status", "off");
+                    StreamingStatus = await settingsService.Get("stream_audio", false);
 
-                    await audioService.InitializeDataAsync(contentPage, mediaElement, dto);
+                    await audioService.InitializeDataAsync(contentPage, mediaElement, dto, AudioUri);
 
                     await audioService.SetSendToastAsync(true);
 #if WINDOWS
@@ -465,6 +470,12 @@ namespace UBViews.ViewModels
             string _method = "TappedGesture";
             try
             {
+                if (!StreamingStatus)
+                {
+                    IsBusy = true;
+                    IsRefreshing = true;
+                }
+                
                 if (contentPage == null)
                 {
                     return;
@@ -480,6 +491,11 @@ namespace UBViews.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert($"Exception raised in {_class}.{_method} => ", ex.Message, "Ok");
                 return;
+            }
+            finally
+            {
+                IsBusy = false;
+                IsRefreshing = false;
             }
         }
 

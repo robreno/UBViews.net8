@@ -249,6 +249,8 @@ public partial class QueryResultViewModel : BaseViewModel
             bool parsingSuccessful = false;
             bool runPreCheckSilent = await settingsService.Get("run_precheck_silent", true);
 
+            Preferences.Default.Set("CurrentQueryString", queryString);
+
             QueryInputString = queryString.Trim();
             (bool result, message) = await queryProcessingService.PreCheckQueryAsync(QueryInputString,
                                                                                      runPreCheckSilent);
