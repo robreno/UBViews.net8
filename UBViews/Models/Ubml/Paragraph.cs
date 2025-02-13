@@ -31,6 +31,7 @@ public class Paragraph
     public string CreatePlainTextBody()
     {
         string _body = string.Empty;
+        string _emdash = "—";
         List<Run> runsList = new();
         Run pidRun = new Run { Style = "{StaticResource PID}", Text = Pid };
         Run spcRun = new Run { Style = "{StaticResource RegularSpaceSpan}", Text = " " };
@@ -46,7 +47,7 @@ public class Paragraph
         foreach (Run run in runsList)
         {
             var runStyle = run.Style;
-            var runText = Regex.Replace(run.Text, @"(\u2012|\u2013|\u2014|\u2015)", "--");
+            var runText = Regex.Replace(run.Text, @"(\u2012|\u2013|\u2014|\u2015)", _emdash);
             switch (runStyle)
             {
                 case "{StaticResource PID}":
