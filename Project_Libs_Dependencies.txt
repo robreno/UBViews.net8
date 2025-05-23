@@ -1,0 +1,49 @@
+LexParser
+	+ net8.0-windows10.0.19041.0
+		+ Frameworks
+			+ Microsoft.NETCore.App
+			+ Microsoft.Windows.SDK.NET.Ref.Window
+				+ Microsoft.Windows.SDK.NET
+				+ WinRT.Runtime
+				+ WinRT.SourceGenerator
+		+ Packages
+			+ FSharp.Core (9.0.202)
+				+ C:\Users\robre\.nuget\packages\fsharp.core\9.0.202\lib\netstandard2.0\FSharp.Core.dll
+				+ C:\Users\robre\.nuget\packages\fsharp.core\9.0.202\lib\netstandard2.1\FSharp.Core.dll
+			+ FsLexYacc.Runtime (11.2.0)
+				+ C:\Users\robre\.nuget\packages\fslexyacc.runtime\11.2.0\lib\netstandard2.0\FsLexYacc.Runtime.dll
+			+ Microsoft.Data.Sqlite (8.0.1)
+				+ C:\Users\robre\.nuget\packages\microsoft.data.sqlite\8.0.1\lib\netstandard2.0\_._ [0 KB]
+
+		<ItemGroup>
+			<PackageReference Include="FsLexYacc.Runtime" Version="11.2.0" />
+			<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
+		</ItemGroup>
+
+
+QueryEngine
+	+ net8.0-windows10.0.19041.0
+		+ Frameworks
+			+ Microsoft.NETCore.App
+			+ Microsoft.Windows.SDK.NET.Ref.Window
+				+ Microsoft.Windows.SDK.NET
+				+ WinRT.Runtime
+				+ WinRT.SourceGenerator
+	+ Packages
+		+ FSharp.Core (9.0.202)
+		+ sqlite-net-pcl (1.8.116)
+	+ Projects
+		+ LexParser
+
+QueryFilter
+	+ net8.0-windows10.0.19041.0
+		+ Frameworks
+			+ Microsoft.NETCore.App
+			+ Microsoft.Windows.SDK.NET.Ref.Window
+				+ Microsoft.Windows.SDK.NET
+				+ WinRT.Runtime
+				+ WinRT.SourceGenerator
+		+ Packages
+			+ FSharp.Core (9.0.202)
+		+ Projects
+			+ LexParser
