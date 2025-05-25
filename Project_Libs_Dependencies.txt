@@ -47,3 +47,24 @@ QueryFilter
 			+ FSharp.Core (9.0.202)
 		+ Projects
 			+ LexParser
+
+UBViews
+	+ net8.0-windows10.0.19041.0
+		+ Frameworks
+			+ Microsoft.NETCore.App
+			+ Microsoft.Windows.SDK.NET.Ref.Window
+				+ Microsoft.Windows.SDK.NET
+				+ WinRT.Runtime
+				+ WinRT.SourceGenerator
+		+ Packages
+			+ CommunityToolkit.Common (8.2.2)
+			+ CommunityToolkit.Maui (7.0.1)
+			+ CommunityToolkit.Maui.Core (7.0.1)
+			+ CommunityToolkit.Maui.MediaElement (3.0.1)
+			+ CommunityToolkit.Mvvm (8.2.2)
+			+ Microsoft.Maui.Controls (8.0.6)
+			+ Microsoft.Maui.Controls.Compatibility (8.0.6)
+			+ Microsoft.Extensions.Logging.Debug (8.0.0)
+		+ Projects
+			+ QueryEngine
+			+ QueryFilter
