@@ -204,18 +204,28 @@ module SimpleParse =
         | SubQuery(q) -> getIteratorEx q
         | FilterBy(q, f) -> let tpl =
                                 match q with
-                                | Term(term)     -> termQueryWithRange
+                                | Term(term)     -> termQueryWithRangeId
                                                         (getIteratorEx q) (f)
-                                | STerm(term)    -> new TokenPostingList([])
-                                | Phrase(phrase) -> new TokenPostingList([])
-                                | And(x, y)      -> conjunctiveQueryWithRange
+                                | STerm(term)    -> new TokenPostingList([]) // stemQueryWithRangeId (getIteratorEx q) (f)
+                                | Phrase(phrase) -> new TokenPostingList([]) // phraseQueryWithRangeId (getIteratorEx q) (f)
+                                | And(x, y)      -> conjunctiveQueryWithRangeId
                                                         (getIteratorEx x) (getIteratorEx y) (f)
-                                | Or(x, y)       -> disjunctiveQueryWithRange
+                                | Or(x, y)       -> disjunctiveQueryWithRangeId
                                                         (getIteratorEx x) (getIteratorEx y) (f)
                                 | SubQuery(sq)   -> let newQuery = FilterBy(sq, f)
                                                     getIteratorEx newQuery
                                 | _ -> getIteratorEx q
                             tpl
+        //| RangeBy(q, r) -> let tpl =
+        //                        match q with
+        //                        | Term(term)     -> new TokenPostingList([]) // termQueryWithRangeList (getIteratorEx q) (r)
+        //                        | STerm(term)    -> new TokenPostingList([]) // stemQueryWithRangeList (getIteratorEx q) (r)
+        //                        | Phrase(phrase) -> new TokenPostingList([]) // phraseQueryWithRangeList (getIteratorEx q) (r)
+        //                        | And(x, y)      -> new TokenPostingList([]) // conjunctiveQueryWithRangeId (getIteratorEx x) (getIteratorEx y) (r)
+        //                        | Or(x, y)       -> new TokenPostingList([]) // disjunctiveQueryWithRangeList (getIteratorEx x) (getIteratorEx y) (r)
+        //                        | SubQuery(sq)   -> new TokenPostingList([]) // let newQuery = RangeBy(sq, r)
+        //                        | _ -> getIteratorEx q
+        //                    tpl
         | NoOpQuery   -> new TokenPostingList([])
 
     let runQuery (dbPath: string) (query: Query) =
