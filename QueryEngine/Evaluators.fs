@@ -39,6 +39,7 @@ module Evaluators =
         match q with
         | Term(term) -> "Term(\"" + term + "\")"
         | STerm(term) -> "STerm(\"" + term + "\")"
+        | RValue(value)     -> "RValue(" + value.ToString() + ")"
         | CTerm(cterm) -> 
             let newStringList =
                 cterm
@@ -73,6 +74,7 @@ module Evaluators =
         match q with
         | Term(term) -> [Term(term)]
         | STerm(term) -> [STerm(term)]
+        | RValue(value) -> [RValue(value)]
         | CTerm(cterm) ->
             let result = 
                 cterm
@@ -101,10 +103,11 @@ module Evaluators =
             results
         | NoOpQuery   -> []
 
-    let rec queryToTermList (query: Query) =
+    let rec queryToTermList (query: Query) : string list =
        match query with
        | Term(term)     -> term :: []
        | STerm(term)    -> term :: []
+       | RValue(value)  -> value.ToString() :: []
        | CTerm(cterm)   -> let mutable sb = new StringBuilder()
                            cterm |> List.rev |> List.iter (fun t -> sb.Append(t + " ") |> ignore)
                            let term = sb.ToString().Trim()

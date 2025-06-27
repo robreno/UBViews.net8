@@ -20,6 +20,7 @@ type FilterID =
     | SectID of string
 
 type Query =
+    | RValue of int
     | Term of string
     | STerm of string
     | CTerm of string list

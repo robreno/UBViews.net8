@@ -16,6 +16,7 @@ let lexeme = LexBuffer<_>.LexemeString
 }
  
 // These are some regular expression definitions
+let int = ['-' '+']? ['0'-'9']+
 let digit = ['0'-'9']
 let whitespace = [' ' '\t' ]
 let newline = ('\n' | '\r' '\n')
@@ -36,13 +37,19 @@ rule tokenize = parse
 	| "]"			{ RIGHT_BRACKET }
 	| "("			{ LEFT_PAREN }
 	| ")"			{ RIGHT_PAREN }
-	| "~"           { TILDE }
+	| "{"			{ LEFT_CURLY }
+	| "}"			{ RIGHT_CURLY }
+	| "~"           { TILDE_OP }
+	| ".."			{ RANGE_OP }
+	| int           { RVALUE (int (lexeme lexbuf)) }
 	// Keywords
 	| "AND"
 	| "and"			{ AND }
 	| "OR"
 	| "or"			{ OR }
 	// Additional Keywords
+	| "RANGEBY"
+	| "rangeby"	    { RANGEBY }
 	| "FILTERBY"
 	| "filterby"	{ FILTERBY }
 	| "TOPID"
