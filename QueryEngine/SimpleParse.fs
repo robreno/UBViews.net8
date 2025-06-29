@@ -221,7 +221,7 @@ module SimpleParse =
         //                        | Term(term)     -> new TokenPostingList([]) // termQueryWithRangeList (getIteratorEx q) (r)
         //                        | STerm(term)    -> new TokenPostingList([]) // stemQueryWithRangeList (getIteratorEx q) (r)
         //                        | Phrase(phrase) -> new TokenPostingList([]) // phraseQueryWithRangeList (getIteratorEx q) (r)
-        //                        | And(x, y)      -> new TokenPostingList([]) // conjunctiveQueryWithRangeId (getIteratorEx x) (getIteratorEx y) (r)
+        //                        | And(x, y)      -> new TokenPostingList([]) // conjunctiveQueryWithRangeList (getIteratorEx x) (getIteratorEx y) (r)
         //                        | Or(x, y)       -> new TokenPostingList([]) // disjunctiveQueryWithRangeList (getIteratorEx x) (getIteratorEx y) (r)
         //                        | SubQuery(sq)   -> new TokenPostingList([]) // let newQuery = RangeBy(sq, r)
         //                        | _ -> getIteratorEx q

@@ -265,6 +265,11 @@ module SimpleEnumeratorsEx =
         | PARID -> termQueryWithRangePID iter1
         | SECID -> termQueryWithRangeSEC iter1
 
+    let termQueryWithRangeList (iter1 : TokenPostingList)  
+                               (rangeBy: int list) =
+        let tpl = new TokenPostingList([])
+        tpl
+
     /// Combine two enumerators to return only documents found in both enumerators.
     let conjunctiveQueryWithRangeDID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
 
