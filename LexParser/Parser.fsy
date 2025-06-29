@@ -64,7 +64,10 @@ SingleQuery:
 	| SingleQuery OR SingleQuery           { Or($1, $3)       }
 	| LEFT_PAREN SingleQuery RIGHT_PAREN   { SubQuery($2)     }
 	| SingleQuery FILTERBY FilterId		   { FilterBy($1, toFilterValue($3) ) } 
-	| SingleQuery RANGEBY Range			   { RangeBy($1, Range($3) ) }
+	| SingleQuery RANGEBY Range			   { RangeBy($1, $3)                 }
+	| SingleQuery OR SingleQuery Range	   { RangeBy(And($1, $3), $4)        }
+	| SingleQuery AND SingleQuery Range	   { RangeBy(And($1, $3), $4)        }
+	| SingleQuery Range			           { RangeBy($1, $2)                 }
 
 FilterId:
 	| FILTERID { $1 }
