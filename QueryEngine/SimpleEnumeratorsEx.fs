@@ -456,7 +456,10 @@ module SimpleEnumeratorsEx =
     /// Return only documents in enumerator within range list.
     let termQueryWithRangeList (iter1 : TokenPostingList)  
                                (rangeBy: int list) =
-        let tpl = new TokenPostingList([])
+
+        let seq = iter1.BasePostingList.Head
+        let resultSequence = seq |> Seq.map(fun t -> t)
+        let tpl = new TokenPostingList(resultSequence)
         tpl
 
     /// Return only documents in enumerator within range list.
