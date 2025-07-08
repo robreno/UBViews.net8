@@ -39,7 +39,6 @@ module Evaluators =
         match q with
         | Term(term) -> "Term(\"" + term + "\")"
         | STerm(term) -> "STerm(\"" + term + "\")"
-        | RValue(value)     -> "RValue(" + value.ToString() + ")"
         | CTerm(cterm) -> 
             let newStringList =
                 cterm
@@ -68,13 +67,26 @@ module Evaluators =
                     | Or(x, y)       -> eval(q) + " FilderBy " + toStringValue f
                     | _ -> eval(q) + " FilderBy " + toStringValue f
             results
+        | RangeBy(q, r) ->
+            let results =
+                match q with
+                | Term(term)     -> eval(q) + " RangeBy " + r.ToString()
+                | STerm(term)    -> eval(q) + " RangeBy " + r.ToString()
+                | CTerm(cterm)   -> eval(q) + " RangeBy " + r.ToString()
+                | Phrase(phrase) -> eval(q) + " RangeBy " + r.ToString()
+                | And(x, y)      -> eval(q) + " RangeBy " + r.ToString()
+                | Or(x, y)       -> eval(q) + " RangeBy " + r.ToString()
+                | SubQuery(q)    -> eval(q) + " RangeBy " + r.ToString()
+                | FilterBy(q, f) -> eval(q) + " RangeBy " + r.ToString()
+                | NoOpQuery      -> eval(q) + " RangeBy " + r.ToString()
+                | _      -> "NoOpQuery RangeBy " + r.ToString()
+            results
         | NoOpQuery   -> string []
 
     let rec evalEx (q : Query) : Query list =
         match q with
         | Term(term) -> [Term(term)]
         | STerm(term) -> [STerm(term)]
-        | RValue(value) -> [RValue(value)]
         | CTerm(cterm) ->
             let result = 
                 cterm
@@ -101,13 +113,26 @@ module Evaluators =
                 | Or(x,y)        -> [FilterBy(Or(Term(evalEx(x).ToString()),Term(evalEx(y).ToString())), f)]
                 | _              -> evalEx(q)
             results
+        | RangeBy(q, r) ->
+            let results = 
+                match q with
+                | Term(term)     -> [RangeBy(Term(term), r)]
+                | STerm(term)    -> [RangeBy(STerm(term), r)]
+                | CTerm(cterm)   -> [RangeBy(CTerm(cterm), r)]
+                | Phrase(phrase) -> [RangeBy(Phrase(phrase), r)]
+                | And(x, y)      -> [RangeBy(And(Term(evalEx(x).ToString()), Term(evalEx(y).ToString())), r)]
+                | Or(x, y)       -> [RangeBy(Or(Term(evalEx(x).ToString()), Term(evalEx(y).ToString())), r)]
+                | SubQuery(q)    -> evalEx(q)
+                | FilterBy(q, f) -> evalEx(q)
+                | NoOpQuery      -> [NoOpQuery]
+                | _              -> [NoOpQuery]
+            results
         | NoOpQuery   -> []
 
     let rec queryToTermList (query: Query) : string list =
        match query with
        | Term(term)     -> term :: []
        | STerm(term)    -> term :: []
-       | RValue(value)  -> value.ToString() :: []
        | CTerm(cterm)   -> let mutable sb = new StringBuilder()
                            cterm |> List.rev |> List.iter (fun t -> sb.Append(t + " ") |> ignore)
                            let term = sb.ToString().Trim()
@@ -126,5 +151,6 @@ module Evaluators =
                            terms
        | SubQuery(q)    -> queryToTermList(q)
        | FilterBy(q, f) -> queryToTermList(q)
+       | RangeBy(q, r)  -> queryToTermList(q)
        | NoOpQuery      -> ["NoOp"]
 

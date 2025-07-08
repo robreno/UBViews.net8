@@ -67,6 +67,17 @@ module Evaluators =
                     | Or(x, y)       -> "FilterBy(" + queryExpToString(q) + "," + toStringValue f + ")"
                     | _              -> "FilterBy(" + queryExpToString(q) + "," + toStringValue f + ")"
             results
+        | RangeBy(q, r) -> 
+            let results =
+                match q with
+                | Term(term)     -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                | STerm(term)    -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                | CTerm(cterm)   -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                | Phrase(phrase) -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                | And(x, y)      -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                | Or(x, y)       -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                | _              -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+            results
         | NoOpQuery   -> string []
 
     let rec evalEx (q : Query) : Query list =
@@ -99,6 +110,20 @@ module Evaluators =
                 | Or(x,y)        -> [FilterBy(Or(Term(evalEx(x).ToString()),Term(evalEx(y).ToString())), f)]
                 | _              -> evalEx(q)
             results
+        | RangeBy(q, r) -> 
+            let results =
+                match q with
+                | Term(term)     -> [RangeBy(Term(term), r)]
+                | STerm(term)    -> [RangeBy(STerm(term), r)]
+                | CTerm(cterm)   -> [RangeBy(CTerm(cterm), r)]
+                | Phrase(phrase) -> [RangeBy(Phrase(phrase), r)]
+                | And(x, y)      -> [RangeBy(And(Term(evalEx(x).ToString()), Term(evalEx(y).ToString())), r)]
+                | Or(x, y)       -> [RangeBy(Or(Term(evalEx(x).ToString()), Term(evalEx(y).ToString())), r)]
+                | SubQuery(q)    -> evalEx(q)
+                | FilterBy(q, f) -> evalEx(q)
+                | NoOpQuery      -> evalEx(q)
+                | _              -> [NoOpQuery]
+            results
         | NoOpQuery   -> []
 
     let rec queryToTermList (query: Query) : string list =
@@ -123,5 +148,6 @@ module Evaluators =
                            terms
        | SubQuery(q)    -> queryToTermList(q)
        | FilterBy(q, f) -> queryToTermList(q)
+       | RangeBy(q, r)  -> queryToTermList(q)
        | NoOpQuery      -> ["NoOp"]
 

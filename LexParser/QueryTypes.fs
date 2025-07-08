@@ -28,6 +28,6 @@ type Query =
     | Or of Query * Query
     | SubQuery of Query
     | FilterBy of Query * FilterValue
-    //| RangeBy of Query * int list
+    | RangeBy of Query * int list
     | NoOpQuery
 

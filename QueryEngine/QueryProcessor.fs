@@ -82,12 +82,23 @@ module QueryProcessor =
                     | Or(x, y)       -> "FilterBy(" + queryExpToString(q) + "," + toStringValue f + ")"
                     | _              -> "FilterBy(" + queryExpToString(q) + "," + toStringValue f + ")"
             results
+        | RangeBy(q, r) -> 
+                let results =
+                    match q with
+                    | Term(term)     -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                    | STerm(term)    -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                    | CTerm(cterm)   -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                    | Phrase(phrase) -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                    | And(x, y)      -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                    | Or(x, y)       -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                    | _ -> "RangeBy(" + queryExpToString(q) + "," + r.ToString() + ")"
+                results
         | NoOpQuery   -> string []
 
     let termFromList(tl: string list) =
         String.concat " " <| List.map string (List.rev tl)
 
-    let rec queryToTermListStrings (query: Query) =
+    let rec queryToTermListStrings (query: Query) : string =
         match query with
         | Term(term)     -> term
         | STerm(term)    -> term
@@ -107,9 +118,20 @@ module QueryProcessor =
                             terms
         | SubQuery(q)    -> queryToTermListStrings(q)
         | FilterBy(q, f) -> queryToTermListStrings(q)
+        | RangeBy(q, r) -> 
+            let results =
+                    match q with
+                    | Term(term)     -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+                    | STerm(term)    -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+                    | CTerm(cterm)   -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+                    | Phrase(phrase) -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+                    | And(x, y)      -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+                    | Or(x, y)       -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+                    | _ -> queryToTermListStrings(q) + " RangeBy " + r.ToString()
+            results
         | NoOpQuery      -> "NoOp"
 
-    let rec queryToTermList (query: Query) =
+    let rec queryToTermList (query: Query) : string list =
        match query with
        | Term(term)     -> term :: []
        | STerm(term)    -> term :: []
@@ -131,6 +153,7 @@ module QueryProcessor =
                            terms
        | SubQuery(q)    -> queryToTermList(q)
        | FilterBy(q, f) -> queryToTermList(q)
+       | RangeBy(q, r)  -> queryToTermList(q) @ r.ToString() :: []
        | NoOpQuery      -> ["NoOp"]
 
     let rec evaluateQueryType query : string = 
@@ -159,6 +182,20 @@ module QueryProcessor =
                                                                + evaluateQueryType(q) 
                                                                + evaluateQueryType(y)
                                 | _ -> "Unknown_FilterBy" + joinSymbol + evaluateQueryType(q)
+                            results
+        | RangeBy(q, r)  -> let results =
+                                match q with
+                                | Term(term)     -> "RangeBy+Term"
+                                | STerm(term)    -> "RangeBy+STerm"
+                                | CTerm(cterm)   -> "RangeBy+CTerm"
+                                | Phrase(phrase) -> "RangeBy+Phrase"
+                                | And(x, y)      -> "RangeBy" + joinSymbol 
+                                                               + evaluateQueryType(x) 
+                                                               + evaluateQueryType(y)
+                                | Or(x, y)       -> "RangeBy" + joinSymbol 
+                                                               + evaluateQueryType(q) 
+                                                               + evaluateQueryType(y)
+                                | _ -> "Unknown_RangeBy" + joinSymbol + evaluateQueryType(q)
                             results
         | NoOpQuery      -> "NoOpQuery"
 
@@ -296,6 +333,20 @@ module QueryProcessor =
                             queryElement.SetAttributeValue("proximity", toProximityValue f)
                             queryElement
 
+        | RangeBy(q, r)  -> let tyAtt = queryElement.Attribute("type")
+                            if tyAtt = null then 
+                               queryElement.SetAttributeValue("type", "RangeBy")
+                            else 
+                               let v = queryElement.Attribute("type").Value
+                               queryElement.SetAttributeValue("type", "RangeBy" + joinSymbol + v )
+                            let rb = XElement("RangeBy", [])
+                            rb.SetAttributeValue("range", String.Join(",", r))
+                            let qrueryval = evaluateQuery queryElement q
+                            rb.Add(qrueryval)
+                            queryElement.SetAttributeValue("proximity", "paragraph")
+                            queryElement.Add(rb)
+                            queryElement
+
         | NoOpQuery      -> XElement("NoOpQuery", [])
 
     let reverseQueryString (queryString : string) : string =
@@ -305,11 +356,13 @@ module QueryProcessor =
         let mutable baseQuery = ""
 
         let rgxFilterBy = new Regex("(filterby)\s{1}\w{4,9}") // filterby\s{1}\w{54,9}
+        let rgxRangeBy = new Regex("(rangeby)\s{1}\w{4,9}") // rangeby\s{1}\w{54,9}
         let rgxAnd = new Regex(@"\sand\s")
         let rgxOr  = new Regex(@"\sor\s")
         let rgxPhrase = new Regex(@"""(.*?)""")
 
         let isfilterby = rgxFilterBy.Match(queryString)
+        let israngeby = rgxRangeBy.Match(queryString)
         let isand = rgxAnd.Match(queryString)
         let isphrase = rgxPhrase.Match(queryString)
 
@@ -317,6 +370,11 @@ module QueryProcessor =
         if isfilterby.Success then
             filterByOp <- isfilterby.Value
             baseQuery <- queryString.Replace(filterByOp, "").Trim()
+        if israngeby.Success then
+           let rangeParams = baseQuery.Split(" rangeby ")
+           baseQuery <- rangeParams[1] + " rangeby " + rangeParams[0]
+           if isfilterby.Success then
+            baseQuery <- baseQuery + " " + filterByOp
         if isphrase.Success then
             phraseOp <- isphrase.Value
         if isand.Success then

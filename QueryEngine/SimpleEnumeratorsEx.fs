@@ -216,7 +216,7 @@ module SimpleEnumeratorsEx =
     /// Experimental Methods
 
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithRangeTOP (iter1 : TokenPostingList) =
+    let termQueryWithFilterTOP (iter1 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -224,7 +224,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithRangeDID (iter1 : TokenPostingList) =
+    let termQueryWithFilterDID (iter1 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -232,7 +232,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithRangeSID (iter1 : TokenPostingList) =
+    let termQueryWithFilterSID (iter1 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -240,7 +240,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithRangePID (iter1 : TokenPostingList) =
+    let termQueryWithFilterPID (iter1 : TokenPostingList) =
     
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -248,7 +248,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithRangeSEC (iter1 : TokenPostingList) =
+    let termQueryWithFilterSEC (iter1 : TokenPostingList) =
     
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -256,22 +256,17 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithRangeId (iter1 : TokenPostingList)  
-                             (filterBy: FilterValue) =
+    let termQueryWithFilterId (iter1 : TokenPostingList)  
+                              (filterBy: FilterValue) =
         match filterBy with
-        | TOPID -> termQueryWithRangeTOP iter1
-        | DOCID -> termQueryWithRangeDID iter1
-        | SEQID -> termQueryWithRangeSID iter1
-        | PARID -> termQueryWithRangePID iter1
-        | SECID -> termQueryWithRangeSEC iter1
-
-    let termQueryWithRangeList (iter1 : TokenPostingList)  
-                               (rangeBy: int list) =
-        let tpl = new TokenPostingList([])
-        tpl
+        | TOPID -> termQueryWithFilterTOP iter1
+        | DOCID -> termQueryWithFilterDID iter1
+        | SEQID -> termQueryWithFilterSID iter1
+        | PARID -> termQueryWithFilterPID iter1
+        | SECID -> termQueryWithFilterSEC iter1
 
     /// Combine two enumerators to return only documents found in both enumerators.
-    let conjunctiveQueryWithRangeDID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let conjunctiveQueryWithFilterDID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
@@ -294,7 +289,7 @@ module SimpleEnumeratorsEx =
         tpl
 
     /// Combine two enumerators to return only documents found in both enumerators.
-    let conjunctiveQueryWithRangeSEC (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let conjunctiveQueryWithFilterSEC (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
     
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
@@ -321,7 +316,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let conjunctiveQueryWithRangePID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let conjunctiveQueryWithFilterPID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
@@ -343,7 +338,7 @@ module SimpleEnumeratorsEx =
         let tpl = new TokenPostingList(newSeq)
         tpl
 
-    let conjunctiveQueryWithRangePID_test (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let conjunctiveQueryWithFilterPID_test (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
 
         // TODO: Bug: never-ending  and "infinite perfection"
         // iter1 and iter2 have different types of underlying Enumerators
@@ -374,7 +369,7 @@ module SimpleEnumeratorsEx =
         tpl
 
     /// Combine two enumerators to return only documents found in both enumerators.
-    let conjunctiveQueryWithRangeSID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let conjunctiveQueryWithFilterSID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
@@ -397,22 +392,22 @@ module SimpleEnumeratorsEx =
         tpl
 
     /// Combine two enumerators to return only documents found in both enumerators.
-    let conjunctiveQueryWithRangeTOP (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
-        conjunctiveQueryWithRangeDID iter1 iter2
+    let conjunctiveQueryWithFilterTOP (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+        conjunctiveQueryWithFilterDID iter1 iter2
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let conjunctiveQueryWithRangeId (iter1 : TokenPostingList) 
-                                    (iter2 : TokenPostingList) 
-                                    (filterBy: FilterValue) =
+    let conjunctiveQueryWithFilterId (iter1 : TokenPostingList) 
+                                     (iter2 : TokenPostingList) 
+                                     (filterBy: FilterValue) =
         match filterBy with
-        | TOPID -> conjunctiveQueryWithRangeTOP iter1 iter2
-        | DOCID -> conjunctiveQueryWithRangeDID iter1 iter2
-        | SEQID -> conjunctiveQueryWithRangeSID iter1 iter2
-        | PARID -> conjunctiveQueryWithRangePID iter1 iter2
-        | SECID -> conjunctiveQueryWithRangeSEC iter1 iter2
+        | TOPID -> conjunctiveQueryWithFilterTOP iter1 iter2
+        | DOCID -> conjunctiveQueryWithFilterDID iter1 iter2
+        | SEQID -> conjunctiveQueryWithFilterSID iter1 iter2
+        | PARID -> conjunctiveQueryWithFilterPID iter1 iter2
+        | SECID -> conjunctiveQueryWithFilterSEC iter1 iter2
 
         /// Combine two enumerators to return only documents found in both enumerators.
-    let disjunctiveQueryWithRangeTOP (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let disjunctiveQueryWithFilterTOP (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
 
@@ -421,7 +416,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let disjunctiveQueryWithRangeDID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let disjunctiveQueryWithFilterDID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
 
@@ -430,7 +425,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let disjunctiveQueryWithRangeSID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let disjunctiveQueryWithFilterSID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
 
@@ -439,7 +434,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let disjunctiveQueryWithRangePID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
+    let disjunctiveQueryWithFilterPID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
         let seq1 = iter1.BasePostingList.Head
         let seq2 = iter2.BasePostingList.Head
 
@@ -448,14 +443,45 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let disjunctiveQueryWithRangeId (iter1 : TokenPostingList) 
-                                    (iter2 : TokenPostingList) 
-                                    (filterBy: FilterValue) =
+    let disjunctiveQueryWithFilterId (iter1 : TokenPostingList) 
+                                     (iter2 : TokenPostingList) 
+                                     (filterBy: FilterValue) =
         match filterBy with
-        | TOPID -> disjunctiveQueryWithRangeTOP iter1 iter2
-        | DOCID -> disjunctiveQueryWithRangeDID iter1 iter2
-        | SEQID -> disjunctiveQueryWithRangeSID iter1 iter2
-        | PARID -> disjunctiveQueryWithRangePID iter1 iter2
+        | TOPID -> disjunctiveQueryWithFilterTOP iter1 iter2
+        | DOCID -> disjunctiveQueryWithFilterDID iter1 iter2
+        | SEQID -> disjunctiveQueryWithFilterSID iter1 iter2
+        | PARID -> disjunctiveQueryWithFilterPID iter1 iter2
         | SECID -> new TokenPostingList([])
 
+    /// Return only documents in enumerator within range list.
+    let termQueryWithRangeList (iter1 : TokenPostingList)  
+                               (rangeBy: int list) =
+        let tpl = new TokenPostingList([])
+        tpl
+
+    /// Return only documents in enumerator within range list.
+    let stemQueryWithRangeList (iter1 : TokenPostingList)  
+                               (rangeBy: int list) =
+        let tpl = new TokenPostingList([])
+        tpl
+
+    /// Return only documents in enumerator within range list.
+    let phraseQueryWithRangeList (iter1 : TokenPostingList)  
+                                 (rangeBy: int list) =
+        let tpl = new TokenPostingList([])
+        tpl
+
+    /// Combine two enumerators to return only documents within range.
+    let conjunctiveQueryWithRangeList (iter1 : TokenPostingList) 
+                                      (iter2 : TokenPostingList) 
+                                      (range: int list) =
+        let tpl = new TokenPostingList([])
+        tpl
+
+    /// Combine two enumerators to return only documents within range.
+    let disjunctiveQueryWithRangeList (iter1 : TokenPostingList) 
+                                      (iter2 : TokenPostingList) 
+                                      (range: int list) =
+        let tpl = new TokenPostingList([])
+        tpl
 

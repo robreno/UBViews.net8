@@ -458,4 +458,18 @@
       </QueryLocation>
     </QueryLocations>
   </QueryResult>
+  <QueryResult id="23" locationCount="1" type="RangeBy+FilterBy+And" terms="[mind; ship]" proximity="paragraph" filterId="PARID" range="[111; 120]">
+    <QueryString>mind and ship filterby parid rangeby {111..120}</QueryString>
+    <ReverseQueryString>ship and mind filterby parid rangeby {1..20}</ReverseQueryString>
+    <QueryExpression>RangeBy(FilterBy(And(Term("mind"),Term("ship")),PARID),[111; 120])</QueryExpression>
+    <QueryLocations count="1">
+      <QueryLocation id="111.18" pid="111:1.9">
+        <TermOccurrenceList count="3">
+          <TermOccurrence term="mind" docId="111" seqId="18" dpoId="0" tpoId="0" len="4" />
+          <TermOccurrence term="ship" docId="111" seqId="18" dpoId="3" tpoId="13" len="4" />
+          <TermOccurrence term="mind" docId="111" seqId="18" dpoId="107" tpoId="606" len="4" />
+        </TermOccurrenceList>
+      </QueryLocation>
+    </QueryLocations>
+  </QueryResult>
 </Queries>
