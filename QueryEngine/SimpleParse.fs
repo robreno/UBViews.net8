@@ -204,18 +204,13 @@ module SimpleParse =
         | SubQuery(q) -> getIteratorEx q
         | FilterBy(q, f) -> let tpl =
                                 match q with
-                                | Term(term)     -> queryWithFilterId
-                                                        (getIteratorEx q) (f)
-                                | STerm(term)    -> queryWithFilterId
-                                                        (getIteratorEx q) (f)
-                                | Phrase(phrase) -> queryWithFilterId
-                                                        (getIteratorEx q) (f)
-                                | And(x, y)      -> conjunctiveQueryWithFilterId
-                                                        (getIteratorEx x) (getIteratorEx y) (f)
-                                | Or(x, y)       -> disjunctiveQueryWithFilterId
-                                                        (getIteratorEx x) (getIteratorEx y) (f)
-                                | SubQuery(sq)   -> queryWithFilterId
-                                                        (getIteratorEx sq) (f)
+                                | Term _
+                                | STerm _
+                                | Phrase _ 
+                                | And _
+                                | Or _
+                                | SubQuery _         -> queryWithFilterId
+                                                            (getIteratorEx q) (f)
                                 | RangeBy(qry, rng)  -> let newQuery = RangeBy(FilterBy(qry, f), rng)
                                                         getIteratorEx newQuery
                                 | _ -> new TokenPostingList([])
