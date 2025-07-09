@@ -216,7 +216,7 @@ module SimpleEnumeratorsEx =
     /// Experimental Methods
 
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithFilterTOP (iter1 : TokenPostingList) =
+    let queryWithFilterTOP (iter1 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -224,7 +224,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithFilterDID (iter1 : TokenPostingList) =
+    let queryWithFilterDID (iter1 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -232,7 +232,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithFilterSID (iter1 : TokenPostingList) =
+    let queryWithFilterSID (iter1 : TokenPostingList) =
 
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -240,7 +240,7 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithFilterPID (iter1 : TokenPostingList) =
+    let queryWithFilterPID (iter1 : TokenPostingList) =
     
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
@@ -248,22 +248,22 @@ module SimpleEnumeratorsEx =
         tpl
     
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithFilterSEC (iter1 : TokenPostingList) =
+    let queryWithFilterSEC (iter1 : TokenPostingList) =
     
         let seq1 = iter1.BasePostingList.Head
         let resultSequence = seq1 |> Seq.map(fun t -> t)
         let tpl = new TokenPostingList(resultSequence)
         tpl
-    
+
     /// Combine two enumerators to return only documents found in both enumerators.
-    let termQueryWithFilterId (iter1 : TokenPostingList)  
-                              (filterBy: FilterValue) =
+    let queryWithFilterId (iter1 : TokenPostingList)  
+                          (filterBy: FilterValue) =
         match filterBy with
-        | TOPID -> termQueryWithFilterTOP iter1
-        | DOCID -> termQueryWithFilterDID iter1
-        | SEQID -> termQueryWithFilterSID iter1
-        | PARID -> termQueryWithFilterPID iter1
-        | SECID -> termQueryWithFilterSEC iter1
+        | TOPID -> queryWithFilterTOP iter1
+        | DOCID -> queryWithFilterDID iter1
+        | SEQID -> queryWithFilterSID iter1
+        | PARID -> queryWithFilterPID iter1
+        | SECID -> queryWithFilterSEC iter1
 
     /// Combine two enumerators to return only documents found in both enumerators.
     let conjunctiveQueryWithFilterDID (iter1 : TokenPostingList) (iter2 : TokenPostingList) =
