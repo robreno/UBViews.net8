@@ -212,20 +212,23 @@ module SimpleParse =
                                                         (getIteratorEx x) (getIteratorEx y) (f)
                                 | Or(x, y)       -> disjunctiveQueryWithFilterId
                                                         (getIteratorEx x) (getIteratorEx y) (f)
-                                | SubQuery(sq)   -> let newQuery = FilterBy(sq, f)
-                                                    getIteratorEx newQuery
+                                | SubQuery(sq)   -> new TokenPostingList([])
+                                | RangeBy(qry, rng)  -> let newQuery = RangeBy(FilterBy(qry, f), rng)
+                                                        getIteratorEx newQuery
                                 | _ -> getIteratorEx q
                             tpl
-        | RangeBy(q, r) -> let tpl =
-                                match q with
-                                | Term(term)     -> termQueryWithRangeList (getIteratorEx q) (r)
-                                | STerm(term)    -> stemQueryWithRangeList (getIteratorEx q) (r)
-                                | Phrase(phrase) -> phraseQueryWithRangeList (getIteratorEx q) (r)
-                                | And(x, y)      -> conjunctiveQueryWithRangeList (getIteratorEx x) (getIteratorEx y) (r)
-                                | Or(x, y)       -> disjunctiveQueryWithRangeList (getIteratorEx x) (getIteratorEx y) (r)
-                                | SubQuery(sq)   -> new TokenPostingList([]) // let newQuery = RangeBy(sq, r)
-                                | _ -> getIteratorEx q
-                           tpl
+        | RangeBy(q, r) -> 
+            let tpl =
+                match q with
+                | Term _
+                | STerm _
+                | Phrase _
+                | And _
+                | Or _
+                | SubQuery _
+                | FilterBy _ -> queryWithRangeList (getIteratorEx q) r
+                | _ -> new TokenPostingList([])
+            tpl
         | NoOpQuery   -> new TokenPostingList([])
 
     let runQuery (dbPath: string) (query: Query) =

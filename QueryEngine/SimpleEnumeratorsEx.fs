@@ -453,38 +453,12 @@ module SimpleEnumeratorsEx =
         | PARID -> disjunctiveQueryWithFilterPID iter1 iter2
         | SECID -> new TokenPostingList([])
 
-    /// Return only documents in enumerator within range list.
-    let termQueryWithRangeList (iter1 : TokenPostingList)  
-                               (rangeBy: int list) =
-
-        let seq = iter1.BasePostingList.Head
-        let resultSequence = seq |> Seq.map(fun t -> t)
-        let tpl = new TokenPostingList(resultSequence)
-        tpl
-
-    /// Return only documents in enumerator within range list.
-    let stemQueryWithRangeList (iter1 : TokenPostingList)  
-                               (rangeBy: int list) =
-        let tpl = new TokenPostingList([])
-        tpl
-
-    /// Return only documents in enumerator within range list.
-    let phraseQueryWithRangeList (iter1 : TokenPostingList)  
-                                 (rangeBy: int list) =
-        let tpl = new TokenPostingList([])
-        tpl
-
-    /// Combine two enumerators to return only documents within range.
-    let conjunctiveQueryWithRangeList (iter1 : TokenPostingList) 
-                                      (iter2 : TokenPostingList) 
-                                      (range: int list) =
-        let tpl = new TokenPostingList([])
-        tpl
-
-    /// Combine two enumerators to return only documents within range.
-    let disjunctiveQueryWithRangeList (iter1 : TokenPostingList) 
-                                      (iter2 : TokenPostingList) 
-                                      (range: int list) =
-        let tpl = new TokenPostingList([])
+    let queryWithRangeList (iter1 : TokenPostingList)
+                           (range: int list) =
+        let seq1 = iter1.BasePostingList.Head
+        let _start = range.Head
+        let _end = range.Tail.Head
+        let newSeq = seq1 |> Seq.filter(fun tp -> tp.DocumentID >= _start && tp.DocumentID <= _end)
+        let tpl = new TokenPostingList(newSeq)
         tpl
 
