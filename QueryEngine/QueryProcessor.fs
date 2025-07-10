@@ -352,11 +352,12 @@ module QueryProcessor =
     let reverseQueryString (queryString : string) : string =
         let mutable reverseQueryString = ""
         let mutable filterByOp = ""
+        let mutable rangeByOp = ""
         let mutable phraseOp = ""
         let mutable baseQuery = ""
 
-        let rgxFilterBy = new Regex("(filterby)\s{1}\w{4,9}") // filterby\s{1}\w{54,9}
-        let rgxRangeBy = new Regex("(rangeby)\s{1}\w{4,9}") // rangeby\s{1}\w{54,9}
+        let rgxFilterBy = new Regex("(filterby)\s{1}\w{4,9}", RegexOptions.IgnoreCase)
+        let rgxRangeBy = new Regex(@"rangeby\s*\{\s*\d+\s*\.\.\s*\d+\s*\}", RegexOptions.IgnoreCase)
         let rgxAnd = new Regex(@"\sand\s")
         let rgxOr  = new Regex(@"\sor\s")
         let rgxPhrase = new Regex(@"""(.*?)""")
@@ -367,19 +368,24 @@ module QueryProcessor =
         let isphrase = rgxPhrase.Match(queryString)
 
         baseQuery <- queryString
-        if isfilterby.Success then
+        if isfilterby.Success && israngeby.Success then
+            filterByOp <- isfilterby.Value
+            rangeByOp <- israngeby.Value
+            baseQuery <- queryString.Replace(filterByOp, "").Trim()
+            baseQuery <- baseQuery.Replace(rangeByOp, "").Trim()
+        elif not isfilterby.Success && israngeby.Success then
+           rangeByOp <- israngeby.Value
+           baseQuery <- queryString.Replace(rangeByOp, "").Trim()
+        elif isfilterby.Success && not israngeby.Success then
             filterByOp <- isfilterby.Value
             baseQuery <- queryString.Replace(filterByOp, "").Trim()
-        if israngeby.Success then
-           let rangeParams = baseQuery.Split(" rangeby ")
-           baseQuery <- rangeParams[1] + " rangeby " + rangeParams[0]
-           if isfilterby.Success then
-            baseQuery <- baseQuery + " " + filterByOp
         if isphrase.Success then
             phraseOp <- isphrase.Value
         if isand.Success then
             let andParams = baseQuery.Split(" and ")
             baseQuery <- andParams[1] + " and " + andParams[0]
+            if israngeby.Success then
+                baseQuery <- baseQuery + " " + rangeByOp
             if isfilterby.Success then
                 baseQuery <- baseQuery + " " + filterByOp
 
