@@ -402,12 +402,28 @@ module QueryProcessor =
         phraseStr
 
     let getCTermString (terms: string) =
-        let mutable phraseStr = String.Empty
+        let mutable ctermString = String.Empty
         let rgx = new Regex("(?<=\[)[^}]*(?=\])")
         let m = rgx.Match(terms)
         if m.Success then
-            phraseStr <- m.Value
-        phraseStr
+            ctermString <- m.Value
+        ctermString
+
+    let getSTermString (terms: string) =
+        let mutable stermStr = String.Empty
+        let rgx = new Regex("(?<=\[)[^}]*(?=\])")
+        let m = rgx.Match(terms)
+        if m.Success then
+            stermStr <- m.Value
+        stermStr
+
+    let getRangeString(range: string) =
+        let mutable rangeStr = String.Empty
+        let rgx = new Regex("(?<=\{)[^}]*(?=\})")
+        let m = rgx.Match(range)
+        if m.Success then
+            rangeStr <- m.Value
+        rangeStr
 
     let processTokenPostingSequence (dbPath: string) (input: string) (query: Query) (tokenPositionSeq: seq<TokenPositionEx>) =
         setDatabasePath dbPath
