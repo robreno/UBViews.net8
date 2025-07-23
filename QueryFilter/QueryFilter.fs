@@ -17,13 +17,18 @@ module QueryFilterService =
     let ops      = set [|'~';'(';')';'[';']';' ';'"';|]
     let minus    = set [|'-';|]
     let nbhyph   = set [|'‑';|]
+    let rngbrkt  = set [|'{' ;'.';'}';|]
     let alphanumeric = atozlSeq + atozuSeq + numeric
-    let allVaidCharsSet = alphanumeric + minus + ops + nbhyph
+    let allVaidCharsSet = alphanumeric + minus + ops + nbhyph + rngbrkt
 
     // failwith strings
     let invalidStringsSet = 
         Set<string> 
-            ["and and"; "or or"; "and filterby"; "or filterby";]
+            ["and and"; "or or"; "and filterby"; "or filterby"; "and rangeby"; "or rangeby"]
+
+    // TODO: Create Regex and get match and capture
+    let rng_op    = set [|".."|];
+    let rangebyCharStrings = set [|"{"; ".."; "}";|]
 
     // TODO: Create Regex and get match and capture
     let invalidCharStrings = set [| "/"; "\\"; "?"; "~ "; "/"; "\\"; "?"; "-";|]
